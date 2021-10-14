@@ -1,0 +1,9 @@
+.hero-section {
+  background-color: var(--primary-color);
+  .title {
+    font-size: 7em;
+    @media screen and (max-width: 770px) {
+      font-size: 5em;
+    }
+  }
+}

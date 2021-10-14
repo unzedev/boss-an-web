@@ -1,0 +1,73 @@
+<section class="hero is-primary is-fullheight">
+  <div class="hero-body">
+    <div class="container">
+      <div class="columns is-centered">
+        <div class="column is-12-mobile is-8-tablet is-5-desktop">
+          <div class="box px-6 py-6">
+            <h1 class="title is-2 has-text-black">
+              Cadastrar
+            </h1>
+            <h2 class="subtitle has-text-black">
+              Preencha os campos corretamente para cadastrar sua conta.
+            </h2>
+            <form [formGroup]="registerForm" (ngSubmit)="register()">
+              <div class="field">
+                <label class="label">Nome Completo</label>
+                <div class="control has-icons-left">
+                  <input class="input" type="text" formControlName="name">
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-user"></i>
+                  </span>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">E-mail</label>
+                <div class="control has-icons-left">
+                  <input class="input" type="email" formControlName="email">
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-envelope"></i>
+                  </span>
+                </div>
+                <p class="help">Você precisa ter acesso a este e-mail para confirmar sua conta.</p>
+              </div>
+              <div class="field">
+                <label class="label">Senha</label>
+                <div class="control has-icons-left">
+                  <input class="input" type="password" formControlName="password" autocomplete="new-password">
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                  </span>
+                </div>
+                <p class="help">Sua senha será criptografada e armazenada em um local seguro.</p>
+              </div>
+              <div class="field">
+                <label class="checkbox">
+                  <input type="checkbox" formControlName="terms">
+                  Li e estou de acordo com os <a href="assets/txt/termos.txt" target="_blank">termos e condições</a>
+                </label>
+              </div>
+              <br>
+              <div class="has-text-centered">
+                <div class="field">
+                  <div class="control">
+                    <button type="submit"
+                      class="button is-primary is-rounded is-fullwidth"
+                      [class]="{ 'is-loading': loading }"
+                      [disabled]="!registerForm.valid || loading">
+                      Cadastrar
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </form>
+            <br>
+            <hr>
+            <div class="has-text-centered">
+              <a href="/entrar">Eu já tenho uma conta</a>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

@@ -1,0 +1,107 @@
+<section class="hero is-primary">
+    <div class="hero-body">
+        <h1 class="title">Comandas</h1>
+        <div class="level">
+            <div class="level-left">
+                <div class="level-item">
+                    <div class="control has-icons-left">
+                        <div class="select">
+                            <select (change)="selectRestaurant($event)">
+                                <option [value]="r.id" *ngFor="let r of restaurants">
+                                    {{ r.title }}
+                                </option>
+                            </select>
+                        </div>
+                        <span class="icon is-left">
+                          <i class="fas fa-store-alt"></i>
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="level-right">
+                <div class="level-item">
+                    <button class="button is-light" (click)="openCreateModal()" *ngIf="selectedRestaurantId">
+                        Criar
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+<section>
+    <table class="apparante-table" *ngIf="checkPads.length > 0">
+        <thead>
+            <tr>
+                <th>ID</th>
+                <th>Título</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            <tr *ngFor="let cp of checkPads">
+                <td>#{{ cp.id }}</td>
+                <td>{{ cp.title }}</td>
+                <td>
+                    <div class="buttons">
+                        <button class="button is-light" (click)="editCheckPad(cp)">
+                            Editar
+                        </button>
+                        <button class="button is-danger is-outlined" (click)="deleteCheckPad(cp)">
+                            Excluir
+                        </button>
+                    </div>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div class="empty-message" *ngIf="checkPads.length === 0">
+        <div class="icon-container">
+            <i class="fas fa-store-alt"></i>
+        </div>
+        <p>Não encontramos nenhuma comanda</p>
+    </div>
+</section>
+
+<div class="modal" [class]="{ 'is-active': createModal.open }">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Criar Comanda</p>
+          <button class="delete" aria-label="close" (click)="closeModal()"></button>
+        </header>
+        <section class="modal-card-body">
+            <div class="field">
+                <label class="label">Título da Comanda</label>
+                <div class="control">
+                    <input class="input" type="text" [(ngModel)]="createModal.title">
+                </div>
+            </div>
+        </section>
+        <footer class="modal-card-foot is-justify-content-end">
+            <button class="button" (click)="closeModal()">Cancelar</button>
+            <button class="button is-success" (click)="createCheckPad()">Criar</button>
+        </footer>
+    </div>
+</div>
+
+<div class="modal" [class]="{ 'is-active': updateModal.open }">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Editar Comanda</p>
+          <button class="delete" aria-label="close" (click)="closeModal()"></button>
+        </header>
+        <section class="modal-card-body">
+            <div class="field">
+                <label class="label">Título da Comanda</label>
+                <div class="control">
+                    <input class="input" type="text" [(ngModel)]="updateModal.title">
+                </div>
+            </div>
+        </section>
+        <footer class="modal-card-foot is-justify-content-end">
+            <button class="button" (click)="closeModal()">Cancelar</button>
+            <button class="button is-success" (click)="updateCheckPad()">Salvar</button>
+        </footer>
+    </div>
+</div>

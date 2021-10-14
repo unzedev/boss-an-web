@@ -1,0 +1,98 @@
+$primary: #bb3119;
+
+:root {
+  --primary-color: #bb3119;
+}
+
+@import "bulma/bulma.sass";
+@import "@fortawesome/fontawesome-free/css/all.css";
+
+* {
+  font-family: 'Roboto', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6, .title {
+  font-family: 'Roboto Slab', serif;
+}
+
+html {
+  overflow-y: auto;
+}
+
+a {
+  color: $dark;
+  font-weight: 500;
+  border-radius: 20px;
+  letter-spacing: 1px;
+}
+
+label {
+  font-weight: normal !important;
+  margin-bottom: 2px !important;
+}
+
+.input-edit-on-click {
+  height: auto;
+  padding: 0;
+  border: 0;
+}
+
+.swal2-popup {
+  width: auto !important;
+}
+
+.empty-message {
+  text-align: center;
+  padding: 50px;
+  color: #999;
+  .icon-container {
+    display: inline-block;
+    background-color: #eee;
+    border-radius: 50%;
+    height: 150px;
+    width: 150px;
+    margin-bottom: 20px;
+    position: relative;
+    i {
+      font-size: 4em;
+      position: absolute;
+      transform: translate(-50%, -50%);
+      left: 50%;
+      top: 50%;
+    }
+  }
+  p {
+    font-size: 1.2em;
+  }
+}
+
+.apparante-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 20px;
+  thead tr {
+    th {
+      padding: 0 20px;
+    }
+  }
+  tbody tr {
+    box-shadow: 0 5px 15px #eee;
+    border-radius: 8px;
+    td {
+      padding: 20px;
+      vertical-align: middle;
+      &:first-child {
+        border-radius: 8px 0 0 8px;
+      }
+      &:last-child {
+        border-radius: 0 8px 8px 0;
+      }
+    }
+  }
+  .limit-cell {
+    max-width: 200px;
+    text-overflow: ellipsis;
+    overflow-x: hidden;
+    white-space: nowrap;
+  }
+}
