@@ -1,6 +1,6 @@
 # Boss Analytics Admin Web
 
-[![Netlify Status](https://api.netlify.com/api/v1/badges/87f8d111-51b2-48b9-99aa-2af34128fa8f/deploy-status)](https://app.netlify.com/sites/boss-an/deploys)
+[![Netlify Status](https://api.netlify.com/api/v1/badges/fa6f1fd0-38b4-48a7-990d-abca77929cb5/deploy-status)](https://app.netlify.com/sites/boss-an/deploys)
 
 This is the repo for the Boss Analytics website, a project created by Hildor Júnior [@hildorjr](https://github.com/hildorjr).
 
