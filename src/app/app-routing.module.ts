@@ -6,9 +6,6 @@ import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ApplicationComponent } from './pages/application/application.component';
 import { RestaurantsComponent } from './pages/application/restaurants/restaurants.component';
-import { CheckPadsComponent } from './pages/application/check-pads/check-pads.component';
-import { MenusComponent } from './pages/application/menus/menus.component';
-import { OrdersComponent } from './pages/application/orders/orders.component';
 
 const routes: Routes = [
   {
@@ -24,30 +21,18 @@ const routes: Routes = [
     component: LoginComponent
   },
   {
-    path: 'admin',
+    path: 'app',
     component: ApplicationComponent,
     children: [
       {
         path: 'restaurantes',
         component: RestaurantsComponent,
       },
-      {
-        path: 'cardapio',
-        component: MenusComponent,
-      },
-      {
-        path: 'comandas',
-        component: CheckPadsComponent,
-      },
-      {
-        path: 'pedidos',
-        component: OrdersComponent,
-      },
     ],
   },
   {
     path: '**',
-    redirectTo: 'admin',
+    redirectTo: 'app',
     pathMatch: 'full'
   },
 ];

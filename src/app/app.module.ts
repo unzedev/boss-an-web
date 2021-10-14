@@ -12,9 +12,6 @@ import { AuthInterceptor } from './interceptors/auth/auth.interceptor';
 import { ApplicationComponent } from './pages/application/application.component';
 import { HomeComponent } from './pages/home/home.component';
 import { RestaurantsComponent } from './pages/application/restaurants/restaurants.component';
-import { MenusComponent } from './pages/application/menus/menus.component';
-import { CheckPadsComponent } from './pages/application/check-pads/check-pads.component';
-import { OrdersComponent } from './pages/application/orders/orders.component';
 import { NgxMaskModule } from 'ngx-mask';
 import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
 
@@ -26,9 +23,6 @@ import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
     ApplicationComponent,
     HomeComponent,
     RestaurantsComponent,
-    MenusComponent,
-    CheckPadsComponent,
-    OrdersComponent
   ],
   imports: [
     BrowserModule,
