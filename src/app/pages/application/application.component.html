@@ -1,4 +1,4 @@
-<aside class="sidebar has-background-light" [class]="{ 'hidden': !sidebarToggle }">
+<aside class="sidebar has-background-dark has-text-light" [class]="{ 'hidden': !sidebarToggle }">
   <a role="button" class="navbar-burger burger" (click)="toggleSidebar()">
     <span aria-hidden="true"></span>
     <span aria-hidden="true"></span>
@@ -11,16 +11,15 @@
       </div>
     </figure>
     <div class="media-content">
-      <div class="content">
-        <h5>{{ user.name.slice(0, user.name.indexOf(' ')) }}</h5>
+      <div class="content has-text-white">
+        <h5 class="has-text-white">{{ user.name.slice(0, user.name.indexOf(' ')) }}</h5>
         <p>
           <small>{{ user.email }}</small>
         </p>
       </div>
     </div>
     <div class="media-right">
-      <a class="has-text-dark"
-        (click)="logout()">
+      <a class="has-text-light" (click)="logout()">
         <i class="fas fa-sign-out-alt"></i>
       </a>
     </div>
@@ -33,33 +32,33 @@
           Cadastros
         </li>
         <li>
-          <a routerLink="restaurantes" routerLinkActive="is-active">
-            <i class="fas fa-store-alt"></i>
-            Restaurantes
-          </a>
-        </li>
-        <!-- <li>
-          <a routerLink="cardapio" routerLinkActive="is-active">
-            <i class="fas fa-utensils"></i>
-            Cardápio
+          <a routerLink="usuarios" routerLinkActive="is-active">
+            <i class="fas fa-users"></i>
+            Usuários
           </a>
         </li>
         <li>
-          <a routerLink="comandas" routerLinkActive="is-active">
-            <i class="fas fa-clipboard"></i>
-            Comandas
+          <a routerLink="cardapio" routerLinkActive="is-active">
+            <i class="fas fa-wallet"></i>
+            Financeiro
           </a>
         </li>
         <br>
         <li class="menu-label">
-          Acompanhamento
+          Relatórios
         </li>
         <li>
           <a routerLink="pedidos" routerLinkActive="is-active">
-            <i class="fas fa-shopping-cart"></i>
-            Pedidos
+            <i class="fas fa-user"></i>
+            CPF
           </a>
-        </li> -->
+        </li>
+        <li>
+          <a routerLink="pedidos" routerLinkActive="is-active">
+            <i class="fas fa-building"></i>
+            CNPJ
+          </a>
+        </li>
       </ul>
     </aside>
   </div>

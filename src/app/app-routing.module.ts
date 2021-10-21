@@ -5,7 +5,7 @@ import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ApplicationComponent } from './pages/application/application.component';
-import { RestaurantsComponent } from './pages/application/restaurants/restaurants.component';
+import { UsersComponent } from './pages/application/users/users.component';
 
 const routes: Routes = [
   {
@@ -25,8 +25,8 @@ const routes: Routes = [
     component: ApplicationComponent,
     children: [
       {
-        path: 'restaurantes',
-        component: RestaurantsComponent,
+        path: 'usuarios',
+        component: UsersComponent,
       },
     ],
   },

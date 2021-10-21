@@ -1,4 +1,4 @@
-export class Restaurant {
+export class User {
   id?: string;
   title: string;
   userId?: string;

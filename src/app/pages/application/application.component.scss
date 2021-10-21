@@ -41,21 +41,24 @@ $sidebar-width: 300px;
   }
   .menu-list a {
     margin-bottom: 10px;
-    border-radius: 20px;
+    border-radius: 4px;
     padding: 10px 20px;
+    color: #fff;
     &.is-active {
-      background-color: #e5e5e5;
-      color: black;
-      font-weight: bold;
+      background-color: var(--link-color);
+      color: #fff;
+      .fas {
+        color: #fff;
+      }
     }
     &:hover {
-      background-color: #e5e5e5;
+      background-color: var(--link-color);
       .fas {
-        color: #666;
+        color: #fff;
       }
     }
     .fas {
-      color: #aaa;
+      color: var(--lighter-color);
       margin-right: 5px;
     }
   }

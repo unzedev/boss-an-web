@@ -1,35 +1,35 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable } from 'rxjs';
-import { Restaurant } from 'src/app/models/restaurant.model';
+import { User } from 'src/app/models/user.model';
 import { environment } from 'src/environments/environment';
 
 @Injectable({
   providedIn: 'root'
 })
-export class RestaurantService {
+export class UserService {
 
-  private apiUrl: string = `${environment.apiUrl}/restaurants/`;
+  private apiUrl: string = `${environment.apiUrl}/users/`;
 
   public constructor(private http: HttpClient) { }
 
-  public getRestaurants(): Observable<any> {
+  public getUsers(): Observable<any> {
     return this.http.get(this.apiUrl);
   }
 
-  public getRestaurant(id: string): Observable<any> {
+  public getUser(id: string): Observable<any> {
     return this.http.get(`${this.apiUrl}${id}`);
   }
 
-  public deleteRestaurant(id: string): Observable<any> {
+  public deleteUser(id: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}${id}`);
   }
 
-  public saveRestaurant(data: Restaurant): Observable<any> {
+  public saveUser(data: User): Observable<any> {
     return this.http.put(`${this.apiUrl}${data.id}`, data);
   }
 
-  public createRestaurant(data: Restaurant): Observable<any> {
+  public createUser(data: User): Observable<any> {
     return this.http.post(`${this.apiUrl}`, data);
   }
 }
