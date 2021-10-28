@@ -12,6 +12,8 @@ import { AuthInterceptor } from './interceptors/auth/auth.interceptor';
 import { ApplicationComponent } from './pages/application/application.component';
 import { HomeComponent } from './pages/home/home.component';
 import { UsersComponent } from './pages/application/users/users.component';
+import { PeopleReportComponent } from './pages/application/people-report/people-report.component';
+import { CompanyReportComponent } from './pages/application/company-report/company-report.component';
 import { NgxMaskModule } from 'ngx-mask';
 import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
 
@@ -23,6 +25,8 @@ import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
     ApplicationComponent,
     HomeComponent,
     UsersComponent,
+    PeopleReportComponent,
+    CompanyReportComponent,
   ],
   imports: [
     BrowserModule,

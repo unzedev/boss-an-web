@@ -1,4 +1,4 @@
 export const environment = {
   production: true,
-  apiUrl: 'https://boss-an-api.herokuapp.com'
+  apiUrl: 'https://boss-analytics-api.herokuapp.com'
 };

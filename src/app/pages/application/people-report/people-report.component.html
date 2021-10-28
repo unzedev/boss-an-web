@@ -1,0 +1,101 @@
+<section class="section">
+    <div class="container">
+        <h1 class="title is-1 has-text-link">Consulta CPF</h1>
+        <p class="subtitle">Informe o CPF e selecione as informações a serem consultadas.</p>
+        <div class="columns">
+            <div class="column is-3">
+                <div class="field">
+                    <label for="cpf" class="label">CPF</label>
+                    <input id="cpf" class="input is-medium" [(ngModel)]="cpf" type="tel" mask="000.000.000-00" placeholder="000.000.000-00">
+                </div>
+            </div>
+            <div class="column">
+                <label class="label">Dados</label>
+                <div class="buttons">
+                    <button class="button is-medium" (click)="selectData('register')" [class]="{ 'is-primary': selectedDatas.includes('register') }">
+                        <span class="icon">
+                            <i class="fas fa-check-circle" *ngIf="selectedDatas.includes('register')"></i>
+                            <i class="far fa-circle" *ngIf="!selectedDatas.includes('register')"></i>
+                        </span>
+                        <span>Cadastrais</span>
+                    </button>
+                    <button class="button is-medium" (click)="selectData('behavior')" [class]="{ 'is-primary': selectedDatas.includes('behavior') }">
+                        <span class="icon">
+                            <i class="fas fa-check-circle" *ngIf="selectedDatas.includes('behavior')"></i>
+                            <i class="far fa-circle" *ngIf="!selectedDatas.includes('behavior')"></i>
+                        </span>
+                        <span>Comportamentais</span>
+                    </button>
+                    <button class="button is-medium" (click)="selectData('financial')" [class]="{ 'is-primary': selectedDatas.includes('financial') }">
+                        <span class="icon">
+                            <i class="fas fa-check-circle" *ngIf="selectedDatas.includes('financial')"></i>
+                            <i class="far fa-circle" *ngIf="!selectedDatas.includes('financial')"></i>
+                        </span>
+                        <span>Financeiros</span>
+                    </button>
+                    <button class="button is-medium" (click)="selectData('restrict')" [class]="{ 'is-primary': selectedDatas.includes('restrict') }">
+                        <span class="icon">
+                            <i class="fas fa-check-circle" *ngIf="selectedDatas.includes('restrict')"></i>
+                            <i class="far fa-circle" *ngIf="!selectedDatas.includes('restrict')"></i>
+                        </span>
+                        <span>Restritos</span>
+                    </button>
+                    <button class="button is-medium" (click)="selectData('ondemand')" [class]="{ 'is-primary': selectedDatas.includes('ondemand') }">
+                        <span class="icon">
+                            <i class="fas fa-check-circle" *ngIf="selectedDatas.includes('ondemand')"></i>
+                            <i class="far fa-circle" *ngIf="!selectedDatas.includes('ondemand')"></i>
+                        </span>
+                        <span><i>OnDemand</i></span>
+                    </button>
+                </div>
+            </div>
+        </div>
+        <button class="button is-primary is-medium is-fullwidth" [disabled]="selectedDatas.length === 0 || cpf.length < 11" (click)="doConsult()">
+            Consultar
+        </button>
+        <hr>
+        <div *ngFor="let node1 of response">
+            <div class="card mb-4" *ngFor="let node2 of node1 | keyvalue">
+                <header class="card-header">
+                    <p class="card-header-title">
+                        {{ node2.key }}
+                    </p>
+                  </header>
+                <div class="card-content">
+                    <div class="content">
+                        <div *ngIf="isObject(node2.value)" class="ml-4">
+                            <div *ngFor="let node3 of node2.value | keyvalue">
+                                <b>{{ node3.key }}</b>:
+                                <div *ngIf="isObject(node3.value)" class="ml-4">
+                                    <div *ngFor="let node4 of node3.value | keyvalue">
+                                        <b>{{ node4.key }}</b>:
+                                        <div *ngIf="isObject(node4.value)" class="ml-4">
+                                            <div *ngFor="let node5 of node4.value | keyvalue">
+                                                <b>{{ node5.key }}</b>:
+                                                <div *ngIf="isObject(node5.value)" class="ml-4">
+                                                    {{ node5.value | json }}
+                                                </div>
+                                                <span *ngIf="!isObject(node5.value)">
+                                                    {{ node5.value }}
+                                                </span>
+                                            </div>
+                                        </div>
+                                        <span *ngIf="!isObject(node4.value)">
+                                            {{ node4.value }}
+                                        </span>
+                                    </div>
+                                </div>
+                                <span *ngIf="!isObject(node3.value)">
+                                    {{ node3.value }}
+                                </span>
+                            </div>
+                        </div>
+                        <span *ngIf="!isObject(node2.value)">
+                            {{ node2.value }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>

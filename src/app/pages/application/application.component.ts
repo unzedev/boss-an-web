@@ -25,11 +25,11 @@ export class ApplicationComponent implements OnInit {
   ) { }
 
   public ngOnInit(): void {
-    if (!this.authService.userIsLoggedIn()) {
-      this.router.navigateByUrl('/login');
-    } else {
-      this.getUser();
-    }
+    // if (!this.authService.userIsLoggedIn()) {
+    //   this.router.navigateByUrl('/login');
+    // } else {
+    //   this.getUser();
+    // }
   }
 
   public getUser(): void {

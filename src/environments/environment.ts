@@ -5,7 +5,7 @@
 export const environment = {
   production: false,
   // apiUrl: 'http://localhost',
-  apiUrl: 'https://boss-an-api.herokuapp.com',
+  apiUrl: 'https://boss-analytics-api.herokuapp.com',
 };
 
 /*

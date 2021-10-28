@@ -6,6 +6,8 @@ import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ApplicationComponent } from './pages/application/application.component';
 import { UsersComponent } from './pages/application/users/users.component';
+import { PeopleReportComponent } from './pages/application/people-report/people-report.component';
+import { CompanyReportComponent } from './pages/application/company-report/company-report.component';
 
 const routes: Routes = [
   {
@@ -27,6 +29,14 @@ const routes: Routes = [
       {
         path: 'usuarios',
         component: UsersComponent,
+      },
+      {
+        path: 'consulta-cpf',
+        component: PeopleReportComponent,
+      },
+      {
+        path: 'consulta-cnpj',
+        component: CompanyReportComponent,
       },
     ],
   },

@@ -71,7 +71,7 @@ $sidebar-width: 300px;
   }
 }
 .content-container {
-  padding: 20px;
+  // padding: 20px;
   height: 100vh;
   margin-left: $sidebar-width;
   overflow-y: scroll;
@@ -103,6 +103,6 @@ $sidebar-width: 300px;
   }
   .content-container {
     margin-left: 0;
-    padding-top: 56px;
+    // padding-top: 56px;
   }
 }
