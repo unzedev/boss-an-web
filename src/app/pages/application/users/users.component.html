@@ -1,6 +1,6 @@
 <section class="hero">
     <div class="hero-body">
-        <h1 class="title is-1 has-text-link">Usuários</h1>
+        <h1 class="title is-1">Usuários</h1>
         <button class="button is-primary" (click)="openCreateModal()">
             Criar
         </button>
@@ -18,7 +18,7 @@
         <tbody>
             <tr *ngFor="let r of users">
                 <td>#{{ r.id }}</td>
-                <td>{{ r.title }}</td>
+                <td>{{ r.name }}</td>
                 <td>
                     <button class="button is-light" (click)="editUser(r)">
                         Editar
@@ -44,10 +44,89 @@
         </header>
         <section class="modal-card-body">
             <div class="field">
-                <label class="label">Nome do Usuário</label>
-                <div class="control">
-                    <input class="input" type="text" [(ngModel)]="createModal.title">
+                <label class="label">Nome Completo</label>
+                <div class="control has-icons-left">
+                    <input class="input" type="text" formControlName="name" [(ngModel)]="createModal.name">
+                    <span class="icon is-small is-left">
+                    <i class="fas fa-user"></i>
+                    </span>
                 </div>
+            </div>
+            <div class="field">
+                <label class="label">CPF ou CNPJ</label>
+                <div class="control has-icons-left">
+                    <input class="input" type="tel" formControlName="document" mask="CPF_CNPJ" [(ngModel)]="createModal.document">
+                    <span class="icon is-small is-left">
+                    <i class="fas fa-receipt"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Celular</label>
+                <div class="control has-icons-left">
+                    <input class="input" type="tel" formControlName="phone" mask="(00) 00000-0000" [(ngModel)]="createModal.phone">
+                    <span class="icon is-small is-left">
+                    <i class="fas fa-phone-alt"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">E-mail</label>
+                <div class="control has-icons-left">
+                    <input class="input" type="email" formControlName="email" [(ngModel)]="createModal.email">
+                    <span class="icon is-small is-left">
+                    <i class="fas fa-envelope"></i>
+                    </span>
+                </div>
+                <!-- <p class="help">Você precisa ter acesso a este e-mail para confirmar sua conta.</p> -->
+            </div>
+            <h3 class="title is-5 has-text-black mt-5 mb-2">Endereço</h3>
+            <div class="field">
+                <label class="label">Rua</label>
+                <div class="control">
+                    <input class="input" type="text" formControlName="addressStreet" [(ngModel)]="createModal.address.street">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Número</label>
+                <div class="control">
+                    <input class="input" type="tel" formControlName="addressNumber" [(ngModel)]="createModal.address.number">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Complemento</label>
+                <div class="control">
+                    <input class="input" type="text" formControlName="addressComplement" [(ngModel)]="createModal.address.complement">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Bairro</label>
+                <div class="control">
+                    <input class="input" type="text" formControlName="addressNeighborhood" [(ngModel)]="createModal.address.neighborhood">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Cidade</label>
+                <div class="control">
+                    <input class="input" type="text" formControlName="addressCity" [(ngModel)]="createModal.address.city">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Estado</label>
+                <div class="control">
+                    <input class="input" type="text" formControlName="addressState" [(ngModel)]="createModal.address.state">
+                </div>
+            </div>
+            <h3 class="title is-5 has-text-black mt-5 mb-2">Segurança</h3>
+            <div class="field">
+                <label class="label">Senha</label>
+                <div class="control has-icons-left">
+                    <input class="input" type="password" formControlName="password" autocomplete="new-password" [(ngModel)]="createModal.password">
+                    <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                    </span>
+                </div>
+                <p class="help">Sua senha será criptografada e armazenada em um local seguro.</p>
             </div>
         </section>
         <footer class="modal-card-foot is-justify-content-end">
@@ -66,10 +145,89 @@
         </header>
         <section class="modal-card-body">
             <div class="field">
-                <label class="label">Nome do Usuário</label>
-                <div class="control">
-                    <input class="input" type="text" [(ngModel)]="updateModal.title">
+                <label class="label">Nome Completo</label>
+                <div class="control has-icons-left">
+                    <input class="input" type="text" formControlName="name" [(ngModel)]="updateModal.name">
+                    <span class="icon is-small is-left">
+                    <i class="fas fa-user"></i>
+                    </span>
                 </div>
+            </div>
+            <div class="field">
+                <label class="label">CPF ou CNPJ</label>
+                <div class="control has-icons-left">
+                    <input class="input" type="tel" formControlName="document" mask="CPF_CNPJ" [(ngModel)]="updateModal.document">
+                    <span class="icon is-small is-left">
+                    <i class="fas fa-receipt"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Celular</label>
+                <div class="control has-icons-left">
+                    <input class="input" type="tel" formControlName="phone" mask="(00) 00000-0000" [(ngModel)]="updateModal.phone">
+                    <span class="icon is-small is-left">
+                    <i class="fas fa-phone-alt"></i>
+                    </span>
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">E-mail</label>
+                <div class="control has-icons-left">
+                    <input class="input" type="email" formControlName="email" [(ngModel)]="updateModal.email">
+                    <span class="icon is-small is-left">
+                    <i class="fas fa-envelope"></i>
+                    </span>
+                </div>
+                <!-- <p class="help">Você precisa ter acesso a este e-mail para confirmar sua conta.</p> -->
+            </div>
+            <h3 class="title is-5 has-text-black mt-5 mb-2">Endereço</h3>
+            <div class="field">
+                <label class="label">Rua</label>
+                <div class="control">
+                    <input class="input" type="text" formControlName="addressStreet" [(ngModel)]="updateModal.address.street">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Número</label>
+                <div class="control">
+                    <input class="input" type="tel" formControlName="addressNumber" [(ngModel)]="updateModal.address.number">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Complemento</label>
+                <div class="control">
+                    <input class="input" type="text" formControlName="addressComplement" [(ngModel)]="updateModal.address.complement">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Bairro</label>
+                <div class="control">
+                    <input class="input" type="text" formControlName="addressNeighborhood" [(ngModel)]="updateModal.address.neighborhood">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Cidade</label>
+                <div class="control">
+                    <input class="input" type="text" formControlName="addressCity" [(ngModel)]="updateModal.address.city">
+                </div>
+            </div>
+            <div class="field">
+                <label class="label">Estado</label>
+                <div class="control">
+                    <input class="input" type="text" formControlName="addressState" [(ngModel)]="updateModal.address.state">
+                </div>
+            </div>
+            <h3 class="title is-5 has-text-black mt-5 mb-2">Segurança</h3>
+            <div class="field">
+                <label class="label">Senha</label>
+                <div class="control has-icons-left">
+                    <input class="input" type="password" formControlName="password" autocomplete="new-password" [(ngModel)]="updateModal.password">
+                    <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                    </span>
+                </div>
+                <p class="help">Sua senha será criptografada e armazenada em um local seguro.</p>
             </div>
         </section>
         <footer class="modal-card-foot is-justify-content-end">

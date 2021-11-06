@@ -17,18 +17,14 @@ export class AuthService {
     private alertService: AlertService,
   ) { }
 
-  public login(loginData: any): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/login`, loginData);
-  }
-
-  public register(registerData: any): Observable<any> {
-    return this.http.post(`${environment.apiUrl}/register`, registerData);
+  public login(email: string, password: string): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/auth/login`, { email, password });
   }
 
   public logout(): void {
     localStorage.clear();
-    this.router.navigateByUrl('/login');
-    this.alertService.openToast('success', 'SignedOut');
+    this.router.navigateByUrl('/entrar');
+    this.alertService.openToast('success', 'Deslogado');
   }
 
   public setAuthToken(token: string): any {

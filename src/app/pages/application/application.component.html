@@ -18,18 +18,25 @@
         </p>
       </div>
     </div>
-    <div class="media-right">
-      <a class="has-text-light" (click)="logout()">
-        <i class="fas fa-sign-out-alt"></i>
-      </a>
-    </div>
   </article>
   <br>
   <div class="menu-container">
+    <a class="button is-primary is-fullwidth mb-6 mt-5" routerLink="consulta" routerLinkActive="is-active">
+      Nova consulta
+    </a>
     <aside class="menu">
       <ul class="menu-list">
-        <li class="menu-label">
-          Cadastros
+        <li>
+          <a routerLink="/app"  routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}">
+            <i class="fas fa-chart-pie"></i>
+            Dashboard
+          </a>
+        </li>
+        <li>
+          <a routerLink="conta" routerLinkActive="is-active">
+            <i class="fas fa-user"></i>
+            Minha conta
+          </a>
         </li>
         <li>
           <a routerLink="usuarios" routerLinkActive="is-active">
@@ -38,25 +45,27 @@
           </a>
         </li>
         <li>
-          <a routerLink="cardapio" routerLinkActive="is-active">
-            <i class="fas fa-wallet"></i>
-            Financeiro
-          </a>
-        </li>
-        <br>
-        <li class="menu-label">
-          Relatórios
-        </li>
-        <li>
-          <a routerLink="consulta-cpf" routerLinkActive="is-active">
-            <i class="fas fa-user"></i>
-            CPF
+          <a routerLink="consultas" routerLinkActive="is-active">
+            <i class="fas fa-search"></i>
+            Consultas
           </a>
         </li>
         <li>
-          <a routerLink="consulta-cnpj" routerLinkActive="is-active">
-            <i class="fas fa-building"></i>
-            CNPJ
+          <a routerLink="relatorios" routerLinkActive="is-active">
+            <i class="fas fa-chart-bar"></i>
+            Relatórios
+          </a>
+        </li>
+        <li>
+          <a routerLink="ajuda" routerLinkActive="is-active">
+            <i class="fas fa-question-circle"></i>
+            Ajuda
+          </a>
+        </li>
+        <li>
+          <a href="javascript:;" (click)="logout()">
+            <i class="fas fa-sign-out-alt"></i>
+            Sair
           </a>
         </li>
       </ul>
@@ -64,6 +73,6 @@
   </div>
   <img class="boss-logo" src="/assets/svg/boss-logo-negativo-03.svg" alt="Boss Analytics">
 </aside>
-<div class="content-container">
+<div class="content-container has-background-white-ter">
   <router-outlet></router-outlet>
 </div>

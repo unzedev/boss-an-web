@@ -6,8 +6,8 @@ import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
 import { ApplicationComponent } from './pages/application/application.component';
 import { UsersComponent } from './pages/application/users/users.component';
-import { PeopleReportComponent } from './pages/application/people-report/people-report.component';
-import { CompanyReportComponent } from './pages/application/company-report/company-report.component';
+import { ReportComponent } from './pages/application/report/report.component';
+import { DashboardComponent } from './pages/application/dashboard/dashboard.component';
 
 const routes: Routes = [
   {
@@ -27,16 +27,16 @@ const routes: Routes = [
     component: ApplicationComponent,
     children: [
       {
+        path: '',
+        component: DashboardComponent,
+      },
+      {
         path: 'usuarios',
         component: UsersComponent,
       },
       {
-        path: 'consulta-cpf',
-        component: PeopleReportComponent,
-      },
-      {
-        path: 'consulta-cnpj',
-        component: CompanyReportComponent,
+        path: 'consulta',
+        component: ReportComponent,
       },
     ],
   },

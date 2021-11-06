@@ -25,11 +25,11 @@ export class ApplicationComponent implements OnInit {
   ) { }
 
   public ngOnInit(): void {
-    // if (!this.authService.userIsLoggedIn()) {
-    //   this.router.navigateByUrl('/login');
-    // } else {
-    //   this.getUser();
-    // }
+    if (!this.authService.userIsLoggedIn()) {
+      this.router.navigateByUrl('/entrar');
+    } else {
+      this.getUser();
+    }
   }
 
   public getUser(): void {
@@ -43,8 +43,8 @@ export class ApplicationComponent implements OnInit {
     this.alertService.openDangerConfirmDialog(
       'Sair',
       'Você tem certeza que deseja deslogar e sair da sua conta?',
-      'Sim, sair',
-      'Voltar',
+      'Deslogar e sair',
+      'Cancelar',
       () => {
         this.authService.logout();
       }

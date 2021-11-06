@@ -14,13 +14,37 @@ export class UsersComponent implements OnInit {
 
   public createModal = {
     open: false,
-    title: '',
+    name: '',
+    document: '',
+    email: '',
+    phone: '',
+    password: '',
+    address: {
+      street: '',
+      number: '',
+      complement: '',
+      neighborhood: '',
+      city: '',
+      state: '',
+    },
   };
 
   public updateModal = {
     open: false,
-    title: '',
     id: '',
+    name: '',
+    document: '',
+    email: '',
+    phone: '',
+    password: '',
+    address: {
+      street: '',
+      number: '',
+      complement: '',
+      neighborhood: '',
+      city: '',
+      state: '',
+    },
   };
 
   constructor(
@@ -32,7 +56,7 @@ export class UsersComponent implements OnInit {
   }
 
   private getUsers(): void {
-    this.userService.getUsers()
+    this.userService.getEmployees()
       .pipe(first())
       .subscribe((users: User[]) => {
         this.users = users;
@@ -40,9 +64,7 @@ export class UsersComponent implements OnInit {
   }
 
   public createUser() {
-    const data: User = {
-      title: this.createModal.title,
-    };
+    const data = this.createModal;
     this.userService.createUser(data)
       .pipe(first())
       .subscribe((user: User) => {
@@ -52,10 +74,7 @@ export class UsersComponent implements OnInit {
   }
 
   public updateUser() {
-    const data: User = {
-      title: this.updateModal.title,
-      id: this.updateModal.id,
-    };
+    const data = this.updateModal;
     this.userService.saveUser(data)
       .pipe(first())
       .subscribe((user: User) => {
@@ -72,8 +91,20 @@ export class UsersComponent implements OnInit {
   public editUser(user: User) {
     this.updateModal = {
       open: true,
-      title: user.title,
       id: user.id,
+      name: user.name,
+      document: user.document,
+      email: user.email,
+      phone: user.phone,
+      password: '',
+      address: {
+        street: user.address.street,
+        number: user.address.number,
+        complement: user.address.complement,
+        neighborhood: user.address.neighborhood,
+        city: user.address.city,
+        state: user.address.state,
+      },
     };
   }
 
@@ -84,12 +115,36 @@ export class UsersComponent implements OnInit {
   public closeModal() {
     this.createModal = {
       open: false,
-      title: '',
+      name: '',
+      document: '',
+      email: '',
+      phone: '',
+      password: '',
+      address: {
+        street: '',
+        number: '',
+        complement: '',
+        neighborhood: '',
+        city: '',
+        state: '',
+      },
     };
     this.updateModal = {
       open: false,
-      title: '',
       id: '',
+      name: '',
+      document: '',
+      email: '',
+      phone: '',
+      password: '',
+      address: {
+        street: '',
+        number: '',
+        complement: '',
+        neighborhood: '',
+        city: '',
+        state: '',
+      },
     };
   }
 

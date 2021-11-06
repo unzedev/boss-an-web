@@ -12,10 +12,11 @@ import { AuthInterceptor } from './interceptors/auth/auth.interceptor';
 import { ApplicationComponent } from './pages/application/application.component';
 import { HomeComponent } from './pages/home/home.component';
 import { UsersComponent } from './pages/application/users/users.component';
-import { PeopleReportComponent } from './pages/application/people-report/people-report.component';
-import { CompanyReportComponent } from './pages/application/company-report/company-report.component';
+import { ReportComponent } from './pages/application/report/report.component';
 import { NgxMaskModule } from 'ngx-mask';
 import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
+import { DashboardComponent } from './pages/application/dashboard/dashboard.component';
+import { ChartsModule } from 'ng2-charts';
 
 @NgModule({
   declarations: [
@@ -25,8 +26,8 @@ import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
     ApplicationComponent,
     HomeComponent,
     UsersComponent,
-    PeopleReportComponent,
-    CompanyReportComponent,
+    ReportComponent,
+    DashboardComponent,
   ],
   imports: [
     BrowserModule,
@@ -35,6 +36,7 @@ import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
     ReactiveFormsModule,
     HttpClientModule,
     LoadingBarHttpClientModule,
+    ChartsModule,
     NgxMaskModule.forRoot(),
     NgxCurrencyModule.forRoot({
       align: 'right',

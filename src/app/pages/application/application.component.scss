@@ -6,7 +6,7 @@ $sidebar-width: 300px;
   top: 0;
   height: 100vh;
   width: $sidebar-width;
-  padding: 20px;
+  padding: 30px;
   transition: .4s;
   z-index: 1;
   .burger {
@@ -52,14 +52,14 @@ $sidebar-width: 300px;
     padding: 10px 20px;
     color: #fff;
     &.is-active {
-      background-color: var(--link-color);
+      background-color: #444;
       color: #fff;
       .fas {
         color: #fff;
       }
     }
     &:hover {
-      background-color: var(--link-color);
+      background-color: #444;
       .fas {
         color: #fff;
       }

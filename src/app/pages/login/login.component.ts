@@ -3,6 +3,7 @@ import { AuthService } from '../../services/auth/auth.service';
 import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { AlertService } from 'src/app/services/alert/alert.service';
+import { first } from 'rxjs/operators';
 
 @Component({
   selector: 'app-login',
@@ -28,15 +29,16 @@ export class LoginComponent implements OnInit {
 
   public login(): void {
     this.loading = true;
-    this.authService.login(this.loginForm.value)
+    this.authService.login(this.loginForm.get('email').value, this.loginForm.get('password').value)
+      .pipe(first())
       .subscribe((data: any) => {
         this.loading = false;
-        this.authService.setAuthToken(data.token);
+        this.authService.setAuthToken(data.accessToken);
         this.authService.setUser(data.user);
         this.router.navigateByUrl('/app');
       }, (error: any) => {
         this.loading = false;
-        this.alertService.openToast('error', 'loginError');
+        this.alertService.openToast('error', 'Email e/ou senha incorretos');
       });
   }
 
