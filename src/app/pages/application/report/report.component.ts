@@ -16,7 +16,7 @@ export class ReportComponent implements OnInit {
   public cpf: string = '';
   public cnpj: string = '';
 
-  public response: any = null;
+  public response: any = [];
 
   constructor(
     private reportService: ReportService,
@@ -27,6 +27,7 @@ export class ReportComponent implements OnInit {
   }
 
   public doConsult() {
+    this.response = [];
     if (this.reportPeople) {
       this.reportService.getPeopleReport(
         this.cpf,
@@ -38,7 +39,13 @@ export class ReportComponent implements OnInit {
       )
         .pipe(first())
         .subscribe((res) => {
-          this.response = res.Result;
+          for (let key in res) {
+            if (!res.hasOwnProperty(key)) continue;
+            var obj = res[key];
+            if (obj.Result) {
+              this.response.push(obj.Result);
+            }
+          }
         });
     } else {
       this.reportService.getCompanyReport(
@@ -50,7 +57,13 @@ export class ReportComponent implements OnInit {
       )
         .pipe(first())
         .subscribe((res) => {
-          this.response = res.Result;
+          for (let key in res) {
+            if (!res.hasOwnProperty(key)) continue;
+            var obj = res[key];
+            if (obj.Result) {
+              this.response.push(obj.Result);
+            }
+          }
         });
     }
   }

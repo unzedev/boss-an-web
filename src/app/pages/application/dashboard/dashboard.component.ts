@@ -27,20 +27,34 @@ export class DashboardComponent implements OnInit {
     borderWidth: 0
   }];
 
+  public reportsTotal: number = 0;
+  public reportsTotalPF: number = 0;
+  public reportsTotalPJ: number = 0;
+  public investedAmount: number = 0;
+
   constructor(
     private userService: UserService,
   ) { }
 
   ngOnInit(): void {
-    // this.getDashboardInfo();
+    this.getDashboardInfo();
   }
 
   getDashboardInfo(): void {
     this.userService.getDashboardQueries()
       .pipe(first())
       .subscribe((res: any) => {
-        console.log(res)
+        this.investedAmount = Number(res.totalAmount);
+        this.reportsTotal = res.queries[0]?.count || 0;
+        this.reportsTotalPF = res.queries[1]?.count || 0;
+        this.reportsTotalPJ = res.queries[2]?.count || 0;
+        this.doughnutChartData = [res.queries[1]?.count || 0, res.queries[2]?.count || 0];
       });
+    // this.userService.getDashboardQueriesByTypes()
+    //   .pipe(first())
+    //   .subscribe((res: any) => {
+    //     console.log(res);
+    //   });
   }
 
 }

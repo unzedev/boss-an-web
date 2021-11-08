@@ -34,10 +34,10 @@ $sidebar-width: 300px;
       height: 48px;
       width: 48px;
       border-radius: 50%;
-      background-color: var(--primary-color);
+      background-color: var(--link-color);
       padding-top: 6px;
       text-align: center;
-      color: #fff;
+      color: var(--primary-color);
       font-weight: 600;
       font-size: 25px;
     }

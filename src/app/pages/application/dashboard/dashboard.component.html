@@ -1,68 +1,60 @@
 <section class="section">
     <div class="container">
-        <div class="columns">
+        <h1 class="title is-1">Dashboard</h1>
+        <p class="subtitle">Acompanhe números e informações em tempo real.</p>
+        <div class="columns mt-6">
             <div class="column">
-                <h1 class="title is-1">Dashboard</h1>
-                <p class="subtitle">Acompanhe números e informações em tempo real.</p>
-                <div class="columns mt-6">
-                    <div class="column">
-                        <div class="box">
-                            <h3 class="title is-2 mb-2">150</h3>
-                            <p class="has-text-light">Consultas Realizadas</p>
-                        </div>
-                    </div>
-                    <div class="column"> 
-                        <div class="box">
-                            <h3 class="title is-2 mb-2 has-text-primary">135</h3>
-                            <p class="has-text-light">Consultas Pessoa Física</p>
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="box">
-                            <h3 class="title is-2 mb-2 has-text-link">15</h3>
-                            <p class="has-text-light">Consultas Pessoa Jurídica</p>
-                        </div>
-                    </div>
-                    <div class="column">
-                        <div class="box">
-                            <h3 class="title is-2 mb-2 has-text-light">{{ 239.50 | currency: 'BRL' }}</h3>
-                            <p class="has-text-light">Valor Investido</p>
-                        </div>
-                    </div>
+                <div class="box">
+                    <h3 class="title is-2 mb-2">{{ reportsTotal }}</h3>
+                    <p class="has-text-light">Consultas Realizadas</p>
                 </div>
-                <div class="columns mt-6">
-                    <div class="column">
-                        <h2 class="title is-4">Tipos de Consulta</h2>
-                        <div class="box">
-                            <div class="columns">
-                                <div class="column">
-                                    <canvas baseChart
-                                        [data]="doughnutChartData"
-                                        [labels]="doughnutChartLabels"
-                                        [options]="doughnutChartOptions"
-                                        [colors]="doughnutChartColors"
-                                        [chartType]="doughnutChartType"
-                                        [legend]="true">
-                                    </canvas>
-                                </div>
-                                <!-- <div class="column">
-                                    
-                                </div> -->
-                            </div>
+            </div>
+            <div class="column"> 
+                <div class="box">
+                    <h3 class="title is-2 mb-2 has-text-primary">{{ reportsTotalPF }}</h3>
+                    <p class="has-text-light">Consultas Pessoa Física</p>
+                </div>
+            </div>
+            <div class="column">
+                <div class="box">
+                    <h3 class="title is-2 mb-2 has-text-link">{{ reportsTotalPJ }}</h3>
+                    <p class="has-text-light">Consultas Pessoa Jurídica</p>
+                </div>
+            </div>
+            <div class="column">
+                <div class="box">
+                    <h3 class="title is-2 mb-2 has-text-light">{{ investedAmount | currency: 'BRL' }}</h3>
+                    <p class="has-text-light">Valor Investido</p>
+                </div>
+            </div>
+        </div>
+        <div class="columns mt-6">
+            <div class="column">
+                <h2 class="title is-4">Tipos de Consulta</h2>
+                <div class="box">
+                    <div class="columns">
+                        <div class="column">
+                            <canvas baseChart
+                                [data]="doughnutChartData"
+                                [labels]="doughnutChartLabels"
+                                [options]="doughnutChartOptions"
+                                [colors]="doughnutChartColors"
+                                [chartType]="doughnutChartType"
+                                [legend]="true">
+                            </canvas>
                         </div>
-                    </div>
-                    <div class="column">
-                        <!-- <h2 class="title is-4">Últimas Consultas</h2>
-                        <div class="box">
-
+                        <!-- <div class="column">
+                            
                         </div> -->
                     </div>
                 </div>
             </div>
-            <!-- <div class="column is-3">
-                <h2 class="title is-1">Usuários</h2>
-                <p class="subtitle">Confira e gerencie os usuários da conta.</p>
-            </div> -->
+            <div class="column">
+                <!-- <h2 class="title is-4">Últimas Consultas</h2>
+                <div class="box">
+
+                </div> -->
+            </div>
         </div>
     </div>
 </section>
