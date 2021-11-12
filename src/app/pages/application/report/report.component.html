@@ -152,7 +152,7 @@
                         <p>Valor Total <span class="is-pulled-right">{{ totalCost | currency: 'BRL' }}</span></p>
                     </div>
                     <br>
-                    <button class="button is-primary is-medium is-fullwidth" [class]="{ 'is-loading': loading }" [disabled]="selectedDatas.length === 0 || cpf.length < 11 || loading" (click)="doConsult()">
+                    <button class="button is-primary is-medium is-fullwidth" [class]="{ 'is-loading': loading }" [disabled]="selectedDatas.length === 0 || loading || (reportPeople && cpf.length < 11) || (!reportPeople && cnpj.length < 14)" (click)="doConsult()">
                         Consultar
                     </button>
                 </div>
