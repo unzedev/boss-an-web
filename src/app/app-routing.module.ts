@@ -17,6 +17,7 @@ import { AdminDashboardComponent } from './pages/admin-application/admin-dashboa
 import { AdminReportsComponent } from './pages/admin-application/admin-reports/admin-reports.component';
 
 import { AdminAuthGuard } from './guards/admin-auth/admin-auth.guard';
+import { OwnerAuthGuard } from './guards/owner-auth/owner-auth.guard';
 import { AuthGuard } from './guards/auth/auth.guard';
 
 
@@ -41,10 +42,12 @@ const routes: Routes = [
       {
         path: '',
         component: DashboardComponent,
+        canActivate: [OwnerAuthGuard],
       },
       {
         path: 'usuarios',
         component: UsersComponent,
+        canActivate: [OwnerAuthGuard],
       },
       {
         path: 'consulta',

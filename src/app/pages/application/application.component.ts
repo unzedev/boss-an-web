@@ -13,6 +13,7 @@ export class ApplicationComponent implements OnInit {
   public user: any = {
     name: '',
     email: '',
+    role: '',
   };
 
   public sidebarToggle = true;
@@ -30,6 +31,7 @@ export class ApplicationComponent implements OnInit {
     const user: any = this.authService.getUser();
     this.user.name = user.name;
     this.user.email = user.email;
+    this.user.role = user.role;
   }
 
 
