@@ -10,6 +10,14 @@ export class ReportService {
 
   public constructor(private http: HttpClient) { }
 
+  public getAllQueries(): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/queries`);
+  }
+
+  public getUserQueries(): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/queries/me`);
+  }
+
   public getPeopleReport(cpf: string, registerData: boolean, behaviorData: boolean, financialData: boolean, restrictData: boolean, onDemandData: boolean): Observable<any> {
     return this.http.get(`${environment.apiUrl}/people/${cpf}`, { params: {
       register_data: registerData.toString(),

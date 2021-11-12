@@ -21,7 +21,7 @@ export class AuthInterceptor implements HttpInterceptor {
     });
     return next.handle(request).pipe(
       catchError((error: HttpErrorResponse) => {
-          if (error.status === 401) {
+          if (error.status === 401 && !request.headers.get('Ignore-Auth')) {
             this.authService.logout();
           }
           return throwError(error);

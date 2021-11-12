@@ -35,7 +35,11 @@ export class LoginComponent implements OnInit {
         this.loading = false;
         this.authService.setAuthToken(data.accessToken);
         this.authService.setUser(data.user);
-        this.router.navigateByUrl('/app');
+        if (data.user.role === 'admin') {
+          this.router.navigateByUrl('/admin');
+        } else {
+          this.router.navigateByUrl('/app');
+        }
       }, (error: any) => {
         this.loading = false;
         this.alertService.openToast('error', 'Email e/ou senha incorretos');

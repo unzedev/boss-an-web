@@ -1,33 +1,49 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { NgModule } from '@angular/core';
+import { LOCALE_ID, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
 import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
+import { registerLocaleData } from '@angular/common';
+import { NgxMaskModule } from 'ngx-mask';
+import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
+import { ChartsModule } from 'ng2-charts';
+import localePt from '@angular/common/locales/pt';
 
+import { AuthInterceptor } from './interceptors/auth/auth.interceptor';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
-import { AuthInterceptor } from './interceptors/auth/auth.interceptor';
-import { ApplicationComponent } from './pages/application/application.component';
 import { HomeComponent } from './pages/home/home.component';
+
+import { ApplicationComponent } from './pages/application/application.component';
 import { UsersComponent } from './pages/application/users/users.component';
 import { ReportComponent } from './pages/application/report/report.component';
-import { NgxMaskModule } from 'ngx-mask';
-import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
 import { DashboardComponent } from './pages/application/dashboard/dashboard.component';
-import { ChartsModule } from 'ng2-charts';
+import { ReportsComponent } from './pages/application/reports/reports.component';
+
+import { AdminApplicationComponent } from './pages/admin-application/admin-application.component';
+import { AdminDashboardComponent } from './pages/admin-application/admin-dashboard/admin-dashboard.component';
+import { AdminReportsComponent } from './pages/admin-application/admin-reports/admin-reports.component';
+import { AdminUsersComponent } from './pages/admin-application/admin-users/admin-users.component';
+
+registerLocaleData(localePt);
 
 @NgModule({
   declarations: [
     AppComponent,
     RegisterComponent,
     LoginComponent,
-    ApplicationComponent,
     HomeComponent,
+    ApplicationComponent,
     UsersComponent,
     ReportComponent,
     DashboardComponent,
+    ReportsComponent,
+    AdminApplicationComponent,
+    AdminDashboardComponent,
+    AdminReportsComponent,
+    AdminUsersComponent
   ],
   imports: [
     BrowserModule,
@@ -35,8 +51,8 @@ import { ChartsModule } from 'ng2-charts';
     FormsModule,
     ReactiveFormsModule,
     HttpClientModule,
-    LoadingBarHttpClientModule,
     ChartsModule,
+    LoadingBarHttpClientModule,
     NgxMaskModule.forRoot(),
     NgxCurrencyModule.forRoot({
       align: 'right',
@@ -54,7 +70,8 @@ import { ChartsModule } from 'ng2-charts';
     }),
   ],
   providers: [
-    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true }
+    { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: LOCALE_ID, useValue: 'pt-BR' },
   ],
   bootstrap: [AppComponent]
 })

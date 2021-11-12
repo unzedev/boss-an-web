@@ -1,0 +1,89 @@
+<section class="section">
+    <div class="container">
+        <h1 class="title is-1">Usuários</h1>
+        <button class="button is-primary" (click)="openCreateModal()">
+            Criar
+        </button>
+        <table class="boss-an-table" *ngIf="users.length > 0">
+            <thead>
+                <tr>
+                    <th>Nome</th>
+                    <th>CPF</th>
+                    <th>Email</th>
+                    <th>Situação</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let u of users">
+                    <td>{{ u.name }}</td>
+                    <td>{{ u.document | mask: 'CPF_CNPJ' }}</td>
+                    <td>{{ u.email }}</td>
+                    <td>{{ u.status }}</td>
+                    <td>
+                        <button class="button is-light" (click)="editUserConfig(u)" *ngIf="u.status !== 'pending'">
+                            Editar
+                        </button>
+                        <button class="button is-primary" (click)="approveUser(u)" *ngIf="u.status === 'pending'">
+                            Aprovar
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="empty-message" *ngIf="users.length === 0">
+            <div class="icon-container">
+                <i class="fas fa-user-alt"></i>
+            </div>
+            <p>Não encontramos nenhum usuário</p>
+        </div>
+    </div>
+</section>
+
+<div class="modal" [class]="{ 'is-active': createConfigModal.open }">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Criar Usuário</p>
+          <button class="delete" aria-label="close" (click)="closeModal()"></button>
+        </header>
+        <form [formGroup]="createConfigForm" (ngSubmit)="createConfig()">
+            <section class="modal-card-body">
+                <div class="field">
+                    <label class="label">Dados Cadastrais</label>
+                    <div class="control">
+                        <input class="input" type="tel" formControlName="register_data">
+                    </div>
+                </div>
+            </section>
+            <footer class="modal-card-foot is-justify-content-end">
+                <button type="button" class="button" (click)="closeModal()">Cancelar</button>
+                <button type="submit" class="button is-success">Criar</button>
+            </footer>
+        </form>
+    </div>
+</div>
+
+<div class="modal" [class]="{ 'is-active': updateConfigModal.open }">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Editar Usuário</p>
+          <button class="delete" aria-label="close" (click)="closeModal()"></button>
+        </header>
+        <form [formGroup]="updateConfigForm" (ngSubmit)="updateConfig()">
+            <section class="modal-card-body">
+                <div class="field">
+                    <label class="label">Dados Cadastrais</label>
+                    <div class="control">
+                        <input class="input" type="tel" formControlName="register_data" [(ngModel)]="updateConfigModal.register_data">
+                    </div>
+                </div>
+            </section>
+            <footer class="modal-card-foot is-justify-content-end">
+                <button type="button" class="button" (click)="closeModal()">Cancelar</button>
+                <button type="submit" class="button is-success">Salvar</button>
+            </footer>
+        </form>
+    </div>
+</div>

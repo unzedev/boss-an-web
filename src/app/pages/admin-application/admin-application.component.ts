@@ -4,11 +4,11 @@ import { AuthService } from 'src/app/services/auth/auth.service';
 import { AlertService } from 'src/app/services/alert/alert.service';
 
 @Component({
-  selector: 'app-application',
-  templateUrl: './application.component.html',
-  styleUrls: ['./application.component.scss']
+  selector: 'app-admin-application',
+  templateUrl: './admin-application.component.html',
+  styleUrls: ['./admin-application.component.scss']
 })
-export class ApplicationComponent implements OnInit {
+export class AdminApplicationComponent implements OnInit {
 
   public user: any = {
     name: '',

@@ -5,7 +5,10 @@ export class User {
   email: string;
   phone: string;
   password: string;
-  address: Address;
+  address?: Address;
+  active?: boolean;
+  status?: string;
+  role?: string;
 }
 
 interface Address {
@@ -15,4 +18,16 @@ interface Address {
   neighborhood: string;
   city: string;
   state: string;
+}
+
+export class UserConfig {
+  id?: string;
+  register_data: number;
+  financial_data: number;
+  behavior_data: number;
+  restrict: number;
+  ondemand: number;
+  serasa_boavista: number;
+  type?: string;
+  user?: string;
 }

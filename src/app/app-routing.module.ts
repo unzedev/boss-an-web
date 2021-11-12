@@ -4,10 +4,21 @@ import { Routes, RouterModule } from '@angular/router';
 import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
+
 import { ApplicationComponent } from './pages/application/application.component';
 import { UsersComponent } from './pages/application/users/users.component';
 import { ReportComponent } from './pages/application/report/report.component';
 import { DashboardComponent } from './pages/application/dashboard/dashboard.component';
+import { ReportsComponent } from './pages/application/reports/reports.component';
+
+import { AdminApplicationComponent } from './pages/admin-application/admin-application.component';
+import { AdminUsersComponent } from './pages/admin-application/admin-users/admin-users.component';
+import { AdminDashboardComponent } from './pages/admin-application/admin-dashboard/admin-dashboard.component';
+import { AdminReportsComponent } from './pages/admin-application/admin-reports/admin-reports.component';
+
+import { AdminAuthGuard } from './guards/admin-auth/admin-auth.guard';
+import { AuthGuard } from './guards/auth/auth.guard';
+
 
 const routes: Routes = [
   {
@@ -25,6 +36,7 @@ const routes: Routes = [
   {
     path: 'app',
     component: ApplicationComponent,
+    canActivate: [AuthGuard],
     children: [
       {
         path: '',
@@ -37,6 +49,29 @@ const routes: Routes = [
       {
         path: 'consulta',
         component: ReportComponent,
+      },
+      {
+        path: 'consultas',
+        component: ReportsComponent,
+      },
+    ],
+  },
+  {
+    path: 'admin',
+    canActivate: [AdminAuthGuard],
+    component: AdminApplicationComponent,
+    children: [
+      {
+        path: '',
+        component: AdminDashboardComponent,
+      },
+      {
+        path: 'usuarios',
+        component: AdminUsersComponent,
+      },
+      {
+        path: 'consultas',
+        component: AdminReportsComponent,
       },
     ],
   },

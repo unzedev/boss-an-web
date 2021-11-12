@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { first } from 'rxjs/operators';
 import { User } from 'src/app/models/user.model';
 import { UserService } from 'src/app/services/user/user.service';
@@ -14,20 +15,15 @@ export class UsersComponent implements OnInit {
 
   public createModal = {
     open: false,
-    name: '',
-    document: '',
-    email: '',
-    phone: '',
-    password: '',
-    address: {
-      street: '',
-      number: '',
-      complement: '',
-      neighborhood: '',
-      city: '',
-      state: '',
-    },
   };
+
+  public createUserForm: FormGroup = new FormGroup({
+    name: new FormControl('', [Validators.required]),
+    document: new FormControl('', [Validators.required]),
+    phone: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', Validators.required),
+  });
 
   public updateModal = {
     open: false,
@@ -37,15 +33,15 @@ export class UsersComponent implements OnInit {
     email: '',
     phone: '',
     password: '',
-    address: {
-      street: '',
-      number: '',
-      complement: '',
-      neighborhood: '',
-      city: '',
-      state: '',
-    },
   };
+
+  public updateUserForm: FormGroup = new FormGroup({
+    name: new FormControl('', [Validators.required]),
+    document: new FormControl('', [Validators.required]),
+    phone: new FormControl('', [Validators.required]),
+    email: new FormControl('', [Validators.required, Validators.email]),
+    password: new FormControl('', Validators.required),
+  });
 
   constructor(
     private userService: UserService,
@@ -64,8 +60,7 @@ export class UsersComponent implements OnInit {
   }
 
   public createUser() {
-    const data = this.createModal;
-    this.userService.createUser(data)
+    this.userService.createEmployee(this.createUserForm.value)
       .pipe(first())
       .subscribe((user: User) => {
         this.users.push(user);
@@ -74,8 +69,7 @@ export class UsersComponent implements OnInit {
   }
 
   public updateUser() {
-    const data = this.updateModal;
-    this.userService.saveUser(data)
+    this.userService.saveUser(this.updateUserForm.value)
       .pipe(first())
       .subscribe((user: User) => {
         this.users.forEach((r, index) => {
@@ -97,14 +91,6 @@ export class UsersComponent implements OnInit {
       email: user.email,
       phone: user.phone,
       password: '',
-      address: {
-        street: user.address.street,
-        number: user.address.number,
-        complement: user.address.complement,
-        neighborhood: user.address.neighborhood,
-        city: user.address.city,
-        state: user.address.state,
-      },
     };
   }
 
@@ -115,19 +101,6 @@ export class UsersComponent implements OnInit {
   public closeModal() {
     this.createModal = {
       open: false,
-      name: '',
-      document: '',
-      email: '',
-      phone: '',
-      password: '',
-      address: {
-        street: '',
-        number: '',
-        complement: '',
-        neighborhood: '',
-        city: '',
-        state: '',
-      },
     };
     this.updateModal = {
       open: false,
@@ -137,14 +110,6 @@ export class UsersComponent implements OnInit {
       email: '',
       phone: '',
       password: '',
-      address: {
-        street: '',
-        number: '',
-        complement: '',
-        neighborhood: '',
-        city: '',
-        state: '',
-      },
     };
   }
 

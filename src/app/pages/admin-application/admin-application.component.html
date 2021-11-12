@@ -1,4 +1,8 @@
 <aside class="sidebar has-background-dark has-text-light" [class]="{ 'hidden': !sidebarToggle }">
+  <div class="admin-banner">
+    <i class="fas fa-user-shield"></i>
+    Visão do Administrador
+  </div>
   <a role="button" class="navbar-burger burger" (click)="toggleSidebar()">
     <span aria-hidden="true"></span>
     <span aria-hidden="true"></span>
@@ -21,9 +25,6 @@
   </article>
   <br>
   <div class="menu-container">
-    <a class="button is-primary is-fullwidth mb-6 mt-5" routerLink="consulta" routerLinkActive="is-active">
-      Nova consulta
-    </a>
     <aside class="menu">
       <ul class="menu-list">
         <li>
@@ -55,8 +56,8 @@
             <i class="fas fa-receipt"></i>
             Faturas
           </a>
-        </li> -->
-        <!-- <li>
+        </li>
+        <li>
           <a routerLink="ajuda" routerLinkActive="is-active">
             <i class="fas fa-question-circle"></i>
             Ajuda

@@ -43,7 +43,7 @@ export class AuthService {
     localStorage.setItem('user', JSON.stringify(user));
   }
 
-  public getUser(): string {
+  public getUser(): any {
     return JSON.parse(localStorage.getItem('user'));
   }
 }
