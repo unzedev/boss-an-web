@@ -1,9 +1,6 @@
 <section class="section">
     <div class="container">
         <h1 class="title is-1">Usuários</h1>
-        <button class="button is-primary" (click)="openCreateModal()">
-            Criar
-        </button>
         <table class="boss-an-table" *ngIf="users.length > 0">
             <thead>
                 <tr>
@@ -19,7 +16,10 @@
                     <td>{{ u.name }}</td>
                     <td>{{ u.document | mask: 'CPF_CNPJ' }}</td>
                     <td>{{ u.email }}</td>
-                    <td>{{ u.status }}</td>
+                    <td>
+                        <span *ngIf="u.status === 'pending'" class="tag is-warning">Pendente</span>
+                        <span *ngIf="u.status === 'approved'" class="tag is-primary is-light">Aprovado</span>
+                    </td>
                     <td>
                         <button class="button is-light" (click)="editUserConfig(u)" *ngIf="u.status !== 'pending'">
                             Editar
@@ -44,21 +44,95 @@
     <div class="modal-background"></div>
     <div class="modal-card">
         <header class="modal-card-head">
-          <p class="modal-card-title">Criar Usuário</p>
+          <p class="modal-card-title">Configurar Valores</p>
           <button class="delete" aria-label="close" (click)="closeModal()"></button>
         </header>
         <form [formGroup]="createConfigForm" (ngSubmit)="createConfig()">
             <section class="modal-card-body">
-                <div class="field">
-                    <label class="label">Dados Cadastrais</label>
-                    <div class="control">
-                        <input class="input" type="tel" formControlName="register_data">
+                <div class="columns">
+                    <div class="column">
+                        <h4 class="title is-5">Pessoa Física</h4>
+                        <div class="field">
+                            <label class="label">Dados Cadastrais</label>
+                            <div class="control">
+                                <input class="input" type="tel" currencyMask formControlName="pf_register_data">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Perfil Financeiro</label>
+                            <div class="control">
+                                <input class="input" type="tel" currencyMask formControlName="pf_financial_data">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Dados Comportamentais</label>
+                            <div class="control">
+                                <input class="input" type="tel" currencyMask formControlName="pf_behavior_data">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Restritivos</label>
+                            <div class="control">
+                                <input class="input" type="tel" currencyMask formControlName="pf_restrict">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label"><i>OnDemand</i></label>
+                            <div class="control">
+                                <input class="input" type="tel" currencyMask formControlName="pf_ondemand">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Serasa Boavista</label>
+                            <div class="control">
+                                <input class="input" type="tel" currencyMask formControlName="pf_serasa_boavista">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <h4 class="title is-5">Pessoa Jurídica</h4>
+                        <div class="field">
+                            <label class="label">Dados Cadastrais</label>
+                            <div class="control">
+                                <input class="input" type="tel" currencyMask formControlName="pj_register_data">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Perfil Financeiro</label>
+                            <div class="control">
+                                <input class="input" type="tel" currencyMask formControlName="pj_financial_data">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Dados Comportamentais</label>
+                            <div class="control">
+                                <input class="input" type="tel" currencyMask formControlName="pj_behavior_data">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Restritivos</label>
+                            <div class="control">
+                                <input class="input" type="tel" currencyMask formControlName="pj_restrict">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label"><i>OnDemand</i></label>
+                            <div class="control">
+                                <input class="input" type="tel" currencyMask formControlName="pj_ondemand">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Serasa Boavista</label>
+                            <div class="control">
+                                <input class="input" type="tel" currencyMask formControlName="pj_serasa_boavista">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>
             <footer class="modal-card-foot is-justify-content-end">
                 <button type="button" class="button" (click)="closeModal()">Cancelar</button>
-                <button type="submit" class="button is-success">Criar</button>
+                <button type="submit" class="button is-success">Ativar Cliente</button>
             </footer>
         </form>
     </div>
@@ -68,15 +142,89 @@
     <div class="modal-background"></div>
     <div class="modal-card">
         <header class="modal-card-head">
-          <p class="modal-card-title">Editar Usuário</p>
+          <p class="modal-card-title">Editar Valores</p>
           <button class="delete" aria-label="close" (click)="closeModal()"></button>
         </header>
         <form [formGroup]="updateConfigForm" (ngSubmit)="updateConfig()">
             <section class="modal-card-body">
-                <div class="field">
-                    <label class="label">Dados Cadastrais</label>
-                    <div class="control">
-                        <input class="input" type="tel" formControlName="register_data" [(ngModel)]="updateConfigModal.register_data">
+                <div class="columns">
+                    <div class="column">
+                        <h4 class="title is-5">Pessoa Física</h4>
+                        <div class="field">
+                            <label class="label">Dados Cadastrais</label>
+                            <div class="control">
+                                <input class="input" type="tel" currencyMask formControlName="pf_register_data">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Perfil Financeiro</label>
+                            <div class="control">
+                                <input class="input" type="tel" currencyMask formControlName="pf_financial_data">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Dados Comportamentais</label>
+                            <div class="control">
+                                <input class="input" type="tel" currencyMask formControlName="pf_behavior_data">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Restritivos</label>
+                            <div class="control">
+                                <input class="input" type="tel" currencyMask formControlName="pf_restrict">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label"><i>OnDemand</i></label>
+                            <div class="control">
+                                <input class="input" type="tel" currencyMask formControlName="pf_ondemand">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Serasa Boavista</label>
+                            <div class="control">
+                                <input class="input" type="tel" currencyMask formControlName="pf_serasa_boavista">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <h4 class="title is-5">Pessoa Jurídica</h4>
+                        <div class="field">
+                            <label class="label">Dados Cadastrais</label>
+                            <div class="control">
+                                <input class="input" type="tel" currencyMask formControlName="pj_register_data">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Perfil Financeiro</label>
+                            <div class="control">
+                                <input class="input" type="tel" currencyMask formControlName="pj_financial_data">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Dados Comportamentais</label>
+                            <div class="control">
+                                <input class="input" type="tel" currencyMask formControlName="pj_behavior_data">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Restritivos</label>
+                            <div class="control">
+                                <input class="input" type="tel" currencyMask formControlName="pj_restrict">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label"><i>OnDemand</i></label>
+                            <div class="control">
+                                <input class="input" type="tel" currencyMask formControlName="pj_ondemand">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Serasa Boavista</label>
+                            <div class="control">
+                                <input class="input" type="tel" currencyMask formControlName="pj_serasa_boavista">
+                            </div>
+                        </div>
                     </div>
                 </div>
             </section>

@@ -63,7 +63,7 @@ registerLocaleData(localePt);
       prefix: 'R$ ',
       suffix: '',
       thousands: '.',
-      nullable: true,
+      nullable: false,
       min: 0,
       max: null,
       inputMode: CurrencyMaskInputMode.FINANCIAL

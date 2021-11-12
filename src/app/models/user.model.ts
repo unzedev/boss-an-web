@@ -1,4 +1,5 @@
 export class User {
+  _id?: string;
   id?: string;
   name: string;
   document: string;
@@ -21,6 +22,7 @@ interface Address {
 }
 
 export class UserConfig {
+  _id?: string;
   id?: string;
   register_data: number;
   financial_data: number;
