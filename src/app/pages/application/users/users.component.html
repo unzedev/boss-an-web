@@ -47,7 +47,7 @@
                 <div class="field">
                     <label class="label">Nome Completo</label>
                     <div class="control has-icons-left">
-                        <input class="input" type="text" formControlName="name">
+                        <input class="input" type="text" formControlName="name" [disabled]="loading">
                         <span class="icon is-small is-left">
                         <i class="fas fa-user"></i>
                         </span>
@@ -56,7 +56,7 @@
                 <div class="field">
                     <label class="label">CPF</label>
                     <div class="control has-icons-left">
-                        <input class="input" type="tel" formControlName="document" mask="000.000.000-00">
+                        <input class="input" type="tel" formControlName="document" mask="000.000.000-00" [disabled]="loading">
                         <span class="icon is-small is-left">
                         <i class="fas fa-receipt"></i>
                         </span>
@@ -65,7 +65,7 @@
                 <div class="field">
                     <label class="label">Celular</label>
                     <div class="control has-icons-left">
-                        <input class="input" type="tel" formControlName="phone" mask="(00) 00000-0000">
+                        <input class="input" type="tel" formControlName="phone" mask="(00) 00000-0000" [disabled]="loading">
                         <span class="icon is-small is-left">
                         <i class="fas fa-phone-alt"></i>
                         </span>
@@ -74,7 +74,7 @@
                 <div class="field">
                     <label class="label">E-mail</label>
                     <div class="control has-icons-left">
-                        <input class="input" type="email" formControlName="email">
+                        <input class="input" type="email" formControlName="email" [disabled]="loading">
                         <span class="icon is-small is-left">
                         <i class="fas fa-envelope"></i>
                         </span>
@@ -83,7 +83,7 @@
                 <div class="field">
                     <label class="label">Senha</label>
                     <div class="control has-icons-left">
-                        <input class="input" type="password" formControlName="password" autocomplete="new-password">
+                        <input class="input" type="password" formControlName="password" autocomplete="new-password" [disabled]="loading">
                         <span class="icon is-small is-left">
                         <i class="fas fa-lock"></i>
                         </span>
@@ -91,8 +91,8 @@
                 </div>
             </section>
             <footer class="modal-card-foot is-justify-content-end">
-                <button type="button" class="button" (click)="closeModal()">Cancelar</button>
-                <button type="submit" class="button is-success">Criar</button>
+                <button type="button" class="button" (click)="closeModal()" [disabled]="loading">Cancelar</button>
+                <button type="submit" class="button is-success" [class]="{ 'is-loading': loading }" [disabled]="loading">Criar</button>
             </footer>
         </form>
     </div>
@@ -110,7 +110,7 @@
                 <div class="field">
                     <label class="label">Nome Completo</label>
                     <div class="control has-icons-left">
-                        <input class="input" type="text" formControlName="name" [(ngModel)]="updateModal.name">
+                        <input class="input" type="text" formControlName="name" [disabled]="loading">
                         <span class="icon is-small is-left">
                         <i class="fas fa-user"></i>
                         </span>
@@ -119,7 +119,7 @@
                 <div class="field">
                     <label class="label">CPF ou CNPJ</label>
                     <div class="control has-icons-left">
-                        <input class="input" type="tel" formControlName="document" mask="CPF_CNPJ" [(ngModel)]="updateModal.document">
+                        <input class="input" type="tel" formControlName="document" mask="CPF_CNPJ" [disabled]="loading">
                         <span class="icon is-small is-left">
                         <i class="fas fa-receipt"></i>
                         </span>
@@ -128,7 +128,7 @@
                 <div class="field">
                     <label class="label">Celular</label>
                     <div class="control has-icons-left">
-                        <input class="input" type="tel" formControlName="phone" mask="(00) 00000-0000" [(ngModel)]="updateModal.phone">
+                        <input class="input" type="tel" formControlName="phone" mask="(00) 00000-0000" [disabled]="loading">
                         <span class="icon is-small is-left">
                         <i class="fas fa-phone-alt"></i>
                         </span>
@@ -137,7 +137,7 @@
                 <div class="field">
                     <label class="label">E-mail</label>
                     <div class="control has-icons-left">
-                        <input class="input" type="email" formControlName="email" [(ngModel)]="updateModal.email">
+                        <input class="input" type="email" formControlName="email" [disabled]="loading">
                         <span class="icon is-small is-left">
                         <i class="fas fa-envelope"></i>
                         </span>
@@ -146,7 +146,7 @@
                 <div class="field">
                     <label class="label">Senha</label>
                     <div class="control has-icons-left">
-                        <input class="input" type="password" formControlName="password" autocomplete="new-password" [(ngModel)]="updateModal.password">
+                        <input class="input" type="password" formControlName="password" autocomplete="new-password" [disabled]="loading">
                         <span class="icon is-small is-left">
                         <i class="fas fa-lock"></i>
                         </span>
@@ -154,8 +154,8 @@
                 </div>
             </section>
             <footer class="modal-card-foot is-justify-content-end">
-                <button type="button" class="button" (click)="closeModal()">Cancelar</button>
-                <button type="submit" class="button is-success">Salvar</button>
+                <button type="button" class="button" (click)="closeModal()" [disabled]="loading">Cancelar</button>
+                <button type="submit" class="button is-success" [class]="{ 'is-loading': loading }" [disabled]="loading">Salvar</button>
             </footer>
         </form>
     </div>

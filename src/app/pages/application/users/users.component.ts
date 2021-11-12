@@ -28,11 +28,6 @@ export class UsersComponent implements OnInit {
   public updateModal = {
     open: false,
     id: '',
-    name: '',
-    document: '',
-    email: '',
-    phone: '',
-    password: '',
   };
 
   public updateUserForm: FormGroup = new FormGroup({
@@ -42,6 +37,8 @@ export class UsersComponent implements OnInit {
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required),
   });
+
+  public loading: boolean = false;
 
   constructor(
     private userService: UserService,
@@ -60,15 +57,20 @@ export class UsersComponent implements OnInit {
   }
 
   public createUser() {
+    this.loading = true;
     this.userService.createEmployee(this.createUserForm.value)
       .pipe(first())
       .subscribe((user: User) => {
         this.users.push(user);
         this.closeModal();
+        this.loading = false;
       });
   }
 
   public updateUser() {
+    this.loading = true;
+    const userToUpdate = this.updateUserForm.value;
+    userToUpdate.id = this.updateModal.id;
     this.userService.saveUser(this.updateUserForm.value)
       .pipe(first())
       .subscribe((user: User) => {
@@ -79,6 +81,7 @@ export class UsersComponent implements OnInit {
           }
         });
         this.closeModal();
+        this.loading = false;
       });
   }
 
@@ -86,12 +89,12 @@ export class UsersComponent implements OnInit {
     this.updateModal = {
       open: true,
       id: user.id,
-      name: user.name,
-      document: user.document,
-      email: user.email,
-      phone: user.phone,
-      password: '',
     };
+    this.updateUserForm.get('name').setValue(user.name);
+    this.updateUserForm.get('document').setValue(user.document);
+    this.updateUserForm.get('phone').setValue(user.phone);
+    this.updateUserForm.get('email').setValue(user.email);
+
   }
 
   public openCreateModal() {
@@ -105,11 +108,6 @@ export class UsersComponent implements OnInit {
     this.updateModal = {
       open: false,
       id: '',
-      name: '',
-      document: '',
-      email: '',
-      phone: '',
-      password: '',
     };
   }
 
