@@ -45,10 +45,18 @@ export class DashboardComponent implements OnInit {
       .pipe(first())
       .subscribe((res: any) => {
         this.investedAmount = Number(res.totalAmount);
-        this.reportsTotal = res.queries[0]?.count || 0;
-        this.reportsTotalPF = res.queries[1]?.count || 0;
-        this.reportsTotalPJ = res.queries[2]?.count || 0;
-        this.doughnutChartData = [res.queries[1]?.count || 0, res.queries[2]?.count || 0];
+        res.queries.forEach(query => {
+          if (query._id === 'TOTAL') {
+            this.reportsTotal = query.count;
+          }
+          if (query._id === 'PF') {
+            this.reportsTotalPF = query.count;
+          }
+          if (query._id === 'PJ') {
+            this.reportsTotalPJ = query.count;
+          }
+        });
+        this.doughnutChartData = [this.reportsTotalPF, this.reportsTotalPJ];
       });
     // this.userService.getDashboardQueriesByTypes()
     //   .pipe(first())

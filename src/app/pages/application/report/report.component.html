@@ -50,7 +50,7 @@
                                     <span>Dados Cadastrais</span>
                                 </span>
                                 <span>
-                                    {{ pricesPF.register_data | currency: 'BRL' }}
+                                    {{ (reportPeople ? pricesPF.register_data : pricesPJ.register_data) | currency: 'BRL' }}
                                 </span>
                             </p>
                             <!-- <button class="card-header-icon" aria-label="more options">
@@ -79,7 +79,7 @@
                                     <span>Dados Comportamentais</span>
                                 </span>
                                 <span>
-                                    {{ pricesPF.behavior_data | currency: 'BRL' }}
+                                    {{ (reportPeople ? pricesPF.behavior_data : pricesPJ.behavior_data) | currency: 'BRL' }}
                                 </span>
                             </p>
                         </header>
@@ -95,7 +95,7 @@
                                     <span>Perfil Financeiros</span>
                                 </span>
                                 <span>
-                                    {{ pricesPF.financial_data | currency: 'BRL' }}
+                                    {{ (reportPeople ? pricesPF.financial_data : pricesPJ.financial_data) | currency: 'BRL' }}
                                 </span>
                             </p>
                         </header>
@@ -111,7 +111,7 @@
                                     <span>Restritivos</span>
                                 </span>
                                 <span>
-                                    {{ pricesPF.restrict | currency: 'BRL' }}
+                                    {{ (reportPeople ? pricesPF.restrict : pricesPJ.restrict) | currency: 'BRL' }}
                                 </span>
                             </p>
                         </header>
@@ -127,7 +127,7 @@
                                     <span><i>OnDemand</i></span>
                                 </span>
                                 <span>
-                                    {{ pricesPF.ondemand | currency: 'BRL' }}
+                                    {{ (reportPeople ? pricesPF.ondemand : pricesPJ.ondemand) | currency: 'BRL' }}
                                 </span>
                             </p>
                         </header>
