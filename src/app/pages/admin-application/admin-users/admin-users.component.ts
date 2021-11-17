@@ -195,4 +195,18 @@ export class AdminUsersComponent implements OnInit {
     };
   }
 
+  public rejectUser(userToReject: User) {
+    this.adminService.rejectUser(userToReject._id)
+      .pipe(first())
+      .subscribe((user: User) => {
+        this.users.forEach((r, index) => {
+          if (r._id === this.createConfigModal.userId) {
+            this.users[index].status = 'disapproved';
+            return;
+          }
+        });
+        this.alertService.openToast('warning', 'Usuário reprovado!');
+      });
+  }
+
 }

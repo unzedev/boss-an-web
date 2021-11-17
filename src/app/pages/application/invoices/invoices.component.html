@@ -1,0 +1,53 @@
+<section class="section">
+    <div class="container">
+        <h1 class="title is-1">Faturas</h1>
+        <table class="boss-an-table" *ngIf="invoices.length > 0">
+            <thead>
+                <tr>
+                    <th>Valor</th>
+                    <th>Mês</th>
+                    <th>Situação</th>
+                    <th></th>
+                </tr>
+            </thead>
+            <tbody>
+                <tr *ngFor="let i of invoices">
+                    <td>{{ i.amount | currency: 'BRL' }}</td>
+                    <!-- <td>{{ i.month | date: 'dd/MM/yyyy - HH:mm' }}</td> -->
+                    <td>{{ i.month }}/{{ i.year }}</td>
+                    <td>
+                        <span *ngIf="i.status === 'pending'" class="tag is-warning">Pendente</span>
+                        <span *ngIf="i.status === 'paid'" class="tag is-primary is-light">Pago</span>
+                    </td>
+                    <td>
+                        <button class="button is-light" (click)="getResult(i)">
+                            Ver fatura
+                        </button>
+                    </td>
+                </tr>
+            </tbody>
+        </table>
+        <div class="empty-message" *ngIf="invoices.length === 0">
+            <div class="icon-container">
+                <i class="fas fa-receipt"></i>
+            </div>
+            <p>Não encontramos nenhuma fatura</p>
+        </div>
+    </div>
+</section>
+
+<div class="modal" [class]="{ 'is-active': resultModal.open }">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Resultado da Consulta</p>
+          <button class="delete" aria-label="close" (click)="closeModal()"></button>
+        </header>
+        <section class="modal-card-body">
+            
+        </section>
+        <footer class="modal-card-foot is-justify-content-end">
+            <button type="button" class="button" (click)="closeModal()">Fechar</button>
+        </footer>
+    </div>
+</div>

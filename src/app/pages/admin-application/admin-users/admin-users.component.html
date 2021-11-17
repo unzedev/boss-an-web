@@ -19,6 +19,7 @@
                     <td>
                         <span *ngIf="u.status === 'pending'" class="tag is-warning">Pendente</span>
                         <span *ngIf="u.status === 'approved'" class="tag is-primary is-light">Aprovado</span>
+                        <span *ngIf="u.status === 'disapproved'" class="tag is-danger is-light">Rejeitado</span>
                     </td>
                     <td>
                         <button class="button is-light" (click)="editUserConfig(u)" *ngIf="u.status !== 'pending'">
@@ -26,6 +27,9 @@
                         </button>
                         <button class="button is-primary" (click)="approveUser(u)" *ngIf="u.status === 'pending'">
                             Aprovar
+                        </button>
+                        <button class="button is-danger is-light" (click)="rejectUser(u)" *ngIf="u.status === 'pending'">
+                            Rejeitar
                         </button>
                     </td>
                 </tr>

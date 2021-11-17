@@ -45,6 +45,10 @@ export class UserService {
     return this.http.get(`${this.apiUrl}modules`);
   }
 
+  public getUserInvoices(): Observable<any> {
+    return this.http.get(`${this.apiUrl}invoices`);
+  }
+
   public getDashboardQueries(): Observable<any> {
     return this.http.get(`${this.apiUrl}dashboard/queries`);
   }

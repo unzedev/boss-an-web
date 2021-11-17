@@ -28,6 +28,15 @@ export class AlertService {
     },
   });
 
+  public successConfirm: any = Swal.mixin({
+    showCancelButton: false,
+    buttonsStyling: false,
+    customClass: {
+      actions: 'buttons',
+      confirmButton: 'button is-success is-light',
+    },
+  });
+
   constructor() { }
 
   public openToast(icon: string, title: string): void {
@@ -40,6 +49,19 @@ export class AlertService {
       text,
       confirmButtonText,
       cancelButtonText,
+    })
+    .then((result: any) => {
+      if (result.value) {
+        confirmFunction();
+      }
+    });
+  }
+
+  public openSuccessConfirmDialog(title: string, text: string, confirmButtonText: string, confirmFunction: () => void): void {
+    this.successConfirm.fire({
+      title,
+      text,
+      confirmButtonText,
     })
     .then((result: any) => {
       if (result.value) {

@@ -33,6 +33,10 @@ export class AdminService {
     return this.http.post(`${this.apiUrl}users/${userId}/approval`, {});
   }
 
+  public rejectUser(userId: string): Observable<any> {
+    return this.http.post(`${this.apiUrl}users/${userId}/disapproval`, {});
+  }
+
   public getQueries(): Observable<any> {
     return this.http.get(`${this.apiUrl}queries`);
   }

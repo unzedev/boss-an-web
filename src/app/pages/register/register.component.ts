@@ -1,6 +1,4 @@
 import { Component, OnInit } from '@angular/core';
-import { AuthService } from '../../services/auth/auth.service';
-import { Router } from '@angular/router';
 import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { UserService } from 'src/app/services/user/user.service';
@@ -22,7 +20,7 @@ export class RegisterComponent implements OnInit {
     password: new FormControl('', Validators.required),
     addressStreet: new FormControl('', Validators.required),
     addressNumber: new FormControl('', Validators.required),
-    addressComplement: new FormControl('', Validators.required),
+    addressComplement: new FormControl(''),
     addressNeighborhood: new FormControl('', Validators.required),
     addressCity: new FormControl('', Validators.required),
     addressState: new FormControl('', Validators.required),
@@ -30,11 +28,9 @@ export class RegisterComponent implements OnInit {
   });
 
   public constructor(
-    private authService: AuthService,
     private userService: UserService,
-    private router: Router,
     private alertService: AlertService,
-    ) { }
+  ) { }
 
   public ngOnInit(): void {
   }
@@ -45,9 +41,7 @@ export class RegisterComponent implements OnInit {
       .pipe(first())
       .subscribe((data: any) => {
         this.loading = false;
-        this.authService.setAuthToken(data.token);
-        this.authService.setUser(data.user);
-        this.router.navigateByUrl('/app');
+        this.alertService.openSuccessConfirmDialog('Cadastro realizado!', 'Seu cadastro será analisado e aprovado assim que possível', 'Ok', null);
       }, (error: any) => {
         this.loading = false;
         this.alertService.openToast('error', 'Erro ao realizar cadastro');
