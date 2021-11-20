@@ -25,8 +25,8 @@ export class AdminService {
     return this.http.get(`${this.apiUrl}users/${userId}/config`);
   }
 
-  public getUsers(): Observable<any> {
-    return this.http.get(`${this.apiUrl}users`);
+  public getUsers(filter?: { status?: string, role?: string, active?: string, document?: string, email?: string, name?: string, employer?: string }): Observable<any> {
+    return this.http.get(`${this.apiUrl}users`, { params: filter || null });
   }
 
   public approveUser(userId: string): Observable<any> {
@@ -47,5 +47,21 @@ export class AdminService {
 
   public getDashboardQueriesByTypes(): Observable<any> {
     return this.http.get(`${this.apiUrl}dashboard/queries/types`);
+  }
+
+  public getInvoices(filter?: { status?: string, month?: string, year?: string, user?: string }): Observable<any> {
+    return this.http.get(`${this.apiUrl}invoices`, { params: filter });
+  }
+
+  public createInvoice(config: { month: number, year: number, user: string }): Observable<any> {
+    return this.http.post(`${this.apiUrl}invoices`, config);
+  }
+
+  public updateInvoiceStatus(invoiceId: string, status: string): Observable<any> {
+    return this.http.put(`${this.apiUrl}invoices/${invoiceId}`, { status });
+  }
+
+  public deleteInvoice(invoiceId: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}invoices/${invoiceId}`);
   }
 }

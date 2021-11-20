@@ -7,7 +7,7 @@
                     <th>Valor</th>
                     <th>Referência</th>
                     <th>Situação</th>
-                    <!-- <th></th> -->
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
@@ -18,11 +18,11 @@
                         <span *ngIf="i.status === 'pending'" class="tag is-warning">Pendente</span>
                         <span *ngIf="i.status === 'paid'" class="tag is-primary is-light">Pago</span>
                     </td>
-                    <!-- <td>
-                        <button class="button is-light" (click)="getResult(i)">
-                            Ver fatura
+                    <td>
+                        <button class="button is-primary is-light is-outlined" (click)="setInvoiceAsPaid(i._id)" *ngIf="i.status === 'pending'">
+                            Marcar como pago
                         </button>
-                    </td> -->
+                    </td>
                 </tr>
             </tbody>
         </table>

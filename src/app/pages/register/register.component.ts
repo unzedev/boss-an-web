@@ -41,7 +41,7 @@ export class RegisterComponent implements OnInit {
       .pipe(first())
       .subscribe((data: any) => {
         this.loading = false;
-        this.alertService.openSuccessConfirmDialog('Cadastro realizado!', 'Seu cadastro será analisado e aprovado assim que possível', 'Ok', null);
+        this.alertService.openSuccessConfirmDialog('Cadastro realizado!', 'Seu cadastro será analisado e aprovado assim que possível', 'Ok', '', null);
       }, (error: any) => {
         this.loading = false;
         this.alertService.openToast('error', 'Erro ao realizar cadastro');

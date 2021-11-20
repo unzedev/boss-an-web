@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
-import { ReportService } from 'src/app/services/report/report.service';
+import { AdminService } from 'src/app/services/admin/admin.service';
 
 @Component({
   selector: 'app-admin-reports',
@@ -17,7 +17,7 @@ export class AdminReportsComponent implements OnInit {
   };
 
   constructor(
-    private reportService: ReportService,
+    private adminService: AdminService,
   ) { }
 
   ngOnInit(): void {
@@ -25,7 +25,7 @@ export class AdminReportsComponent implements OnInit {
   }
 
   private getReports(): void {
-    this.reportService.getAllQueries()
+    this.adminService.getQueries()
       .pipe(first())
       .subscribe((reports: any) => {
         this.reports = reports;

@@ -8,6 +8,7 @@
                     <th>CPF</th>
                     <th>Email</th>
                     <th>Situação</th>
+                    <th>Cargo</th>
                     <th></th>
                 </tr>
             </thead>
@@ -22,15 +23,25 @@
                         <span *ngIf="u.status === 'disapproved'" class="tag is-danger is-light">Rejeitado</span>
                     </td>
                     <td>
-                        <button class="button is-light" (click)="editUserConfig(u)" *ngIf="u.status !== 'pending'">
-                            Editar
-                        </button>
-                        <button class="button is-primary" (click)="approveUser(u)" *ngIf="u.status === 'pending'">
-                            Aprovar
-                        </button>
-                        <button class="button is-danger is-light" (click)="rejectUser(u)" *ngIf="u.status === 'pending'">
-                            Rejeitar
-                        </button>
+                        <span *ngIf="u.role === 'admin'">Administrador</span>
+                        <span *ngIf="u.role === 'user'">Dono</span>
+                        <span *ngIf="u.role === 'employee'">Empregado</span>
+                    </td>
+                    <td>
+                        <div class="buttons">
+                            <button class="button is-primary is-outlined is-light" (click)="createUserInvoice(u)" *ngIf="u.role === 'user' && u.status === 'approved'">
+                                Gerar Fatura
+                            </button>
+                            <button class="button" (click)="editUserConfig(u)" *ngIf="u.role === 'user' && u.status === 'approved'">
+                                Editar
+                            </button>
+                            <button class="button is-primary" (click)="approveUser(u)" *ngIf="u.status === 'pending'">
+                                Aprovar
+                            </button>
+                            <button class="button is-danger is-light" (click)="rejectUser(u)" *ngIf="u.status === 'pending'">
+                                Rejeitar
+                            </button>
+                        </div>
                     </td>
                 </tr>
             </tbody>
@@ -135,8 +146,8 @@
                 </div>
             </section>
             <footer class="modal-card-foot is-justify-content-end">
-                <button type="button" class="button" (click)="closeModal()">Cancelar</button>
-                <button type="submit" class="button is-success">Ativar Cliente</button>
+                <button type="button" class="button" (click)="closeModal()" [class]="{ 'is-loading': loading }" [disabled]="loading">Cancelar</button>
+                <button type="submit" class="button is-success" [class]="{ 'is-loading': loading }" [disabled]="loading">Ativar cliente</button>
             </footer>
         </form>
     </div>
@@ -233,8 +244,44 @@
                 </div>
             </section>
             <footer class="modal-card-foot is-justify-content-end">
-                <button type="button" class="button" (click)="closeModal()">Cancelar</button>
-                <button type="submit" class="button is-success">Salvar</button>
+                <button type="button" class="button" (click)="closeModal()" [class]="{ 'is-loading': loading }" [disabled]="loading">Cancelar</button>
+                <button type="submit" class="button is-success" [class]="{ 'is-loading': loading }" [disabled]="loading">Salvar</button>
+            </footer>
+        </form>
+    </div>
+</div>
+
+<div class="modal" [class]="{ 'is-active': createUserInvoiceModal.open }">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Gerar Fatura</p>
+          <button class="delete" aria-label="close" (click)="closeModal()"></button>
+        </header>
+        <form [formGroup]="createUserInvoiceForm" (ngSubmit)="doCreateUserInvoice()">
+            <section class="modal-card-body">
+                <div class="columns">
+                    <div class="column is-6">
+                        <div class="field">
+                            <label class="label">Mês de Referência</label>
+                            <div class="control">
+                                <input class="input" type="tel" mask="00" placeholder="12" min="1" max="12" formControlName="month">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column is-6">
+                        <div class="field">
+                            <label class="label">Ano de Referência</label>
+                            <div class="control">
+                                <input class="input" type="tel" mask="0000" placeholder="2021" formControlName="year">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </section>
+            <footer class="modal-card-foot is-justify-content-end">
+                <button type="button" class="button" (click)="closeModal()" [class]="{ 'is-loading': loading }" [disabled]="loading">Cancelar</button>
+                <button type="submit" class="button is-success" [class]="{ 'is-loading': loading }" [disabled]="loading">Gerar fatura</button>
             </footer>
         </form>
     </div>

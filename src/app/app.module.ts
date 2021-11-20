@@ -27,6 +27,7 @@ import { AdminApplicationComponent } from './pages/admin-application/admin-appli
 import { AdminDashboardComponent } from './pages/admin-application/admin-dashboard/admin-dashboard.component';
 import { AdminReportsComponent } from './pages/admin-application/admin-reports/admin-reports.component';
 import { AdminUsersComponent } from './pages/admin-application/admin-users/admin-users.component';
+import { AdminInvoicesComponent } from './pages/admin-application/admin-invoices/admin-invoices.component';
 
 registerLocaleData(localePt);
 
@@ -45,7 +46,8 @@ registerLocaleData(localePt);
     AdminApplicationComponent,
     AdminDashboardComponent,
     AdminReportsComponent,
-    AdminUsersComponent
+    AdminUsersComponent,
+    AdminInvoicesComponent,
   ],
   imports: [
     BrowserModule,

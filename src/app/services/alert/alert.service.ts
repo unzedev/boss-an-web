@@ -23,17 +23,8 @@ export class AlertService {
     focusCancel: true,
     customClass: {
       actions: 'buttons',
-      confirmButton: 'button is-danger is-light',
-      cancelButton: 'button is-light',
-    },
-  });
-
-  public successConfirm: any = Swal.mixin({
-    showCancelButton: false,
-    buttonsStyling: false,
-    customClass: {
-      actions: 'buttons',
-      confirmButton: 'button is-success is-light',
+      confirmButton: 'button is-danger is-light is-outlined',
+      cancelButton: 'button',
     },
   });
 
@@ -57,11 +48,21 @@ export class AlertService {
     });
   }
 
-  public openSuccessConfirmDialog(title: string, text: string, confirmButtonText: string, confirmFunction: () => void): void {
-    this.successConfirm.fire({
+  public openSuccessConfirmDialog(title: string, text: string, confirmButtonText: string, cancelButtonText: string, confirmFunction: () => void): void {
+    Swal.mixin({
+      showCancelButton: cancelButtonText.length > 0,
+      buttonsStyling: false,
+      focusCancel: true,
+      customClass: {
+        actions: 'buttons',
+        confirmButton: 'button is-success is-light is-outlined',
+        cancelButton: 'button',
+      },
+    }).fire({
       title,
       text,
       confirmButtonText,
+      cancelButtonText,
     })
     .then((result: any) => {
       if (result.value) {

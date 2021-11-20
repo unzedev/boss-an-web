@@ -13,17 +13,9 @@ export class UserService {
 
   public constructor(private http: HttpClient) { }
 
-  // public getUser(id: string): Observable<any> {
-  //   return this.http.get(`${this.apiUrl}${id}`);
-  // }
-
   public getUserByEmail(email: string): Observable<{ active: boolean, status: string }> {
     return this.http.get<{ active: boolean, status: string }>(`${this.apiUrl}search/${email}`);
   }
-
-  // public deleteUser(id: string): Observable<any> {
-  //   return this.http.delete(`${this.apiUrl}${id}`);
-  // }
 
   public saveUser(data: User): Observable<any> {
     return this.http.put(`${this.apiUrl}${data.id}`, data);

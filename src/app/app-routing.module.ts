@@ -20,6 +20,7 @@ import { AdminReportsComponent } from './pages/admin-application/admin-reports/a
 import { AdminAuthGuard } from './guards/admin-auth/admin-auth.guard';
 import { OwnerAuthGuard } from './guards/owner-auth/owner-auth.guard';
 import { AuthGuard } from './guards/auth/auth.guard';
+import { AdminInvoicesComponent } from './pages/admin-application/admin-invoices/admin-invoices.component';
 
 
 const routes: Routes = [
@@ -76,6 +77,10 @@ const routes: Routes = [
       {
         path: 'usuarios',
         component: AdminUsersComponent,
+      },
+      {
+        path: 'faturas',
+        component: AdminInvoicesComponent,
       },
       {
         path: 'consultas',

@@ -13,6 +13,8 @@ import { AlertService } from 'src/app/services/alert/alert.service';
 })
 export class AdminUsersComponent implements OnInit {
 
+  public loading: boolean = false;
+
   public users: User[] = [];
 
   public createConfigModal = {
@@ -56,6 +58,16 @@ export class AdminUsersComponent implements OnInit {
     pj_serasa_boavista: new FormControl('', Validators.required),
   });
 
+  public createUserInvoiceModal = {
+    open: false,
+    userId: '',
+  };
+
+  public createUserInvoiceForm: FormGroup = new FormGroup({
+    month: new FormControl('', [Validators.required]),
+    year: new FormControl('', [Validators.required]),
+  });
+
   constructor(
     private adminService: AdminService,
     private alertService: AlertService,
@@ -74,6 +86,8 @@ export class AdminUsersComponent implements OnInit {
   }
 
   public createConfig() {
+    this.loading = true;
+
     let createPfConfig = this.adminService.createConfig({
       type: 'PF',
       user: this.createConfigModal.userId,
@@ -110,11 +124,18 @@ export class AdminUsersComponent implements OnInit {
             });
             this.closeModal();
             this.alertService.openToast('success', 'Usuário ativado!');
+            this.loading = false;
+          }, (error) => {
+            this.loading = false;
           });
+      }, (error) => {
+        this.loading = false;
       });
   }
 
   public updateConfig() {
+    this.loading = true;
+
     let updatePfConfig = this.adminService.updateConfig({
       id: this.updateConfigModal.pfId,
       register_data: this.updateConfigForm.get('pf_register_data').value,
@@ -140,10 +161,15 @@ export class AdminUsersComponent implements OnInit {
       .subscribe((results: any) => {
         this.closeModal();
         this.alertService.openToast('success', 'Valores atualizados!');
+        this.loading = false;
+      }, (error) => {
+        this.loading = false;
       });
   }
 
   public editUserConfig(user: User) {
+    this.loading = true;
+
     this.adminService.getUserConfig(user._id)
       .pipe(first())
       .subscribe((configs: UserConfig[]) => {
@@ -173,6 +199,36 @@ export class AdminUsersComponent implements OnInit {
           pfId: pf._id,
           pjId: pj._id,
         };
+        this.loading = false;
+      }, (error) => {
+        this.loading = false;
+      });
+  }
+
+  public createUserInvoice(user: User) {
+    this.createUserInvoiceModal = {
+      open: true,
+      userId: user._id,
+    };
+  }
+
+  public doCreateUserInvoice() {
+    this.loading = true;
+
+    const invoiceConfig = {
+      user: this.createUserInvoiceModal.userId,
+      month: Number(this.createUserInvoiceForm.get('month').value),
+      year: Number(this.createUserInvoiceForm.get('year').value),
+    };
+
+    this.adminService.createInvoice(invoiceConfig)
+      .pipe(first())
+      .subscribe((results: any) => {
+        this.closeModal();
+        this.alertService.openToast('success', 'Fatura gerada!');
+        this.loading = false;
+      }, (error) => {
+        this.loading = false;
       });
   }
 
@@ -186,6 +242,10 @@ export class AdminUsersComponent implements OnInit {
       pfId: '',
       pjId: '',
     };
+    this.createUserInvoiceModal = {
+      open: false,
+      userId: '',
+    };
   }
 
   public approveUser(userToApprove: User) {
@@ -196,6 +256,8 @@ export class AdminUsersComponent implements OnInit {
   }
 
   public rejectUser(userToReject: User) {
+    this.loading = true;
+
     this.adminService.rejectUser(userToReject._id)
       .pipe(first())
       .subscribe((user: User) => {
@@ -205,7 +267,10 @@ export class AdminUsersComponent implements OnInit {
             return;
           }
         });
-        this.alertService.openToast('warning', 'Usuário reprovado!');
+        this.alertService.openToast('warning', 'Usuário rejeitado!');
+        this.loading = false;
+      }, (error) => {
+        this.loading = false;
       });
   }
 
