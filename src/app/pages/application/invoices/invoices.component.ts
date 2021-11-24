@@ -14,6 +14,7 @@ export class InvoicesComponent implements OnInit {
 
   public resultModal = {
     open: false,
+    summary: [],
   };
 
   public userRole: string = '';
@@ -48,9 +49,17 @@ export class InvoicesComponent implements OnInit {
       });
   }
 
+  public getSummary(invoice: any) {
+    this.resultModal = {
+      open: true,
+      summary: invoice.summary,
+    };
+  }
+
   public closeModal() {
     this.resultModal = {
       open: false,
+      summary: [],
     };
   }
 

@@ -132,6 +132,22 @@
                             </p>
                         </header>
                     </div>
+                    <div class="card" (click)="!loading && selectData('boavista', reportPeople ? pricesPF.boavista : pricesPJ.boavista )" [class]="{ 'is-selected': selectedDatas.includes('boavista') }">
+                      <header class="card-header">
+                          <p class="card-header-title is-justify-content-space-between">
+                              <span>
+                                  <span class="icon">
+                                      <i class="fas fa-check-circle" *ngIf="selectedDatas.includes('boavista')"></i>
+                                      <i class="far fa-circle" *ngIf="!selectedDatas.includes('boavista')"></i>
+                                  </span>
+                                  <span>Boavista Score</span>
+                              </span>
+                              <span>
+                                  {{ (reportPeople ? pricesPF.boavista : pricesPJ.boavista) | currency: 'BRL' }}
+                              </span>
+                          </p>
+                      </header>
+                  </div>
                 </div>
             </div>
             <div class="column is-4">
@@ -148,6 +164,7 @@
                         <p *ngIf="selectedDatas.includes('financial')">Perfil Financeiro <span class="is-pulled-right">{{ (reportPeople ? pricesPF.financial_data : pricesPJ.financial_data) | currency: 'BRL' }}</span></p>
                         <p *ngIf="selectedDatas.includes('restrict')">Restritivos <span class="is-pulled-right">{{ (reportPeople ? pricesPF.restrict : pricesPJ.restrict) | currency: 'BRL' }}</span></p>
                         <p *ngIf="selectedDatas.includes('ondemand')"><i>OnDemand</i> <span class="is-pulled-right">{{ (reportPeople ? pricesPF.ondemand : pricesPJ.ondemand) | currency: 'BRL' }}</span></p>
+                        <p *ngIf="selectedDatas.includes('boavista')"><i>Boavista Score</i> <span class="is-pulled-right">{{ (reportPeople ? pricesPF.boavista : pricesPJ.boavista) | currency: 'BRL' }}</span></p>
                         <hr class="mb-1 mt-2">
                         <p>Valor Total <span class="is-pulled-right">{{ totalCost | currency: 'BRL' }}</span></p>
                     </div>

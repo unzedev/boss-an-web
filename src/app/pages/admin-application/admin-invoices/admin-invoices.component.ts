@@ -14,6 +14,7 @@ export class AdminInvoicesComponent implements OnInit {
 
   public resultModal = {
     open: false,
+    summary: [],
   };
 
   constructor(
@@ -47,9 +48,17 @@ export class AdminInvoicesComponent implements OnInit {
     });
   }
 
+  public getSummary(invoice: any) {
+    this.resultModal = {
+      open: true,
+      summary: invoice.summary,
+    };
+  }
+
   public closeModal() {
     this.resultModal = {
       open: false,
+      summary: [],
     };
   }
 

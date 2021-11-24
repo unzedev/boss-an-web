@@ -27,7 +27,7 @@ export class ReportComponent implements OnInit {
     financial_data: 0,
     restrict: 0,
     ondemand: 0,
-    serasa_boavista: 0,
+    boavista: 0,
   };
 
   public pricesPJ = {
@@ -36,7 +36,7 @@ export class ReportComponent implements OnInit {
     financial_data: 0,
     restrict: 0,
     ondemand: 0,
-    serasa_boavista: 0,
+    boavista: 0,
   };
 
   public totalCost: number = 0;
@@ -56,11 +56,12 @@ export class ReportComponent implements OnInit {
     if (this.reportPeople) {
       this.reportService.getPeopleReport(
         this.cpf,
-        this.selectedDatas.includes('register'),  
-        this.selectedDatas.includes('behavior'),  
-        this.selectedDatas.includes('financial'),  
-        this.selectedDatas.includes('restrict'),  
-        this.selectedDatas.includes('ondemand'),  
+        this.selectedDatas.includes('register'),
+        this.selectedDatas.includes('behavior'),
+        this.selectedDatas.includes('financial'),
+        this.selectedDatas.includes('restrict'),
+        this.selectedDatas.includes('ondemand'),
+        this.selectedDatas.includes('boavista'),
       )
         .pipe(first())
         .subscribe((res) => {
@@ -78,10 +79,11 @@ export class ReportComponent implements OnInit {
     } else {
       this.reportService.getCompanyReport(
         this.cnpj,
-        this.selectedDatas.includes('register'),  
-        this.selectedDatas.includes('behavior'),  
-        this.selectedDatas.includes('restrict'),  
-        this.selectedDatas.includes('ondemand'),  
+        this.selectedDatas.includes('register'),
+        this.selectedDatas.includes('behavior'),
+        this.selectedDatas.includes('restrict'),
+        this.selectedDatas.includes('ondemand'),
+        this.selectedDatas.includes('boavista'),
       )
         .pipe(first())
         .subscribe((res) => {
@@ -135,7 +137,7 @@ export class ReportComponent implements OnInit {
               financial_data: item.financial_data,
               restrict: item.restrict,
               ondemand: item.ondemand,
-              serasa_boavista: item.serasa_boavista,
+              boavista: item.boavista,
             };
           }
           if (item.type === 'PJ') {
@@ -145,7 +147,7 @@ export class ReportComponent implements OnInit {
               financial_data: item.financial_data,
               restrict: item.restrict,
               ondemand: item.ondemand,
-              serasa_boavista: item.serasa_boavista,
+              boavista: item.boavista,
             };
           }
         });
