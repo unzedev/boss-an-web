@@ -2,7 +2,7 @@
     <div class="container">
         <h1 class="title is-1">Usuários</h1>
         <button class="button is-primary" (click)="openCreateModal()">
-            Criar
+            Cadastrar novo usuário
         </button>
         <table class="boss-an-table" *ngIf="users.length > 0">
             <thead>
@@ -39,7 +39,7 @@
     <div class="modal-background"></div>
     <div class="modal-card">
         <header class="modal-card-head">
-          <p class="modal-card-title">Criar Usuário</p>
+          <p class="modal-card-title">Cadastrar Usuário</p>
           <button class="delete" aria-label="close" (click)="closeModal()"></button>
         </header>
         <form [formGroup]="createUserForm" (ngSubmit)="createUser()">
@@ -92,7 +92,7 @@
             </section>
             <footer class="modal-card-foot is-justify-content-end">
                 <button type="button" class="button" (click)="closeModal()" [disabled]="loading">Cancelar</button>
-                <button type="submit" class="button is-success" [class]="{ 'is-loading': loading }" [disabled]="loading">Criar</button>
+                <button type="submit" class="button is-success" [class]="{ 'is-loading': loading }" [disabled]="loading">Cadastrar</button>
             </footer>
         </form>
     </div>

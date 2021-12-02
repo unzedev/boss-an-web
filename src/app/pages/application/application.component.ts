@@ -16,7 +16,7 @@ export class ApplicationComponent implements OnInit {
     role: '',
   };
 
-  public sidebarToggle = true;
+  public navbarToggle = true;
 
   public constructor(
     private authService: AuthService,
@@ -47,11 +47,11 @@ export class ApplicationComponent implements OnInit {
     );
   }
 
-  public toggleSidebar(bool?: boolean): void {
+  public toggleNavbar(bool?: boolean): void {
     if (bool) {
-      this.sidebarToggle = bool;
+      this.navbarToggle = bool;
     } else {
-      this.sidebarToggle = !this.sidebarToggle;
+      this.navbarToggle = !this.navbarToggle;
     }
   }
 

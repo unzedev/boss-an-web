@@ -1,78 +1,95 @@
-<aside class="sidebar has-background-dark has-text-light" [class]="{ 'hidden': !sidebarToggle }">
-  <a role="button" class="navbar-burger burger" (click)="toggleSidebar()">
-    <span aria-hidden="true"></span>
-    <span aria-hidden="true"></span>
-    <span aria-hidden="true"></span>
-  </a>
-  <article class="media user">
-    <figure class="media-left">
-      <div class="user-image">
-        {{ user.name.slice(0, 1) }}
+<nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+  <div class="container">
+    <div class="navbar-brand">
+      <a class="navbar-item" href="/admin">
+        <img class="boss-logo" src="/assets/svg/boss-logo-negativo-02.svg" width="150" alt="Boss Analytics">
+      </a>
+  
+      <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" (click)="toggleNavbar()">
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+        <span aria-hidden="true"></span>
+      </a>
+    </div>
+  
+    <div class="navbar-menu" [class]="{ 'is-active': navbarToggle }">
+      <div class="navbar-start">
+        <a *ngIf="user.role != 'employee'" class="navbar-item" routerLink="/admin"  routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}">
+          <span class="icon">
+            <i class="fas fa-chart-pie"></i>
+          </span>
+          <span>Dashboard</span>
+        </a>
+        <a *ngIf="user.role != 'employee'" class="navbar-item" routerLink="usuarios" routerLinkActive="is-active">
+          <span class="icon">
+            <i class="fas fa-users"></i>
+          </span>
+          <span>Usuários</span>
+        </a>
+        <a class="navbar-item" routerLink="consultas" routerLinkActive="is-active">
+          <span class="icon">
+            <i class="fas fa-search"></i>
+          </span>
+          <span>Consultas</span>
+        </a>
+        <a *ngIf="user.role != 'employee'" class="navbar-item" routerLink="faturas" routerLinkActive="is-active">
+          <span class="icon">
+            <i class="fas fa-receipt"></i>
+          </span>
+          <span>Faturas</span>
+        </a>
+        <!-- <a class="navbar-item" routerLink="conta" routerLinkActive="is-active">
+          <span class="icon">
+            <i class="fas fa-user"></i>
+          </span>
+          <span>Minha conta</span>
+        </a> -->
+        <!-- <a class="navbar-item" routerLink="ajuda" routerLinkActive="is-active">
+          <span class="icon">
+            <i class="fas fa-question-circle"></i>
+          </span>
+          <span>Ajuda</span>
+        </a> -->
       </div>
-    </figure>
-    <div class="media-content">
-      <div class="content has-text-white">
-        <h5 class="has-text-white">{{ user.name.slice(0, user.name.indexOf(' ')) }}</h5>
-        <p>
-          <small>{{ user.email }}</small>
-        </p>
+      
+      <div class="navbar-end">
+        <div class="navbar-item">
+          <div class="buttons">
+            <a class="button is-primary" routerLink="consulta" routerLinkActive="is-active">
+              Nova consulta
+            </a>
+          </div>
+        </div>
+        <div class="navbar-item has-dropdown is-hoverable">
+          <a class="navbar-link">
+            <span class="icon">
+              <i class="fas fa-user"></i>
+            </span>
+            <span>Minha conta</span>
+          </a>
+      
+          <div class="navbar-dropdown">
+            <div class="navbar-item user">
+              <div class="content has-text-dark">
+                <h5 class="has-text-dark">{{ user.name.indexOf(' ') != -1 ? user.name.slice(0, user.name.indexOf(' ')) : user.name }}</h5>
+                <p>
+                  <small>{{ user.email }}</small>
+                </p>
+              </div>
+            </div>
+            <hr class="navbar-divider">
+            <a class="navbar-item" href="javascript:;" (click)="logout()">
+              <span class="icon">
+                <i class="fas fa-sign-out-alt"></i>
+              </span>
+              <span>Sair</span>
+            </a>
+          </div>
+        </div>
       </div>
     </div>
-  </article>
-  <br>
-  <div class="menu-container">
-    <a class="button is-primary is-fullwidth mb-6 mt-5" routerLink="consulta" routerLinkActive="is-active">
-      Nova consulta
-    </a>
-    <aside class="menu">
-      <ul class="menu-list">
-        <li *ngIf="user.role != 'employee'">
-          <a routerLink="/app"  routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}">
-            <i class="fas fa-chart-pie"></i>
-            Dashboard
-          </a>
-        </li>
-        <!-- <li>
-          <a routerLink="conta" routerLinkActive="is-active">
-            <i class="fas fa-user"></i>
-            Minha conta
-          </a>
-        </li> -->
-        <li *ngIf="user.role != 'employee'">
-          <a routerLink="usuarios" routerLinkActive="is-active">
-            <i class="fas fa-users"></i>
-            Usuários
-          </a>
-        </li>
-        <li>
-          <a routerLink="consultas" routerLinkActive="is-active">
-            <i class="fas fa-search"></i>
-            Consultas
-          </a>
-        </li>
-        <li>
-          <a routerLink="faturas" routerLinkActive="is-active">
-            <i class="fas fa-receipt"></i>
-            Faturas
-          </a>
-        </li>
-        <!-- <li>
-          <a routerLink="ajuda" routerLinkActive="is-active">
-            <i class="fas fa-question-circle"></i>
-            Ajuda
-          </a>
-        </li> -->
-        <li>
-          <a href="javascript:;" (click)="logout()">
-            <i class="fas fa-sign-out-alt"></i>
-            Sair
-          </a>
-        </li>
-      </ul>
-    </aside>
   </div>
-  <img class="boss-logo" src="/assets/svg/boss-logo-negativo-03.svg" alt="Boss Analytics">
-</aside>
+</nav>
 <div class="content-container has-background-white-ter">
   <router-outlet></router-outlet>
 </div>

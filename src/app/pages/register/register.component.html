@@ -1,9 +1,12 @@
-<section class="hero is-primary is-fullheight">
+<section class="hero is-link is-fullheight">
   <div class="hero-body">
     <div class="container">
       <div class="columns is-centered">
         <div class="column is-12-mobile is-8-tablet is-5-desktop">
-          <div class="box px-6 py-6">
+          <a href="">
+            <img src="/assets/svg/boss-logo-negativo-03.svg" alt="Boss Analytics">
+          </a>
+          <div class="box px-6 py-6 mt-6">
             <h1 class="title is-2 has-text-black">
               Cadastrar
             </h1>
@@ -14,51 +17,112 @@
               <div class="field">
                 <label class="label">Nome Completo</label>
                 <div class="control has-icons-left">
-                  <input class="input" type="text" formControlName="name">
+                  <input class="input" type="text" formControlName="name" [class]="{ 'is-danger': registerForm.controls['name'].invalid && (registerForm.controls['name'].dirty || registerForm.controls['name'].touched) }">
                   <span class="icon is-small is-left">
                     <i class="fas fa-user"></i>
                   </span>
+                </div>
+                <div *ngIf="registerForm.controls['name'].invalid && (registerForm.controls['name'].dirty || registerForm.controls['name'].touched)">
+                  <p *ngIf="registerForm.controls['name'].errors.required" class="help is-danger">
+                    Informe o Nome.
+                  </p>
                 </div>
               </div>
               <div class="field">
                 <label class="label">CNPJ</label>
                 <div class="control has-icons-left">
-                  <input class="input" type="tel" formControlName="document" mask="00.000.000/0000-00">
+                  <input class="input" type="tel" formControlName="document" mask="00.000.000/0000-00" [class]="{ 'is-danger': registerForm.controls['document'].invalid && (registerForm.controls['document'].dirty || registerForm.controls['document'].touched) }">
                   <span class="icon is-small is-left">
                     <i class="fas fa-receipt"></i>
                   </span>
+                </div>
+                <div *ngIf="registerForm.controls['document'].invalid && (registerForm.controls['document'].dirty || registerForm.controls['document'].touched)">
+                  <p *ngIf="registerForm.controls['document'].errors.required" class="help is-danger">
+                    Informe o CNPJ.
+                  </p>
+                  <p *ngIf="registerForm.controls['document'].errors.minlength" class="help is-danger">
+                    CNPJ incompleto.
+                  </p>
+                  <p *ngIf="registerForm.controls['document'].errors.invalidCNPJ" class="help is-danger">
+                    CNPJ inválido.
+                  </p>
                 </div>
               </div>
               <div class="field">
                 <label class="label">Celular</label>
                 <div class="control has-icons-left">
-                  <input class="input" type="tel" formControlName="phone" mask="(00) 00000-0000">
+                  <input class="input" type="tel" formControlName="phone" mask="(00) 00000-0000" [class]="{ 'is-danger': registerForm.controls['phone'].invalid && (registerForm.controls['phone'].dirty || registerForm.controls['phone'].touched) }">
                   <span class="icon is-small is-left">
                     <i class="fas fa-phone-alt"></i>
                   </span>
+                </div>
+                <div *ngIf="registerForm.controls['phone'].invalid && (registerForm.controls['phone'].dirty || registerForm.controls['phone'].touched)">
+                  <p *ngIf="registerForm.controls['phone'].errors.required" class="help is-danger">
+                    Informe o Celular.
+                  </p>
+                  <p *ngIf="registerForm.controls['phone'].errors.minlength" class="help is-danger">
+                    Celular incompleto.
+                  </p>
                 </div>
               </div>
               <div class="field">
                 <label class="label">E-mail</label>
                 <div class="control has-icons-left">
-                  <input class="input" type="email" formControlName="email">
+                  <input class="input" type="email" formControlName="email" [class]="{ 'is-danger': registerForm.controls['email'].invalid && (registerForm.controls['email'].dirty || registerForm.controls['email'].touched) }">
                   <span class="icon is-small is-left">
                     <i class="fas fa-envelope"></i>
                   </span>
                 </div>
-                <!-- <p class="help">Você precisa ter acesso a este e-mail para confirmar sua conta.</p> -->
+                <div *ngIf="registerForm.controls['email'].invalid && (registerForm.controls['email'].dirty || registerForm.controls['email'].touched)">
+                  <p *ngIf="registerForm.controls['email'].errors.required" class="help is-danger">
+                    Informe o Email.
+                  </p>
+                  <p *ngIf="registerForm.controls['email'].errors.email" class="help is-danger">
+                    Email inválido.
+                  </p>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Repita o E-mail</label>
+                <div class="control has-icons-left">
+                  <input class="input" type="email" formControlName="confirmEmail" [class]="{ 'is-danger': registerForm.controls['confirmEmail'].invalid && (registerForm.controls['confirmEmail'].dirty || registerForm.controls['confirmEmail'].touched) }">
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-envelope"></i>
+                  </span>
+                </div>
+                <div *ngIf="registerForm.controls['confirmEmail'].invalid && (registerForm.controls['confirmEmail'].dirty || registerForm.controls['confirmEmail'].touched)">
+                  <p *ngIf="registerForm.controls['confirmEmail'].errors.required" class="help is-danger">
+                    Confirme o Email.
+                  </p>
+                  <p *ngIf="registerForm.controls['confirmEmail'].errors.email" class="help is-danger">
+                    Email inválido.
+                  </p>
+                  <p *ngIf="registerForm.controls['confirmEmail'].errors.notMatch" class="help is-danger">
+                    Email precisa ser idêntico.
+                  </p>
+                </div>
               </div>
               <h3 class="title is-5 has-text-black mt-5 mb-2">Endereço</h3>
               <div class="field">
                 <label class="label">Rua</label>
                 <div class="control">
-                  <input class="input" type="text" formControlName="addressStreet">
+                  <input class="input" type="text" formControlName="addressStreet" [class]="{ 'is-danger': registerForm.controls['addressStreet'].invalid && (registerForm.controls['addressStreet'].dirty || registerForm.controls['addressStreet'].touched) }">
+                </div>
+                <div *ngIf="registerForm.controls['addressStreet'].invalid && (registerForm.controls['addressStreet'].dirty || registerForm.controls['addressStreet'].touched)">
+                  <p *ngIf="registerForm.controls['addressStreet'].errors.required" class="help is-danger">
+                    Informe a Rua.
+                  </p>
                 </div>
               </div>
               <div class="field">
                 <label class="label">Número</label>
                 <div class="control">
-                  <input class="input" type="tel" formControlName="addressNumber">
+                  <input class="input" type="tel" formControlName="addressNumber" [class]="{ 'is-danger': registerForm.controls['addressNumber'].invalid && (registerForm.controls['addressNumber'].dirty || registerForm.controls['addressNumber'].touched) }">
+                </div>
+                <div *ngIf="registerForm.controls['addressNumber'].invalid && (registerForm.controls['addressNumber'].dirty || registerForm.controls['addressNumber'].touched)">
+                  <p *ngIf="registerForm.controls['addressNumber'].errors.required" class="help is-danger">
+                    Informe o Número.
+                  </p>
                 </div>
               </div>
               <div class="field">
@@ -70,37 +134,82 @@
               <div class="field">
                 <label class="label">Bairro</label>
                 <div class="control">
-                  <input class="input" type="text" formControlName="addressNeighborhood">
+                  <input class="input" type="text" formControlName="addressNeighborhood" [class]="{ 'is-danger': registerForm.controls['addressNeighborhood'].invalid && (registerForm.controls['addressNeighborhood'].dirty || registerForm.controls['addressNeighborhood'].touched) }">
+                </div>
+                <div *ngIf="registerForm.controls['addressNeighborhood'].invalid && (registerForm.controls['addressNeighborhood'].dirty || registerForm.controls['addressNeighborhood'].touched)">
+                  <p *ngIf="registerForm.controls['addressNeighborhood'].errors.required" class="help is-danger">
+                    Informe o Bairro.
+                  </p>
                 </div>
               </div>
               <div class="field">
                 <label class="label">Cidade</label>
                 <div class="control">
-                  <input class="input" type="text" formControlName="addressCity">
+                  <input class="input" type="text" formControlName="addressCity" [class]="{ 'is-danger': registerForm.controls['addressCity'].invalid && (registerForm.controls['addressCity'].dirty || registerForm.controls['addressCity'].touched) }">
+                </div>
+                <div *ngIf="registerForm.controls['addressCity'].invalid && (registerForm.controls['addressCity'].dirty || registerForm.controls['addressCity'].touched)">
+                  <p *ngIf="registerForm.controls['addressCity'].errors.required" class="help is-danger">
+                    Informe a Cidade.
+                  </p>
                 </div>
               </div>
               <div class="field">
                 <label class="label">Estado</label>
                 <div class="control">
-                  <input class="input" type="text" formControlName="addressState">
+                  <input class="input" type="text" formControlName="addressState" [class]="{ 'is-danger': registerForm.controls['addressState'].invalid && (registerForm.controls['addressState'].dirty || registerForm.controls['addressState'].touched) }">
+                </div>
+                <div *ngIf="registerForm.controls['addressState'].invalid && (registerForm.controls['addressState'].dirty || registerForm.controls['addressState'].touched)">
+                  <p *ngIf="registerForm.controls['addressState'].errors.required" class="help is-danger">
+                    Informe o Estado.
+                  </p>
                 </div>
               </div>
               <h3 class="title is-5 has-text-black mt-5 mb-2">Segurança</h3>
               <div class="field">
                 <label class="label">Senha</label>
                 <div class="control has-icons-left">
-                  <input class="input" type="password" formControlName="password" autocomplete="new-password">
+                  <input class="input" type="password" formControlName="password" autocomplete="new-password" [class]="{ 'is-danger': registerForm.controls['password'].invalid && (registerForm.controls['password'].dirty || registerForm.controls['password'].touched) }">
                   <span class="icon is-small is-left">
                     <i class="fas fa-lock"></i>
                   </span>
                 </div>
-                <p class="help">Sua senha será criptografada e armazenada em um local seguro.</p>
+                <div *ngIf="registerForm.controls['password'].invalid && (registerForm.controls['password'].dirty || registerForm.controls['password'].touched)">
+                  <p *ngIf="registerForm.controls['password'].errors.required" class="help is-danger">
+                    Informe a Senha.
+                  </p>
+                  <p *ngIf="registerForm.controls['password'].errors.email" class="help is-danger">
+                    Senha inválida.
+                  </p>
+                </div>
+              </div>
+              <div class="field">
+                <label class="label">Repita a Senha</label>
+                <div class="control has-icons-left">
+                  <input class="input" type="password" formControlName="confirmPassword" autocomplete="new-password" [class]="{ 'is-danger': registerForm.controls['confirmPassword'].invalid && (registerForm.controls['confirmPassword'].dirty || registerForm.controls['confirmPassword'].touched) }">
+                  <span class="icon is-small is-left">
+                    <i class="fas fa-lock"></i>
+                  </span>
+                </div>
+                <div *ngIf="registerForm.controls['confirmPassword'].invalid && (registerForm.controls['confirmPassword'].dirty || registerForm.controls['confirmPassword'].touched)">
+                  <p *ngIf="registerForm.controls['confirmPassword'].errors.required" class="help is-danger">
+                    Confirme a Senha.
+                  </p>
+                  <p *ngIf="registerForm.controls['confirmPassword'].errors.email" class="help is-danger">
+                    Senha inválida.
+                  </p>
+                  <p *ngIf="registerForm.controls['confirmPassword'].errors.notMatch" class="help is-danger">
+                    Senha precisa ser idêntica.
+                  </p>
+                </div>
               </div>
               <div class="field">
                 <label class="checkbox">
                   <input type="checkbox" formControlName="terms">
                   Li e estou de acordo com os <a href="assets/txt/termos.txt" target="_blank">termos e condições</a>
                 </label>
+                <p *ngIf="registerForm.dirty && registerForm.controls['terms'].errors?.required" class="help is-danger">
+                  É obrigatório ler e aceitar os termos e condições.
+                </p>
               </div>
               <br>
               <div class="has-text-centered">
@@ -116,9 +225,7 @@
                 </div>
               </div>
             </form>
-            <br>
-            <hr>
-            <div class="has-text-centered">
+            <div class="has-text-centered mt-6">
               <a href="/entrar">Eu já tenho uma conta</a>
             </div>
           </div>

@@ -15,7 +15,7 @@ export class AdminApplicationComponent implements OnInit {
     email: '',
   };
 
-  public sidebarToggle = true;
+  public navbarToggle = true;
 
   public constructor(
     private authService: AuthService,
@@ -45,11 +45,11 @@ export class AdminApplicationComponent implements OnInit {
     );
   }
 
-  public toggleSidebar(bool?: boolean): void {
+  public toggleNavbar(bool?: boolean): void {
     if (bool) {
-      this.sidebarToggle = bool;
+      this.navbarToggle = bool;
     } else {
-      this.sidebarToggle = !this.sidebarToggle;
+      this.navbarToggle = !this.navbarToggle;
     }
   }
 

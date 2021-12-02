@@ -62,6 +62,7 @@ const routes: Routes = [
       {
         path: 'faturas',
         component: InvoicesComponent,
+        canActivate: [OwnerAuthGuard],
       },
     ],
   },
