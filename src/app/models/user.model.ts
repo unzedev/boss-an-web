@@ -24,7 +24,7 @@ interface Address {
 export class UserConfig {
   _id?: string;
   id?: string;
-  amount?: number;
+  price?: number;
   register_data?: number;
   financial_data?: number;
   behavior_data?: number;

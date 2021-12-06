@@ -125,7 +125,7 @@ export class AdminUsersComponent implements OnInit {
     let createPlanConfig = this.adminService.createConfig({
       type: 'PLAN',
       user: this.createConfigModal.userId,
-      amount: this.createConfigForm.get('plan').value,
+      price: this.createConfigForm.get('plan').value,
     });
 
     forkJoin([createPfConfig, createPjConfig, createPlanConfig])
@@ -174,9 +174,9 @@ export class AdminUsersComponent implements OnInit {
       boavista:this.updateConfigForm.get('pj_boavista').value
     });
 
-    let updatePlanConfig = this.adminService.createConfig({
+    let updatePlanConfig = this.adminService.updateConfig({
       id: this.updateConfigModal.planId,
-      amount: this.updateConfigForm.get('plan').value,
+      price: this.updateConfigForm.get('plan').value,
     });
 
     forkJoin([updatePfConfig, updatePjConfig, updatePlanConfig])
@@ -220,7 +220,7 @@ export class AdminUsersComponent implements OnInit {
         this.updateConfigForm.get('pj_restrict').setValue(pj.restrict);
         this.updateConfigForm.get('pj_ondemand').setValue(pj.ondemand);
         this.updateConfigForm.get('pj_boavista').setValue(pj.boavista);
-        this.updateConfigForm.get('plan').setValue(plan?.amount || 0);
+        this.updateConfigForm.get('plan').setValue(plan?.price || 0);
         this.updateConfigModal = {
           open: true,
           pfId: pf._id,
