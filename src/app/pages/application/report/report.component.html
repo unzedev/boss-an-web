@@ -36,6 +36,12 @@
                             <input id="cnpj" class="input is-medium" [(ngModel)]="cnpj" type="tel" mask="00.000.000/0000-00" placeholder="00.000.000/0000-00" [disabled]="loading">
                         </div>
                     </div>
+                    <div class="column is-offset-3 is-3">
+                        <div class="field">
+                            <label for="credit" class="label">Valor do crédito <small class="has-text-light">(opcional)</small></label>
+                            <input id="credit" class="input is-medium" [(ngModel)]="credit" type="tel" currencyMask [disabled]="loading">
+                        </div>
+                    </div>
                 </div>
                 <div class="modules-to-select">
                     <h3 class="title is-5">Módulos</h3>
@@ -124,7 +130,7 @@
                                         <i class="fas fa-check-circle" *ngIf="selectedDatas.includes('ondemand')"></i>
                                         <i class="far fa-circle" *ngIf="!selectedDatas.includes('ondemand')"></i>
                                     </span>
-                                    <span><i>OnDemand</i></span>
+                                    <span>Certidões</span>
                                 </span>
                                 <span>
                                     {{ (reportPeople ? pricesPF.ondemand : pricesPJ.ondemand) | currency: 'BRL' }}
@@ -140,7 +146,7 @@
                                       <i class="fas fa-check-circle" *ngIf="selectedDatas.includes('boavista')"></i>
                                       <i class="far fa-circle" *ngIf="!selectedDatas.includes('boavista')"></i>
                                   </span>
-                                  <span>Boavista Score</span>
+                                  <span>PEFIN/REFIN Boa Vista</span>
                               </span>
                               <span>
                                   {{ (reportPeople ? pricesPF.boavista : pricesPJ.boavista) | currency: 'BRL' }}
@@ -163,7 +169,7 @@
                         <p *ngIf="selectedDatas.includes('behavior')">Dados Comportamentais <span class="is-pulled-right">{{ (reportPeople ? pricesPF.behavior_data : pricesPJ.behavior_data) | currency: 'BRL' }}</span></p>
                         <p *ngIf="selectedDatas.includes('financial')">Perfil Financeiro <span class="is-pulled-right">{{ (reportPeople ? pricesPF.financial_data : pricesPJ.financial_data) | currency: 'BRL' }}</span></p>
                         <p *ngIf="selectedDatas.includes('restrict')">Restritivos <span class="is-pulled-right">{{ (reportPeople ? pricesPF.restrict : pricesPJ.restrict) | currency: 'BRL' }}</span></p>
-                        <p *ngIf="selectedDatas.includes('ondemand')"><i>OnDemand</i> <span class="is-pulled-right">{{ (reportPeople ? pricesPF.ondemand : pricesPJ.ondemand) | currency: 'BRL' }}</span></p>
+                        <p *ngIf="selectedDatas.includes('ondemand')">Certidões<span class="is-pulled-right">{{ (reportPeople ? pricesPF.ondemand : pricesPJ.ondemand) | currency: 'BRL' }}</span></p>
                         <p *ngIf="selectedDatas.includes('boavista')"><i>Boavista Score</i> <span class="is-pulled-right">{{ (reportPeople ? pricesPF.boavista : pricesPJ.boavista) | currency: 'BRL' }}</span></p>
                         <hr class="mb-1 mt-2">
                         <p>Valor Total <span class="is-pulled-right">{{ totalCost | currency: 'BRL' }}</span></p>

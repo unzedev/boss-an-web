@@ -33,6 +33,22 @@ export class UserService {
     return this.http.post(`${this.apiUrl}employees`, data);
   }
 
+  public blockEmployee(id: string): Observable<any> {
+    return this.http.patch(`${this.apiUrl}employees/${id}/block`, {});
+  }
+
+  public unblockEmployee(id: string): Observable<any> {
+    return this.http.patch(`${this.apiUrl}employees/${id}/unblock`, {});
+  }
+
+  public saveEmployee(data: User): Observable<any> {
+    return this.http.patch(`${this.apiUrl}employees/${data.id}`, data);
+  }
+
+  public deleteEmployee(id: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}employees/${id}`, {});
+  }
+
   public getUserModules(): Observable<any> {
     return this.http.get(`${this.apiUrl}modules`);
   }

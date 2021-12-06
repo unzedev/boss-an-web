@@ -10,6 +10,13 @@ import { AlertService } from 'src/app/services/alert/alert.service';
 })
 export class AdminInvoicesComponent implements OnInit {
 
+  public filter = {
+    status: '',
+    month: '',
+    year: '',
+    user: '',
+  };
+
   public invoices: any[] = [];
 
   public resultModal = {
@@ -26,8 +33,9 @@ export class AdminInvoicesComponent implements OnInit {
     this.getInvoices();
   }
 
-  private getInvoices(): void {
-    this.adminService.getInvoices()
+  public getInvoices(): void {
+    const filter = Object.fromEntries(Object.entries(this.filter).filter(([_, v]) => v != ''));
+    this.adminService.getInvoices(filter)
       .pipe(first())
       .subscribe((invoices: any) => {
         this.invoices = invoices;

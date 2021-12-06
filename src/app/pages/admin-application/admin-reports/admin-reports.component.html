@@ -1,40 +1,119 @@
 <section class="section">
     <div class="container">
         <h1 class="title is-1">Consultas</h1>
-        <table class="boss-an-table" *ngIf="reports.length > 0">
-            <thead>
-                <tr>
-                    <th>CPF/CNPJ</th>
-                    <th>Tipo</th>
-                    <th>Módulo</th>
-                    <th>Custo</th>
-                    <th>Criado por</th>
-                    <th>Data</th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let r of reports">
-                    <td>{{ r.document | mask: 'CPF_CNPJ' }}</td>
-                    <td>{{ r.type }}</td>
-                    <td>
-                        <span *ngIf="r.module === 'register_data'">Cadastrais</span>
-                        <span *ngIf="r.module === 'behavior_data'">Comportamentais</span>
-                        <span *ngIf="r.module === 'financial_data'">Financeiros</span>
-                        <span *ngIf="r.module === 'restrict'">Restritos</span>
-                        <span *ngIf="r.module === 'ondemand'"><i>OnDemand</i></span>
-                    </td>
-                    <td>{{ r.cost | currency: 'BRL' }}</td>
-                    <td>{{ r.user.name.split(' ')[0] }}</td>
-                    <td>{{ r.date | date: 'dd/MM/yyyy - HH:mm' }}</td>
-                    <td>
-                        <button class="button" (click)="getResult(r)">
-                            Ver resultado
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <form (submit)="getReports()">
+            <div class="columns is-multiline">
+                <div class="column is-2">
+                    <div class="field">
+                        <label class="label">Tipo</label>
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select [(ngModel)]="filter.type" name="type">
+                                    <option value="">Selecione...</option>
+                                    <option value="PF">Pessoa Física</option>
+                                    <option value="PJ">Pessoa Jurídica</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-2">
+                    <div class="field">
+                        <label class="label">Módulo</label>
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select [(ngModel)]="filter.module" name="module">
+                                    <option value="">Selecione...</option>
+                                    <option value="register_data">Cadastrais</option>
+                                    <option value="behavior_data">Comportamentais</option>
+                                    <option value="financial_data">Financeiros</option>
+                                    <option value="restrict">Restritos</option>
+                                    <option value="ondemand">Certidões</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-2">
+                    <div class="field">
+                        <label class="label">CPF/CNPJ</label>
+                        <div class="control">
+                            <input class="input" [(ngModel)]="filter.user" name="user" mask="CPF_CNPJ">
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-2">
+                    <div class="field">
+                        <label class="label">Data Inicial</label>
+                        <div class="control">
+                            <input class="input" type="date" [(ngModel)]="filter.start_date" name="start_date">
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-2">
+                    <div class="field">
+                        <label class="label">Data Final</label>
+                        <div class="control">
+                            <input class="input" type="date" [(ngModel)]="filter.end_date" name="end_date">
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-2">
+                    <div class="field">
+                        <label class="label">Custo</label>
+                        <div class="control">
+                            <input class="input" currencyMask type="tel" [(ngModel)]="filter.cost" name="cost">
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-2 is-offset-10">
+                    <div class="field">
+                        <label class="label">&nbsp;</label>
+                        <div class="control">
+                            <button type="submit" class="button is-primary is-rounded is-fullwidth">
+                                Pesquisar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="table-container mt-6">
+            <table class="boss-an-table" *ngIf="reports.length > 0">
+                <thead>
+                    <tr>
+                        <th>CPF/CNPJ</th>
+                        <th>Tipo</th>
+                        <th>Módulo</th>
+                        <th>Custo</th>
+                        <th>Criado por</th>
+                        <th>Data</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let r of reports">
+                        <td>{{ r.document | mask: 'CPF_CNPJ' }}</td>
+                        <td>{{ r.type }}</td>
+                        <td>
+                            <span *ngIf="r.module === 'register_data'">Cadastrais</span>
+                            <span *ngIf="r.module === 'behavior_data'">Comportamentais</span>
+                            <span *ngIf="r.module === 'financial_data'">Financeiros</span>
+                            <span *ngIf="r.module === 'restrict'">Restritos</span>
+                            <span *ngIf="r.module === 'ondemand'">Certidões</span>
+                        </td>
+                        <td>{{ r.cost | currency: 'BRL' }}</td>
+                        <td>{{ r.user.name.split(' ')[0] }}</td>
+                        <td>{{ r.date | date: 'dd/MM/yyyy - HH:mm' }}</td>
+                        <td>
+                            <button class="button" (click)="getResult(r)">
+                                Ver consulta
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <div class="empty-message" *ngIf="reports.length === 0">
             <div class="icon-container">
                 <i class="fas fa-search"></i>

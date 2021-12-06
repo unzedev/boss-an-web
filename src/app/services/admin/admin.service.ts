@@ -37,8 +37,8 @@ export class AdminService {
     return this.http.post(`${this.apiUrl}users/${userId}/disapproval`, {});
   }
 
-  public getQueries(): Observable<any> {
-    return this.http.get(`${this.apiUrl}queries`);
+  public getQueries(filter?: { type?: string, module?: string, user?: string, start_date?: string, end_date?: string, cost?: string }): Observable<any> {
+    return this.http.get(`${this.apiUrl}queries`, { params: filter || null });
   }
 
   public getDashboardQueries(): Observable<any> {

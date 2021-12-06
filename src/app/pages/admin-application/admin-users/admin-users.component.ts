@@ -15,6 +15,14 @@ export class AdminUsersComponent implements OnInit {
 
   public loading: boolean = false;
 
+  public filter = {
+    status: '',
+    role: '',
+    document: '',
+    email: '',
+    name: '',
+  };
+
   public users: User[] = [];
 
   public createConfigModal = {
@@ -77,8 +85,9 @@ export class AdminUsersComponent implements OnInit {
     this.getUsers();
   }
 
-  private getUsers(): void {
-    this.adminService.getUsers()
+  public getUsers(): void {
+    const filter = Object.fromEntries(Object.entries(this.filter).filter(([_, v]) => v != ''));
+    this.adminService.getUsers(filter)
       .pipe(first())
       .subscribe((users: User[]) => {
         this.users = users;

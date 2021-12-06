@@ -9,6 +9,15 @@ import { AdminService } from 'src/app/services/admin/admin.service';
 })
 export class AdminReportsComponent implements OnInit {
 
+  public filter = {
+    type: '',
+    module: '',
+    user: '',
+    start_date: '',
+    end_date: '',
+    cost: 0,
+  };
+
   public reports: any[] = [];
 
   public resultModal = {
@@ -24,8 +33,10 @@ export class AdminReportsComponent implements OnInit {
     this.getReports();
   }
 
-  private getReports(): void {
-    this.adminService.getQueries()
+  public getReports(): void {
+    const filter = Object.fromEntries(Object.entries(this.filter).filter(([_, v]) => v != ''));
+    if (filter.cost) filter.cost = filter.cost.toString();
+    this.adminService.getQueries(filter)
       .pipe(first())
       .subscribe((reports: any) => {
         this.reports = reports;

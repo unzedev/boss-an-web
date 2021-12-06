@@ -1,7 +1,7 @@
 <nav class="navbar is-dark" role="navigation" aria-label="main navigation">
   <div class="container">
     <div class="navbar-brand">
-      <a class="navbar-item" href="/admin">
+      <a class="navbar-item" href="/app">
         <img class="boss-logo" src="/assets/svg/boss-logo-negativo-02.svg" width="150" alt="Boss Analytics">
       </a>
   
@@ -12,7 +12,7 @@
       </a>
     </div>
   
-    <div class="navbar-menu" [class]="{ 'is-active': navbarToggle }">
+    <div class="navbar-menu" [class]="{ 'is-active': navbarToggle }" (click)="toggleNavbar(false)">
       <div class="navbar-start">
         <a *ngIf="user.role != 'employee'" class="navbar-item" routerLink="/admin"  routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}">
           <span class="icon">

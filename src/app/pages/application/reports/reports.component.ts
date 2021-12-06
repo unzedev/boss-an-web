@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
-import { AuthService } from 'src/app/services/auth/auth.service';
 import { ReportService } from 'src/app/services/report/report.service';
 
 @Component({
@@ -9,6 +8,15 @@ import { ReportService } from 'src/app/services/report/report.service';
   styleUrls: ['./reports.component.scss']
 })
 export class ReportsComponent implements OnInit {
+
+  public filter = {
+    type: '',
+    module: '',
+    user: '',
+    start_date: '',
+    end_date: '',
+    cost: 0,
+  };
 
   public reports: any[] = [];
 
@@ -21,28 +29,16 @@ export class ReportsComponent implements OnInit {
 
   constructor(
     private reportService: ReportService,
-    private authService: AuthService,
   ) { }
 
   ngOnInit(): void {
-    this.userRole = this.authService.getUser().role;
-    if (this.userRole === 'user') {
-      this.getReports();
-    } else {
-      this.getMyReports();
-    }
+    this.getReports();
   }
 
-  private getMyReports(): void {
-    this.reportService.getUserQueries()
-      .pipe(first())
-      .subscribe((reports: any) => {
-        this.reports = reports;
-      });
-  }
-
-  private getReports(): void {
-    this.reportService.getAllQueries()
+  public getReports(): void {
+    const filter = Object.fromEntries(Object.entries(this.filter).filter(([_, v]) => v != ''));
+    if (filter.cost) filter.cost = filter.cost.toString();
+    this.reportService.getAllQueries(filter)
       .pipe(first())
       .subscribe((reports: any) => {
         this.reports = reports;

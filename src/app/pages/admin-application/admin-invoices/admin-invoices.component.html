@@ -1,41 +1,100 @@
 <section class="section">
     <div class="container">
         <h1 class="title is-1">Faturas</h1>
-        <table class="boss-an-table" *ngIf="invoices.length > 0">
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>Documento</th>
-                    <th>Valor</th>
-                    <th>Referência</th>
-                    <th>Situação</th>
-                    <th></th>
-                    <th></th>
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let i of invoices">
-                  <td>{{ i.user.name }}</td>
-                  <td>{{ i.user.document | mask: 'CPF_CNPJ' }}</td>
-                    <td>{{ i.amount | currency: 'BRL' }}</td>
-                    <td>{{ i.month }}/{{ i.year }}</td>
-                    <td>
-                        <span *ngIf="i.status === 'pending'" class="tag is-warning">Pendente</span>
-                        <span *ngIf="i.status === 'paid'" class="tag is-primary is-light">Pago</span>
-                    </td>
-                    <td>
-                      <button class="button" (click)="getSummary(i)">
-                          Resumo
-                      </button>
-                    </td>
-                    <td>
-                        <button class="button is-primary is-light is-outlined" (click)="setInvoiceAsPaid(i._id)" *ngIf="i.status === 'pending'">
-                            Marcar como pago
-                        </button>
-                    </td>
-                </tr>
-            </tbody>
-        </table>
+        <form (submit)="getInvoices()">
+            <div class="columns is-multiline">
+                <div class="column is-2">
+                    <div class="field">
+                        <label class="label">Situação</label>
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select [(ngModel)]="filter.status" name="status">
+                                    <option value="">Selecione...</option>
+                                    <option value="pending">Pendente</option>
+                                    <option value="paid">Pago</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-2">
+                    <div class="field">
+                        <label class="label">Mês</label>
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select [(ngModel)]="filter.month" name="month">
+                                    <option value="">Selecione...</option>
+                                    <option *ngFor="let opt of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]" [value]="opt">{{ opt }}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-2">
+                    <div class="field">
+                        <label class="label">Ano</label>
+                        <div class="control">
+                            <input class="input" [(ngModel)]="filter.year" name="year" mask="00">
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-2">
+                    <div class="field">
+                        <label class="label">CNPJ</label>
+                        <div class="control">
+                            <input class="input" [(ngModel)]="filter.user" name="user" mask="00.000.000/0000-00">
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-2 is-offset-2">
+                    <div class="field">
+                        <label class="label">&nbsp;</label>
+                        <div class="control">
+                            <button type="submit" class="button is-primary is-rounded is-fullwidth">
+                                Pesquisar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="table-container mt-6">
+            <table class="boss-an-table" *ngIf="invoices.length > 0">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Documento</th>
+                        <th>Valor</th>
+                        <th>Referência</th>
+                        <th>Situação</th>
+                        <th></th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let i of invoices">
+                      <td>{{ i.user.name }}</td>
+                      <td>{{ i.user.document | mask: 'CPF_CNPJ' }}</td>
+                        <td>{{ i.amount | currency: 'BRL' }}</td>
+                        <td>{{ i.month }}/{{ i.year }}</td>
+                        <td>
+                            <span *ngIf="i.status === 'pending'" class="tag is-warning">Pendente</span>
+                            <span *ngIf="i.status === 'paid'" class="tag is-primary is-light">Pago</span>
+                        </td>
+                        <td>
+                          <button class="button" (click)="getSummary(i)">
+                              Resumo
+                          </button>
+                        </td>
+                        <td>
+                            <button class="button is-primary is-light is-outlined" (click)="setInvoiceAsPaid(i._id)" *ngIf="i.status === 'pending'">
+                                Marcar como pago
+                            </button>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 </section>
 

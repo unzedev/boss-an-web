@@ -12,7 +12,7 @@
       </a>
     </div>
   
-    <div class="navbar-menu" [class]="{ 'is-active': navbarToggle }">
+    <div class="navbar-menu" [class]="{ 'is-active': navbarToggle }" (click)="toggleNavbar(false)">
       <div class="navbar-start">
         <a class="navbar-item" routerLink="/admin"  routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}">
           <span class="icon">

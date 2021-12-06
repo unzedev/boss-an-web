@@ -4,28 +4,43 @@
         <button class="button is-primary" (click)="openCreateModal()">
             Cadastrar novo usuário
         </button>
-        <table class="boss-an-table" *ngIf="users.length > 0">
-            <thead>
-                <tr>
-                    <th>Nome</th>
-                    <th>CPF</th>
-                    <th>Email</th>
-                    <!-- <th></th> -->
-                </tr>
-            </thead>
-            <tbody>
-                <tr *ngFor="let u of users">
-                    <td>{{ u.name }}</td>
-                    <td>{{ u.document | mask: 'CPF_CNPJ' }}</td>
-                    <td>{{ u.email }}</td>
-                    <!-- <td>
-                        <button class="button is-light" (click)="editUser(r)">
-                            Editar
-                        </button>
-                    </td> -->
-                </tr>
-            </tbody>
-        </table>
+        <div class="table-container mt-6">
+            <table class="boss-an-table" *ngIf="users.length > 0">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>CPF</th>
+                        <th>Email</th>
+                        <th>Situação</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let u of users">
+                        <td>{{ u.name }}</td>
+                        <td>{{ u.document | mask: 'CPF_CNPJ' }}</td>
+                        <td>{{ u.email }}</td>
+                        <td>{{ u.active ? 'Ativo' : 'Bloqueado' }}</td>
+                        <td>
+                            <div class="buttons">
+                                <button class="button" (click)="editUser(u)">
+                                    Editar
+                                </button>
+                                <button class="button is-light is-warning is-outlined" (click)="blockUser(u)" *ngIf="u.active">
+                                    Bloquear
+                                </button>
+                                <button class="button is-light is-success is-outlined" (click)="unblockUser(u)" *ngIf="!u.active">
+                                    Desbloquear
+                                </button>
+                                <button class="button is-danger is-warning is-outlined" (click)="deleteUser(u)">
+                                    Excluir
+                                </button>
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
         <div class="empty-message" *ngIf="users.length === 0">
             <div class="icon-container">
                 <i class="fas fa-user-alt"></i>

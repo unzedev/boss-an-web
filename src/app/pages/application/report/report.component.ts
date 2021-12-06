@@ -18,6 +18,7 @@ export class ReportComponent implements OnInit {
 
   public cpf: string = '';
   public cnpj: string = '';
+  public credit: number = 0;
 
   public response: any = [];
 
@@ -56,6 +57,7 @@ export class ReportComponent implements OnInit {
     if (this.reportPeople) {
       this.reportService.getPeopleReport(
         this.cpf,
+        this.credit,
         this.selectedDatas.includes('register'),
         this.selectedDatas.includes('behavior'),
         this.selectedDatas.includes('financial'),
@@ -79,6 +81,7 @@ export class ReportComponent implements OnInit {
     } else {
       this.reportService.getCompanyReport(
         this.cnpj,
+        this.credit,
         this.selectedDatas.includes('register'),
         this.selectedDatas.includes('behavior'),
         this.selectedDatas.includes('restrict'),
@@ -106,6 +109,7 @@ export class ReportComponent implements OnInit {
     this.selectedDatas = [];
     this.cpf = '';
     this.cnpj = '';
+    this.credit = 0;
     this.totalCost = 0;
     this.response = [];
   }
