@@ -4,25 +4,29 @@
         <table class="boss-an-table" *ngIf="invoices.length > 0">
             <thead>
                 <tr>
+                    <th>Nome</th>
+                    <th>Documento</th>
                     <th>Valor</th>
                     <th>Referência</th>
                     <th>Situação</th>
-                    <!-- <th></th> -->
+                    <th></th>
                 </tr>
             </thead>
             <tbody>
                 <tr *ngFor="let i of invoices">
+                    <td>{{ i.user.name }}</td>
+                    <td>{{ i.user.document | mask: 'CPF_CNPJ' }}</td>
                     <td>{{ i.amount | currency: 'BRL' }}</td>
                     <td>{{ i.month }}/{{ i.year }}</td>
                     <td>
                         <span *ngIf="i.status === 'pending'" class="tag is-warning">Pendente</span>
                         <span *ngIf="i.status === 'paid'" class="tag is-primary is-light">Pago</span>
                     </td>
-                    <!-- <td>
-                        <button class="button is-light" (click)="getResult(i)">
-                            Ver fatura
-                        </button>
-                    </td> -->
+                    <td>
+                      <button class="button" (click)="getSummary(i)">
+                          Resumo
+                      </button>
+                    </td>
                 </tr>
             </tbody>
         </table>
@@ -36,17 +40,33 @@
 </section>
 
 <div class="modal" [class]="{ 'is-active': resultModal.open }">
-    <div class="modal-background"></div>
-    <div class="modal-card">
-        <header class="modal-card-head">
-          <p class="modal-card-title">Resultado da Consulta</p>
-          <button class="delete" aria-label="close" (click)="closeModal()"></button>
-        </header>
-        <section class="modal-card-body">
-            
-        </section>
-        <footer class="modal-card-foot is-justify-content-end">
-            <button type="button" class="button" (click)="closeModal()">Fechar</button>
-        </footer>
-    </div>
+  <div class="modal-background"></div>
+  <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">Resumo da fatura</p>
+        <button class="delete" aria-label="close" (click)="closeModal()"></button>
+      </header>
+      <section class="modal-card-body">
+
+        <table class="boss-an-table">
+          <thead>
+              <tr>
+                  <th>Tipo</th>
+                  <th>Quantidade</th>
+                  <th>Valor</th>
+              </tr>
+          </thead>
+          <tbody>
+              <tr *ngFor="let s of resultModal.summary">
+                  <td>{{ s._id }}</td>
+                  <td>{{ s.count }}</td>
+                  <td>{{ s.amount | currency: 'BRL' }}</td>
+                </tr>
+            </tbody>
+        </table>
+      </section>
+      <footer class="modal-card-foot is-justify-content-end">
+          <button type="button" class="button" (click)="closeModal()">Fechar</button>
+      </footer>
+  </div>
 </div>

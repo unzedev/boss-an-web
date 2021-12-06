@@ -29,7 +29,7 @@ export class UserConfig {
   behavior_data: number;
   restrict: number;
   ondemand: number;
-  serasa_boavista: number;
+  boavista: number;
   type?: string;
   user?: string;
 }
