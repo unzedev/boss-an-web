@@ -24,12 +24,13 @@ interface Address {
 export class UserConfig {
   _id?: string;
   id?: string;
-  register_data: number;
-  financial_data: number;
-  behavior_data: number;
-  restrict: number;
-  ondemand: number;
-  boavista: number;
+  amount?: number;
+  register_data?: number;
+  financial_data?: number;
+  behavior_data?: number;
+  restrict?: number;
+  ondemand?: number;
+  boavista?: number;
   type?: string;
   user?: string;
 }

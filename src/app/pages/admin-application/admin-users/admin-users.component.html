@@ -134,9 +134,16 @@
         </header>
         <form [formGroup]="createConfigForm" (ngSubmit)="createConfig()">
             <section class="modal-card-body">
+                <h4 class="title is-5 mb-2">Plano contratado</h4>
+                <div class="field">
+                    <label class="label">Valor mínimo</label>
+                    <div class="control">
+                        <input class="input" type="tel" currencyMask formControlName="plan">
+                    </div>
+                </div>
                 <div class="columns">
                     <div class="column">
-                        <h4 class="title is-5">Pessoa Física</h4>
+                        <h4 class="title is-5 mb-2 mt-4">Pessoa Física</h4>
                         <div class="field">
                             <label class="label">Dados Cadastrais</label>
                             <div class="control">
@@ -175,7 +182,7 @@
                         </div>
                     </div>
                     <div class="column">
-                        <h4 class="title is-5">Pessoa Jurídica</h4>
+                        <h4 class="title is-5 mb-2 mt-4">Pessoa Jurídica</h4>
                         <div class="field">
                             <label class="label">Dados Cadastrais</label>
                             <div class="control">
@@ -232,9 +239,16 @@
         </header>
         <form [formGroup]="updateConfigForm" (ngSubmit)="updateConfig()">
             <section class="modal-card-body">
+                <h4 class="title is-5 mb-2">Plano contratado</h4>
+                <div class="field">
+                    <label class="label">Valor mínimo</label>
+                    <div class="control">
+                        <input class="input" type="tel" currencyMask formControlName="plan">
+                    </div>
+                </div>
                 <div class="columns">
                     <div class="column">
-                        <h4 class="title is-5">Pessoa Física</h4>
+                        <h4 class="title is-5 mb-2 mt-4">Pessoa Física</h4>
                         <div class="field">
                             <label class="label">Dados Cadastrais</label>
                             <div class="control">
@@ -273,7 +287,7 @@
                         </div>
                     </div>
                     <div class="column">
-                        <h4 class="title is-5">Pessoa Jurídica</h4>
+                        <h4 class="title is-5 mb-2 mt-4">Pessoa Jurídica</h4>
                         <div class="field">
                             <label class="label">Dados Cadastrais</label>
                             <div class="control">

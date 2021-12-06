@@ -31,6 +31,7 @@ export class AdminUsersComponent implements OnInit {
   };
 
   public createConfigForm: FormGroup = new FormGroup({
+    plan: new FormControl('', [Validators.required]),
     pf_register_data: new FormControl('', [Validators.required]),
     pf_financial_data: new FormControl('', [Validators.required]),
     pf_behavior_data: new FormControl('', [Validators.required]),
@@ -49,9 +50,11 @@ export class AdminUsersComponent implements OnInit {
     open: false,
     pfId: '',
     pjId: '',
+    planId: '',
   };
 
   public updateConfigForm: FormGroup = new FormGroup({
+    plan: new FormControl('', [Validators.required]),
     pf_register_data: new FormControl('', [Validators.required]),
     pf_financial_data: new FormControl('', [Validators.required]),
     pf_behavior_data: new FormControl('', [Validators.required]),
@@ -119,7 +122,13 @@ export class AdminUsersComponent implements OnInit {
       boavista: this.createConfigForm.get('pj_boavista').value,
     });
 
-    forkJoin([createPfConfig, createPjConfig])
+    let createPlanConfig = this.adminService.createConfig({
+      type: 'PLAN',
+      user: this.createConfigModal.userId,
+      amount: this.createConfigForm.get('plan').value,
+    });
+
+    forkJoin([createPfConfig, createPjConfig, createPlanConfig])
       .pipe(first())
       .subscribe((results: any) => {
         this.adminService.approveUser(this.createConfigModal.userId)
@@ -165,7 +174,12 @@ export class AdminUsersComponent implements OnInit {
       boavista:this.updateConfigForm.get('pj_boavista').value
     });
 
-    forkJoin([updatePfConfig, updatePjConfig])
+    let updatePlanConfig = this.adminService.createConfig({
+      id: this.updateConfigModal.planId,
+      amount: this.updateConfigForm.get('plan').value,
+    });
+
+    forkJoin([updatePfConfig, updatePjConfig, updatePlanConfig])
       .pipe(first())
       .subscribe((results: any) => {
         this.closeModal();
@@ -184,11 +198,14 @@ export class AdminUsersComponent implements OnInit {
       .subscribe((configs: UserConfig[]) => {
         let pf = null;
         let pj = null;
+        let plan = null;
         configs.forEach(config => {
           if (config.type === 'PF') {
             pf = config;
           } else if (config.type === 'PJ') {
             pj = config;
+          } else if (config.type === 'PLAN') {
+            plan = config;
           }
         });
         this.updateConfigForm.get('pf_register_data').setValue(pf.register_data);
@@ -203,10 +220,12 @@ export class AdminUsersComponent implements OnInit {
         this.updateConfigForm.get('pj_restrict').setValue(pj.restrict);
         this.updateConfigForm.get('pj_ondemand').setValue(pj.ondemand);
         this.updateConfigForm.get('pj_boavista').setValue(pj.boavista);
+        this.updateConfigForm.get('plan').setValue(plan?.amount || 0);
         this.updateConfigModal = {
           open: true,
           pfId: pf._id,
           pjId: pj._id,
+          planId: plan?._id || null,
         };
         this.loading = false;
       }, (error) => {
@@ -250,6 +269,7 @@ export class AdminUsersComponent implements OnInit {
       open: false,
       pfId: '',
       pjId: '',
+      planId: '',
     };
     this.createUserInvoiceModal = {
       open: false,
