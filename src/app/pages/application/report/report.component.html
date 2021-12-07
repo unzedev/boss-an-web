@@ -122,22 +122,6 @@
                             </p>
                         </header>
                     </div>
-                    <div class="card" (click)="!loading && selectData('ondemand', reportPeople ? pricesPF.ondemand : pricesPJ.ondemand )" [class]="{ 'is-selected': selectedDatas.includes('ondemand') }">
-                        <header class="card-header">
-                            <p class="card-header-title is-justify-content-space-between">
-                                <span>
-                                    <span class="icon">
-                                        <i class="fas fa-check-circle" *ngIf="selectedDatas.includes('ondemand')"></i>
-                                        <i class="far fa-circle" *ngIf="!selectedDatas.includes('ondemand')"></i>
-                                    </span>
-                                    <span>Certidões</span>
-                                </span>
-                                <span>
-                                    {{ (reportPeople ? pricesPF.ondemand : pricesPJ.ondemand) | currency: 'BRL' }}
-                                </span>
-                            </p>
-                        </header>
-                    </div>
                     <div class="card" (click)="!loading && selectData('boavista', reportPeople ? pricesPF.boavista : pricesPJ.boavista )" [class]="{ 'is-selected': selectedDatas.includes('boavista') }">
                       <header class="card-header">
                           <p class="card-header-title is-justify-content-space-between">
@@ -153,7 +137,44 @@
                               </span>
                           </p>
                       </header>
-                  </div>
+                    </div>
+                    <div class="card" (click)="!loading && selectData('ondemand', reportPeople ? pricesPF.ondemand : pricesPJ.ondemand )" [class]="{ 'is-selected': selectedDatas.includes('ondemand') }">
+                        <header class="card-header">
+                            <p class="card-header-title is-justify-content-space-between">
+                                <span>
+                                    <span class="icon">
+                                        <i class="fas fa-check-circle" *ngIf="selectedDatas.includes('ondemand')"></i>
+                                        <i class="far fa-circle" *ngIf="!selectedDatas.includes('ondemand')"></i>
+                                    </span>
+                                    <span>Certidões</span>
+                                </span>
+                                <span>
+                                    {{ (reportPeople ? pricesPF.ondemand : pricesPJ.ondemand) | currency: 'BRL' }}
+                                </span>
+                            </p>
+                        </header>
+                        <div class="card-content">
+                            <div class="content">
+                                <ul class="mt-0 ml-5" *ngIf="reportPeople">
+                                    <li>Certidão de Embargos do IBAMA</li>
+                                    <li>Certidão de Negativa do IBAMA</li>
+                                    <li>Certidão de PGFN</li>
+                                    <li>Certidão de SIPROQUIM</li>
+                                    <li>Certidão de FGTS</li>
+                                    <li>Certidão de eCAC</li>
+                                    <li>Certidão de COAF</li>
+                                </ul>
+                                <ul class="mt-0 ml-5" *ngIf="!reportPeople">
+                                    <li>Certidão de Antecedentes Criminais - Polícia Federal</li>
+                                    <li>Certidão de Antecedentes Criminais - Polícia Civil</li>
+                                    <li>Certidão de Embargos do IBAMA</li>
+                                    <li>Certidão de PGFN</li>
+                                    <li>Certidão de eCAC</li>
+                                    <li>Certidão de COAF</li>
+                                </ul>
+                            </div>
+                          </div>
+                    </div>
                 </div>
             </div>
             <div class="column is-4">
