@@ -1,9 +1,16 @@
 <section class="section">
     <div class="container">
-        <h1 class="title is-1">Usuários</h1>
-        <button class="button is-primary" (click)="openCreateModal()">
-            Cadastrar novo usuário
-        </button>
+        <div class="columns">
+            <div class="column">
+                <h1 class="title is-3">Colaboradores</h1>
+                <p class="subtitle">Gerencie os colaboradores da sua conta.</p>
+            </div>
+            <div class="column has-text-right">
+                <button class="button is-dark" (click)="openCreateModal()">
+                    Novo colaborador
+                </button>
+            </div>
+        </div>
         <div class="table-container mt-6">
             <table class="boss-an-table" *ngIf="users.length > 0">
                 <thead>
@@ -45,7 +52,7 @@
             <div class="icon-container">
                 <i class="fas fa-user-alt"></i>
             </div>
-            <p>Não encontramos nenhum usuário</p>
+            <p>Não encontramos nenhum colaborador</p>
         </div>
     </div>
 </section>
@@ -54,7 +61,7 @@
     <div class="modal-background"></div>
     <div class="modal-card">
         <header class="modal-card-head">
-          <p class="modal-card-title">Cadastrar Usuário</p>
+          <p class="modal-card-title">Cadastrar Colaborador</p>
           <button class="delete" aria-label="close" (click)="closeModal()"></button>
         </header>
         <form [formGroup]="createUserForm" (ngSubmit)="createUser()">

@@ -22,6 +22,14 @@
   }
 }
 .navbar-item {
+  &.navbar-custom-link {
+    text-transform: uppercase;
+    font-weight: bold;
+    opacity: .7;
+    &.is-active {
+      opacity: 1;
+    }
+  }
   i {
     opacity: .5;
   }

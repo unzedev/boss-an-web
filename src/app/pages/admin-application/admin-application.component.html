@@ -1,8 +1,8 @@
-<nav class="navbar is-dark" role="navigation" aria-label="main navigation">
+<nav class="navbar" role="navigation" aria-label="main navigation">
   <div class="container">
     <div class="navbar-brand">
       <a class="navbar-item" href="/admin">
-        <img class="boss-logo" src="/assets/svg/boss-logo-negativo-02.svg" width="150" alt="Boss Analytics">
+        <img class="boss-logo" src="/assets/svg/boss-logo-01.svg" width="150" alt="Boss Analytics">
       </a>
   
       <a role="button" class="navbar-burger" aria-label="menu" aria-expanded="false" (click)="toggleNavbar()">
@@ -14,25 +14,25 @@
   
     <div class="navbar-menu" [class]="{ 'is-active': navbarToggle }" (click)="toggleNavbar(false)">
       <div class="navbar-start">
-        <a class="navbar-item" routerLink="/admin"  routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}">
+        <a class="navbar-custom-link navbar-item" routerLink="/admin"  routerLinkActive="is-active" [routerLinkActiveOptions]="{exact: true}">
           <span class="icon">
             <i class="fas fa-chart-pie"></i>
           </span>
           <span>Dashboard</span>
         </a>
-        <a class="navbar-item" routerLink="usuarios" routerLinkActive="is-active">
+        <a class="navbar-custom-link navbar-item" routerLink="usuarios" routerLinkActive="is-active">
           <span class="icon">
             <i class="fas fa-users"></i>
           </span>
           <span>Clientes</span>
         </a>
-        <a class="navbar-item" routerLink="consultas" routerLinkActive="is-active">
+        <a class="navbar-custom-link navbar-item" routerLink="consultas" routerLinkActive="is-active">
           <span class="icon">
             <i class="fas fa-search"></i>
           </span>
           <span>Consultas</span>
         </a>
-        <a class="navbar-item" routerLink="faturas" routerLinkActive="is-active">
+        <a class="navbar-custom-link navbar-item" routerLink="faturas" routerLinkActive="is-active">
           <span class="icon">
             <i class="fas fa-receipt"></i>
           </span>
