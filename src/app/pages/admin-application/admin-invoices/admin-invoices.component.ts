@@ -15,6 +15,7 @@ export class AdminInvoicesComponent implements OnInit {
     month: '',
     year: '',
     user: '',
+    name: '',
   };
 
   public invoices: any[] = [];

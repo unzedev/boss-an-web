@@ -117,11 +117,15 @@ hr {
   box-shadow: none;
 }
 
-.button {
+.button, .tag {
   font-weight: bold;
   text-transform: uppercase;
 }
 
 .button.is-primary {
   color: #fff;
+}
+
+.container {
+  background: none;
 }

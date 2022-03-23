@@ -4,6 +4,8 @@ import { Routes, RouterModule } from '@angular/router';
 import { RegisterComponent } from './pages/register/register.component';
 import { LoginComponent } from './pages/login/login.component';
 import { HomeComponent } from './pages/home/home.component';
+import { ForgotPasswordStepOneComponent } from './pages/forgot-password/forgot-password-step-one/forgot-password-step-one.component';
+import { ForgotPasswordStepTwoComponent } from './pages/forgot-password/forgot-password-step-two/forgot-password-step-two.component';
 
 import { ApplicationComponent } from './pages/application/application.component';
 import { UsersComponent } from './pages/application/users/users.component';
@@ -35,6 +37,14 @@ const routes: Routes = [
   {
     path: 'entrar',
     component: LoginComponent
+  },
+  {
+    path: 'esqueci',
+    component: ForgotPasswordStepOneComponent
+  },
+  {
+    path: 'redefinir',
+    component: ForgotPasswordStepTwoComponent
   },
   {
     path: 'app',

@@ -21,6 +21,14 @@ export class AuthService {
     return this.http.post(`${environment.apiUrl}/auth/login`, { email, password });
   }
 
+  public forgotPassword(email: string): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/auth/password/forgot`, { email });
+  }
+
+  public resetPassword(token: string, newPassword: string, confirmPassword: string): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/auth/password/reset`, { token, newPassword, confirmPassword });
+  }
+
   public logout(): void {
     localStorage.clear();
     this.router.navigateByUrl('/entrar');

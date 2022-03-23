@@ -1,8 +1,33 @@
 <section class="section">
     <div class="container">
-        <h1 class="title is-1">Clientes</h1>
+        <h1 class="title is-3">Clientes</h1>
+        <p class="subtitle">Gerencie os clientes.</p>
         <form (submit)="getUsers()">
             <div class="columns">
+                <div class="column is-2">
+                    <div class="field">
+                        <label class="label">CNPJ</label>
+                        <div class="control">
+                            <input class="input" [(ngModel)]="filter.document" name="document" mask="00.000.000/0000-00" placeholder="Digite o número do CNPJ">
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-3">
+                    <div class="field">
+                        <label class="label">Razão Social</label>
+                        <div class="control">
+                            <input class="input" type="text" [(ngModel)]="filter.name" name="name" placeholder="Digite a Razão Social">
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-3">
+                    <div class="field">
+                        <label class="label">Responsável</label>
+                        <div class="control">
+                            <input class="input" type="text" [(ngModel)]="filter.name" name="name" placeholder="Digite o nome do(a) responsável">
+                        </div>
+                    </div>
+                </div>
                 <div class="column is-2">
                     <div class="field">
                         <label class="label">Situação</label>
@@ -12,48 +37,9 @@
                                     <option value="">Selecione...</option>
                                     <option value="pending">Pendente</option>
                                     <option value="approved">Aprovado</option>
-                                    <!-- <option value="disapproved">Rejeitado</option> -->
+                                    <option value="disapproved">Reprovado</option>
                                 </select>
                             </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="column is-2">
-                    <div class="field">
-                        <label class="label">Cargo</label>
-                        <div class="control">
-                            <div class="select is-fullwidth">
-                                <select [(ngModel)]="filter.role" name="role">
-                                    <option value="">Selecione...</option>
-                                    <option value="admin">Administrador</option>
-                                    <option value="user">Dono</option>
-                                    <option value="employee">Empregado</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="column is-2">
-                    <div class="field">
-                        <label class="label">CNPJ</label>
-                        <div class="control">
-                            <input class="input" [(ngModel)]="filter.document" name="document" mask="00.000.000/0000-00">
-                        </div>
-                    </div>
-                </div>
-                <div class="column is-2">
-                    <div class="field">
-                        <label class="label">E-mail</label>
-                        <div class="control">
-                            <input class="input" type="email" [(ngModel)]="filter.email" name="email">
-                        </div>
-                    </div>
-                </div>
-                <div class="column is-2">
-                    <div class="field">
-                        <label class="label">Nome</label>
-                        <div class="control">
-                            <input class="input" type="text" [(ngModel)]="filter.name" name="name">
                         </div>
                     </div>
                 </div>
@@ -61,7 +47,7 @@
                     <div class="field">
                         <label class="label">&nbsp;</label>
                         <div class="control">
-                            <button type="submit" class="button is-primary is-fullwidth">
+                            <button type="submit" class="button is-dark is-fullwidth">
                                 Pesquisar
                             </button>
                         </div>
@@ -73,28 +59,24 @@
             <table class="boss-an-table" *ngIf="users.length > 0">
                 <thead>
                     <tr>
-                        <th>Nome</th>
                         <th>CNPJ</th>
+                        <th>Razão Social</th>
+                        <th>Responsável</th>
                         <th>Email</th>
                         <th>Situação</th>
-                        <th>Cargo</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let u of users">
-                        <td>{{ u.name }}</td>
                         <td>{{ u.document | mask: 'CPF_CNPJ' }}</td>
+                        <td>{{ u.name }}</td>
+                        <td>{{ u.name }}</td>
                         <td>{{ u.email }}</td>
                         <td>
                             <span *ngIf="u.status === 'pending'" class="tag is-warning">Pendente</span>
                             <span *ngIf="u.status === 'approved'" class="tag is-primary is-light">Aprovado</span>
-                            <span *ngIf="u.status === 'disapproved'" class="tag is-danger is-light">Rejeitado</span>
-                        </td>
-                        <td>
-                            <span *ngIf="u.role === 'admin'">Administrador</span>
-                            <span *ngIf="u.role === 'user'">Dono</span>
-                            <span *ngIf="u.role === 'employee'">Empregado</span>
+                            <span *ngIf="u.status === 'disapproved'" class="tag is-danger is-light">Reprovado</span>
                         </td>
                         <td>
                             <div class="buttons">
@@ -108,7 +90,7 @@
                                     Aprovar
                                 </button>
                                 <button class="button is-danger is-light" (click)="rejectUser(u)" *ngIf="u.status === 'pending'">
-                                    Rejeitar
+                                    Reprovar
                                 </button>
                             </div>
                         </td>

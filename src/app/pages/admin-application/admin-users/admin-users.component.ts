@@ -17,7 +17,7 @@ export class AdminUsersComponent implements OnInit {
 
   public filter = {
     status: '',
-    role: '',
+    role: 'user',
     document: '',
     email: '',
     name: '',
@@ -296,7 +296,7 @@ export class AdminUsersComponent implements OnInit {
             return;
           }
         });
-        this.alertService.openToast('warning', 'Usuário rejeitado!');
+        this.alertService.openToast('warning', 'Usuário reprovado!');
         this.loading = false;
       }, (error) => {
         this.loading = false;

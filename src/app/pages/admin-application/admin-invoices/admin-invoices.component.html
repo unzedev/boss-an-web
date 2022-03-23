@@ -1,11 +1,49 @@
 <section class="section">
     <div class="container">
-        <h1 class="title is-1">Faturas</h1>
+        <h1 class="title is-3">Faturas</h1>
+        <p class="subtitle">Confira o andamento de todas as suas faturas.</p>
         <form (submit)="getInvoices()">
             <div class="columns is-multiline">
                 <div class="column is-2">
                     <div class="field">
-                        <label class="label">Situação</label>
+                        <label class="label">CNPJ</label>
+                        <div class="control">
+                            <input class="input" [(ngModel)]="filter.user" name="user" mask="00.000.000/0000-00" placeholder="Digite o número do CNPJ">
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-2">
+                    <div class="field">
+                        <label class="label">Razão Social</label>
+                        <div class="control">
+                            <input class="input" [(ngModel)]="filter.name" name="name" placeholder="Digite a Razão Social">
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-2">
+                    <div class="field">
+                        <label class="label">Ano</label>
+                        <div class="control">
+                            <input class="input" [(ngModel)]="filter.year" name="year"  mask="0000" placeholder="Ex: 2021">
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-2">
+                    <div class="field">
+                        <label class="label">Mês</label>
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select [(ngModel)]="filter.month" name="month">
+                                    <option value="">Selecione o mês...</option>
+                                    <option *ngFor="let opt of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]" [value]="opt">{{ opt }}</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-2">
+                    <div class="field">
+                        <label class="label">Situação do Pagamento</label>
                         <div class="control">
                             <div class="select is-fullwidth">
                                 <select [(ngModel)]="filter.status" name="status">
@@ -19,38 +57,9 @@
                 </div>
                 <div class="column is-2">
                     <div class="field">
-                        <label class="label">Mês</label>
-                        <div class="control">
-                            <div class="select is-fullwidth">
-                                <select [(ngModel)]="filter.month" name="month">
-                                    <option value="">Selecione...</option>
-                                    <option *ngFor="let opt of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]" [value]="opt">{{ opt }}</option>
-                                </select>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="column is-2">
-                    <div class="field">
-                        <label class="label">Ano</label>
-                        <div class="control">
-                            <input class="input" [(ngModel)]="filter.year" name="year"  mask="0000" placeholder="2021">
-                        </div>
-                    </div>
-                </div>
-                <div class="column is-2">
-                    <div class="field">
-                        <label class="label">CNPJ</label>
-                        <div class="control">
-                            <input class="input" [(ngModel)]="filter.user" name="user" mask="00.000.000/0000-00">
-                        </div>
-                    </div>
-                </div>
-                <div class="column is-2 is-offset-2">
-                    <div class="field">
                         <label class="label">&nbsp;</label>
                         <div class="control">
-                            <button type="submit" class="button is-primary is-fullwidth">
+                            <button type="submit" class="button is-dark is-fullwidth">
                                 Pesquisar
                             </button>
                         </div>
@@ -62,34 +71,33 @@
             <table class="boss-an-table" *ngIf="invoices.length > 0">
                 <thead>
                     <tr>
-                        <th>Nome</th>
-                        <th>Documento</th>
+                        <th>CNPJ</th>
+                        <th>Razão Social</th>
+                        <th>Mês de Referência</th>
                         <th>Valor</th>
-                        <th>Referência</th>
                         <th>Situação</th>
-                        <th></th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let i of invoices">
-                      <td>{{ i.user.name }}</td>
-                      <td>{{ i.user.document | mask: 'CPF_CNPJ' }}</td>
-                        <td>{{ i.amount | currency: 'BRL' }}</td>
+                        <td>{{ i.user.document | mask: 'CPF_CNPJ' }}</td>
+                        <td>{{ i.user.name }}</td>
                         <td>{{ i.month }}/{{ i.year }}</td>
+                        <td>{{ i.amount | currency: 'BRL' }}</td>
                         <td>
                             <span *ngIf="i.status === 'pending'" class="tag is-warning">Pendente</span>
                             <span *ngIf="i.status === 'paid'" class="tag is-primary is-light">Pago</span>
                         </td>
                         <td>
-                          <button class="button" (click)="getSummary(i)">
-                              Resumo
-                          </button>
-                        </td>
-                        <td>
-                            <button class="button is-primary is-light is-outlined" (click)="setInvoiceAsPaid(i._id)" *ngIf="i.status === 'pending'">
-                                Marcar como pago
-                            </button>
+                            <div class="buttons">
+                                <button class="button" (click)="getSummary(i)">
+                                    Resumo
+                                </button>
+                                <button class="button is-primary is-light is-outlined" (click)="setInvoiceAsPaid(i._id)" *ngIf="i.status === 'pending'">
+                                    Marcar como pago
+                                </button>
+                            </div>
                         </td>
                     </tr>
                 </tbody>
