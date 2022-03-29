@@ -75,18 +75,18 @@
             <table class="boss-an-table" *ngIf="reports.length > 0">
                 <thead>
                     <tr>
-                        <th>CPF/CNPJ</th>
                         <th>Tipo</th>
                         <th>Módulo</th>
-                        <th>Custo</th>
-                        <th *ngIf="userRole !== 'employee'">Criado por</th>
-                        <th>Data</th>
+                        <th>CPF/CNPJ</th>
+                        <th *ngIf="userRole !== 'employee'">Realizada por</th>
+                        <th>Data e Hora</th>
+                        <th>Crédito</th>
+                        <th>Situação</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let r of reports">
-                        <td>{{ r.document | mask: 'CPF_CNPJ' }}</td>
                         <td>{{ r.type }}</td>
                         <td>
                             <span *ngIf="r.module === 'register_data'">Cadastrais</span>
@@ -95,12 +95,14 @@
                             <span *ngIf="r.module === 'restrict'">Restritos</span>
                             <span *ngIf="r.module === 'ondemand'">Certidões</span>
                         </td>
-                        <td>{{ r.cost | currency: 'BRL' }}</td>
+                        <td>{{ r.document | mask: 'CPF_CNPJ' }}</td>
                         <td *ngIf="userRole !== 'employee'">{{ r.user.name.split(' ')[0] }}</td>
-                        <td>{{ r.createdAt | date: 'dd/MM/yyyy - HH:mm' }}</td>
+                        <td>{{ r.createdAt | date: 'dd/MM/yyyy, HH:mm' }}</td>
+                        <td>{{ r.credit | currency: 'BRL' }}</td>
+                        <td></td>
                         <td>
                             <button class="button is-light" (click)="getResult(r)">
-                                Ver consulta
+                                Ver
                             </button>
                         </td>
                     </tr>

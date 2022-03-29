@@ -1,26 +1,27 @@
-<section class="section">
+<section class="section" [class]="{ 'cnpj-report': !reportPeople }">
     <div class="container">
         <div class="columns">
             <div class="column">
-                <h1 class="title is-1">Nova Consulta</h1>
-                <p class="subtitle">Informe o CPF ou CNPJ e selecione as informações a serem consultadas.</p>
+                <h1 class="title is-3">Nova Consulta</h1>
+                <p class="subtitle is-6">Preencha os campos abaixo para realizar a consulta.</p>
+                <h3 class="title is-5 mt-6 mb-3">Tipo de Consulta</h3>
                 <div class="columns">
                     <div class="column is-6">
-                        <button class="button is-medium is-fullwidth" (click)="selectReportType(true)" [class]="{ 'is-primary': reportPeople }" [disabled]="loading">
+                        <button class="button person-type-button is-fullwidth" (click)="selectReportType(true)" [class]="{ 'is-selected': reportPeople }" [disabled]="loading">
                             <span class="icon">
-                                <i class="fas fa-check-circle" *ngIf="reportPeople"></i>
-                                <i class="far fa-circle" *ngIf="!reportPeople"></i>
+                                <span class="unselected-icon" *ngIf="!reportPeople"></span>
+                                <span class="selected-icon" *ngIf="reportPeople"></span>
                             </span>
-                            <span>Pessoa Física</span>
+                            <span class="text">Pessoa Física</span>
                         </button>
                     </div>
                     <div class="column is-6">
-                        <button class="button is-medium is-fullwidth" (click)="selectReportType(false)" [class]="{ 'is-primary': !reportPeople }" [disabled]="loading">
+                        <button class="button person-type-button is-fullwidth" (click)="selectReportType(false)" [class]="{ 'is-selected': !reportPeople }" [disabled]="loading">
                             <span class="icon">
-                                <i class="fas fa-check-circle" *ngIf="!reportPeople"></i>
-                                <i class="far fa-circle" *ngIf="reportPeople"></i>
+                                <span class="unselected-icon" *ngIf="reportPeople"></span>
+                                <span class="selected-icon" *ngIf="!reportPeople"></span>
                             </span>
-                            <span>Pessoa Jurídica</span>
+                            <span class="text">Pessoa Jurídica</span>
                         </button>
                     </div>
                 </div>
@@ -28,11 +29,11 @@
                 <div class="columns">
                     <div class="column is-6">
                         <div class="field" *ngIf="reportPeople">
-                            <label for="cpf" class="label">Informe o CPF</label>
+                            <label for="cpf" class="label">Informe o CPF <small class="is-pulled-right is-underlined"><a href="javascript:;" (click)="openLotModal()">Consultar LOTE (vários CPFs)</a></small></label>
                             <input id="cpf" class="input is-medium" [(ngModel)]="cpf" type="tel" mask="000.000.000-00" placeholder="000.000.000-00" [disabled]="loading">
                         </div>
                         <div class="field" *ngIf="!reportPeople">
-                            <label for="cnpj" class="label">Informe o CNPJ</label>
+                            <label for="cnpj" class="label">Informe o CNPJ <small class="is-pulled-right is-underlined"><a href="javascript:;" (click)="openLotModal()">Consultar LOTE (vários CNPJs)</a></small></label>
                             <input id="cnpj" class="input is-medium" [(ngModel)]="cnpj" type="tel" mask="00.000.000/0000-00" placeholder="00.000.000/0000-00" [disabled]="loading">
                         </div>
                     </div>
@@ -43,100 +44,123 @@
                         </div>
                     </div>
                 </div>
+                <h3 class="title is-5 mt-6">Módulos de Pesquisa</h3>
+                <p class="subtitle is-6">Selecione os módulos a serem consultados.</p>
                 <div class="modules-to-select">
-                    <h3 class="title is-5">Módulos</h3>
                     <div class="card" (click)="!loading && selectData('register', reportPeople ? pricesPF.register_data : pricesPJ.register_data )" [class]="{ 'is-selected': selectedDatas.includes('register') }">
                         <header class="card-header">
                             <p class="card-header-title is-justify-content-space-between">
                                 <span>
                                     <span class="icon">
-                                        <i class="fas fa-check-circle" *ngIf="selectedDatas.includes('register')"></i>
-                                        <i class="far fa-circle" *ngIf="!selectedDatas.includes('register')"></i>
+                                        <span class="selected-icon" *ngIf="selectedDatas.includes('register')"></span>
+                                        <span class="unselected-icon" *ngIf="!selectedDatas.includes('register')"></span>
                                     </span>
                                     <span>Dados Cadastrais</span>
                                 </span>
-                                <span>
+                                <span class="has-text-weight-normal">
                                     {{ (reportPeople ? pricesPF.register_data : pricesPJ.register_data) | currency: 'BRL' }}
                                 </span>
                             </p>
-                            <!-- <button class="card-header-icon" aria-label="more options">
-                                <span class="icon">
-                                    <i class="fas fa-angle-down" aria-hidden="true"></i>
-                                </span>
-                            </button> -->
                         </header>
-                        <!-- <div class="card-content">
-                            <div class="content">
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Phasellus nec iaculis mauris.
-                                <a href="#">@bulmaio</a>. <a href="#">#css</a> <a href="#">#responsive</a>
-                                <br>
-                                <time datetime="2016-1-1">11:09 PM - 1 Jan 2016</time>
-                            </div>
-                        </div> -->
+                        <div class="card-content">
+                          <div class="content">
+                              <p>
+                                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi neque quam, bibendum quis arcu non, bibendum congue mauris. Praesent ornare iaculis auctor.
+                              </p>
+                          </div>
+                        </div>
                     </div>
                     <div class="card" (click)="!loading && selectData('behavior', reportPeople ? pricesPF.behavior_data : pricesPJ.behavior_data )" [class]="{ 'is-selected': selectedDatas.includes('behavior') }">
                         <header class="card-header">
                             <p class="card-header-title is-justify-content-space-between">
                                 <span>
                                     <span class="icon">
-                                        <i class="fas fa-check-circle" *ngIf="selectedDatas.includes('behavior')"></i>
-                                        <i class="far fa-circle" *ngIf="!selectedDatas.includes('behavior')"></i>
+                                        <span class="selected-icon" *ngIf="selectedDatas.includes('behavior')"></span>
+                                        <span class="unselected-icon" *ngIf="!selectedDatas.includes('behavior')"></span>
                                     </span>
                                     <span>Dados Comportamentais</span>
                                 </span>
-                                <span>
+                                <span class="has-text-weight-normal">
                                     {{ (reportPeople ? pricesPF.behavior_data : pricesPJ.behavior_data) | currency: 'BRL' }}
                                 </span>
                             </p>
                         </header>
+                        <div class="card-content">
+                          <div class="content">
+                              <p>
+                                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi neque quam, bibendum quis arcu non, bibendum congue mauris. Praesent ornare iaculis auctor.
+                              </p>
+                          </div>
+                        </div>
                     </div>
                     <div class="card" (click)="!loading && selectData('financial', reportPeople ? pricesPF.financial_data : pricesPJ.financial_data )" *ngIf="reportPeople" [class]="{ 'is-selected': selectedDatas.includes('financial') }">
                         <header class="card-header">
                             <p class="card-header-title is-justify-content-space-between">
                                 <span>
                                     <span class="icon">
-                                        <i class="fas fa-check-circle" *ngIf="selectedDatas.includes('financial')"></i>
-                                        <i class="far fa-circle" *ngIf="!selectedDatas.includes('financial')"></i>
+                                        <span class="selected-icon" *ngIf="selectedDatas.includes('financial')"></span>
+                                        <span class="unselected-icon" *ngIf="!selectedDatas.includes('financial')"></span>
                                     </span>
                                     <span>Perfil Financeiros</span>
                                 </span>
-                                <span>
+                                <span class="has-text-weight-normal">
                                     {{ (reportPeople ? pricesPF.financial_data : pricesPJ.financial_data) | currency: 'BRL' }}
                                 </span>
                             </p>
                         </header>
+                        <div class="card-content">
+                          <div class="content">
+                              <p>
+                                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi neque quam, bibendum quis arcu non, bibendum congue mauris. Praesent ornare iaculis auctor.
+                              </p>
+                          </div>
+                        </div>
                     </div>
                     <div class="card" (click)="!loading && selectData('restrict', reportPeople ? pricesPF.restrict : pricesPJ.restrict )" [class]="{ 'is-selected': selectedDatas.includes('restrict') }">
                         <header class="card-header">
                             <p class="card-header-title is-justify-content-space-between">
                                 <span>
                                     <span class="icon">
-                                        <i class="fas fa-check-circle" *ngIf="selectedDatas.includes('restrict')"></i>
-                                        <i class="far fa-circle" *ngIf="!selectedDatas.includes('restrict')"></i>
+                                        <span class="selected-icon" *ngIf="selectedDatas.includes('restrict')"></span>
+                                        <span class="unselected-icon" *ngIf="!selectedDatas.includes('restrict')"></span>
                                     </span>
                                     <span>Restritivos</span>
                                 </span>
-                                <span>
+                                <span class="has-text-weight-normal">
                                     {{ (reportPeople ? pricesPF.restrict : pricesPJ.restrict) | currency: 'BRL' }}
                                 </span>
                             </p>
                         </header>
+                        <div class="card-content">
+                          <div class="content">
+                              <p>
+                                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi neque quam, bibendum quis arcu non, bibendum congue mauris. Praesent ornare iaculis auctor.
+                              </p>
+                          </div>
+                        </div>
                     </div>
                     <div class="card" (click)="!loading && selectData('boavista', reportPeople ? pricesPF.boavista : pricesPJ.boavista )" [class]="{ 'is-selected': selectedDatas.includes('boavista') }">
                       <header class="card-header">
                           <p class="card-header-title is-justify-content-space-between">
                               <span>
-                                  <span class="icon">
-                                      <i class="fas fa-check-circle" *ngIf="selectedDatas.includes('boavista')"></i>
-                                      <i class="far fa-circle" *ngIf="!selectedDatas.includes('boavista')"></i>
-                                  </span>
+                                <span class="icon">
+                                    <span class="selected-icon" *ngIf="selectedDatas.includes('boavista')"></span>
+                                    <span class="unselected-icon" *ngIf="!selectedDatas.includes('boavista')"></span>
+                                </span>
                                   <span>PEFIN/REFIN Boa Vista</span>
                               </span>
-                              <span>
+                              <span class="has-text-weight-normal">
                                   {{ (reportPeople ? pricesPF.boavista : pricesPJ.boavista) | currency: 'BRL' }}
                               </span>
                           </p>
                       </header>
+                      <div class="card-content">
+                        <div class="content">
+                            <p>
+                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi neque quam, bibendum quis arcu non, bibendum congue mauris. Praesent ornare iaculis auctor.
+                            </p>
+                        </div>
+                      </div>
                     </div>
                     <div class="card" (click)="!loading && selectData('ondemand', reportPeople ? pricesPF.ondemand : pricesPJ.ondemand )" [class]="{ 'is-selected': selectedDatas.includes('ondemand') }">
                         <header class="card-header">
@@ -148,7 +172,7 @@
                                     </span>
                                     <span>Certidões</span>
                                 </span>
-                                <span>
+                                <span class="has-text-weight-normal">
                                     {{ (reportPeople ? pricesPF.ondemand : pricesPJ.ondemand) | currency: 'BRL' }}
                                 </span>
                             </p>
@@ -179,13 +203,13 @@
             </div>
             <div class="column is-4">
                 <h2 class="title is-3">Resumo da Consulta</h2>
-                <p class="subtitle">Verifique e solicite a consulta.</p>
+                <p class="subtitle is-6">Revise os detalhes da sua solicitação.</p>
                 <div class="box">
                     <h5 class="title is-6 mt-0 mb-1">Tipo de Consulta</h5>
                     <p *ngIf="reportPeople">Pessoa Física</p>
                     <p *ngIf="!reportPeople">Pessoa Jurídica</p>
                     <div *ngIf="selectedDatas.length > 0">
-                        <h5 class="title is-6 mt-2 mb-1">Módulos Selecionados</h5>
+                        <h5 class="title is-6 mt-3 mb-1">Módulos Selecionados</h5>
                         <p *ngIf="selectedDatas.includes('register')">Dados Cadastrais <span class="is-pulled-right">{{ (reportPeople ? pricesPF.register_data : pricesPJ.register_data) | currency: 'BRL' }}</span></p>
                         <p *ngIf="selectedDatas.includes('behavior')">Dados Comportamentais <span class="is-pulled-right">{{ (reportPeople ? pricesPF.behavior_data : pricesPJ.behavior_data) | currency: 'BRL' }}</span></p>
                         <p *ngIf="selectedDatas.includes('financial')">Perfil Financeiro <span class="is-pulled-right">{{ (reportPeople ? pricesPF.financial_data : pricesPJ.financial_data) | currency: 'BRL' }}</span></p>
@@ -197,7 +221,7 @@
                     </div>
                     <br>
                     <button class="button is-primary is-medium is-fullwidth" [class]="{ 'is-loading': loading }" [disabled]="selectedDatas.length === 0 || loading || (reportPeople && cpf.length < 11) || (!reportPeople && cnpj.length < 14)" (click)="doConsult()">
-                        Consultar
+                        Solicitar Consulta
                     </button>
                 </div>
             </div>
@@ -248,3 +272,61 @@
         </div>
     </div>
 </section>
+
+<div class="processing-modal modal" [class]="{ 'is-active': processing }">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <section class="modal-card-body px-6 py-6 has-text-centered">
+            <i class="fas fa-spinner"></i>
+            <h1 class="title is-4 mt-5">Processando sua consulta</h1>
+            <p>Aguarde enquanto a consulta está sendo processada.</p>
+            <p>Assim que finalizada, você será notificado(a).</p>
+            <a href="/app/consultas" class="button is-primary is-fullwidth mt-5">
+                Acessar Mesa de Crédito
+            </a>
+        </section>
+    </div>
+</div>
+
+<div class="lot-modal modal" [class]="{ 'is-active': lotModalIsOpen }">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <section class="modal-card-body px-6 py-6 has-text-centered">
+            <h1 class="title is-4 mt-5">Consulta em Lote</h1>
+            <p class="mb-6">Informe os CPFs que você deseja consultar e o valor de crédito individual. Para mais campos, clique em ADICIONAR CAMPO. Máximo de 10 CPFs por lote.</p>
+            <div class="columns has-text-left">
+                <div class="column is-8 py-0">
+                    <label for="cpf" class="label" *ngIf="reportPeople">Informe o CPF</label>
+                    <label for="cnpj" class="label" *ngIf="!reportPeople">Informe o CNPJ</label>
+                </div>
+                <div class="column is-4 py-0">
+                    <label for="credit" class="label">Crédito <small class="has-text-light">(opcional)</small></label>
+                </div>
+            </div>
+            <div class="columns has-text-left" *ngFor="let formRow of lotModalForm">
+                <div class="column is-8">
+                    <div class="field" *ngIf="reportPeople">
+                        <input id="cpf" class="input" [(ngModel)]="formRow.document" type="tel" mask="000.000.000-00" placeholder="000.000.000-00" [disabled]="loading">
+                    </div>
+                    <div class="field" *ngIf="!reportPeople">
+                        <input id="cnpj" class="input" [(ngModel)]="formRow.document" type="tel" mask="00.000.000/0000-00" placeholder="00.000.000/0000-00" [disabled]="loading">
+                    </div>
+                </div>
+                <div class="column is-4">
+                    <div class="field">
+                        <input id="credit" class="input" [(ngModel)]="formRow.credit" type="tel" currencyMask [disabled]="loading">
+                    </div>
+                </div>
+            </div>
+            <button class="button is-dark is-outlined is-fullwidth mt-5" (click)="addFieldsToLotModalForm()">
+                Adicionar Campos
+            </button>
+            <button class="button is-primary is-fullwidth mt-5">
+                Pronto
+            </button>
+            <button class="button is-text is-fullwidth mt-5" (click)="cancelLotModal()">
+                Cancelar
+            </button>
+        </section>
+    </div>
+</div>

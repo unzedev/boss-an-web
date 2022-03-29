@@ -12,6 +12,13 @@ export class InvoicesComponent implements OnInit {
 
   public invoices: any[] = [];
 
+  public filter = {
+    month: '',
+    nf: '',
+    status: '',
+    payment: '',
+  };
+
   public resultModal = {
     open: false,
     summary: [],
@@ -25,6 +32,11 @@ export class InvoicesComponent implements OnInit {
   ) { }
 
   ngOnInit(): void {
+    this.getMyOrAllInvoices();
+  }
+
+  public getMyOrAllInvoices() {
+    const filter = Object.fromEntries(Object.entries(this.filter).filter(([_, v]) => v != ''));
     this.userRole = this.authService.getUser().role;
     if (this.userRole === 'user') {
       this.getInvoices();

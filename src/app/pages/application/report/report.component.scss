@@ -1,9 +1,96 @@
 .modules-to-select {
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
     .card {
+        width: calc(50% - 5px);
         cursor: pointer;
         margin-bottom: 10px;
-        &.is-selected {
-            background-color: var(--primary-color);
+        .icon {
+            position: relative;
+            top: 4px;
+            left: -3px;
         }
+        .card-header-title {
+            text-transform: uppercase;
+        }
+        &.is-selected {
+            box-shadow: inset 0px 0px 0px 2px var(--primary-color);
+        }
+    }
+}
+
+.person-type-button {
+    text-align: left;
+    display: inline-block;
+    outline: none;
+    span.text {
+        top: -4px;
+        position: relative;
+    }
+    &.is-selected {
+        box-shadow: inset 0px 0px 0px 2px var(--primary-color);
+    }
+}
+
+.unselected-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    background-color: #eee;
+}
+
+.selected-icon {
+    width: 20px;
+    height: 20px;
+    border-radius: 50%;
+    box-shadow: inset 0px 0px 0px 2px var(--primary-color);
+    position: relative;
+    &:after {
+        content: "";
+        position: absolute;
+        left: 50%;
+        top: 50%;
+        transform: translate(-50%, -50%);
+        border-radius: 50%;
+        width: 8px;
+        height: 8px;
+        background-color: var(--primary-color);
+    }
+}
+
+.cnpj-report {
+    .is-selected {
+        box-shadow: inset 0px 0px 0px 2px var(--link-color) !important;
+    }
+    .selected-icon {
+        box-shadow: inset 0px 0px 0px 2px var(--link-color);
+        &:after {
+            background-color: var(--link-color);
+        }
+    }
+}
+
+.lot-modal .modal-card {
+    width: 500px;
+    .input {
+        background-color: #eee;
+    }
+}
+
+.processing-modal .modal-card {
+    width: 460px;
+    .fa-spinner {
+        font-size: 30px;
+        animation: rotateAnimation 1.2s infinite linear;
+    }
+}
+
+@keyframes rotateAnimation {
+    0% {
+        transform: rotate(0deg);
+    }
+    100% {
+        transform: rotate(360deg);
     }
 }

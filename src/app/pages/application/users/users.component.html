@@ -11,6 +11,58 @@
                 </button>
             </div>
         </div>
+        <form (submit)="getUsers()">
+            <div class="columns is-multiline">
+                <div class="column is-3">
+                    <div class="field">
+                        <label class="label">Nome</label>
+                        <div class="control">
+                            <input class="input" type="text" [(ngModel)]="filter.name" name="name" placeholder="Digite o nome do colaborador">
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-2">
+                    <div class="field">
+                        <label class="label">CPF</label>
+                        <div class="control">
+                            <input class="input" type="tel" [(ngModel)]="filter.cpf" name="cpf" mask="000.000.000-00" placeholder="Digite o número do CPF">
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-3">
+                    <div class="field">
+                        <label class="label">E-mail</label>
+                        <div class="control">
+                            <input class="input" type="email" [(ngModel)]="filter.email" name="email" placeholder="Digite o e-mail">
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-2">
+                    <div class="field">
+                        <label class="label">Situação</label>
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select [(ngModel)]="filter.status" name="status">
+                                    <option value="">Selecione...</option>
+                                    <option value="PF">Ativo</option>
+                                    <option value="PJ">Bloqueado</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-2">
+                    <div class="field">
+                        <label class="label">&nbsp;</label>
+                        <div class="control">
+                            <button type="submit" class="button is-dark is-fullwidth">
+                                Pesquisar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
         <div class="table-container mt-6">
             <table class="boss-an-table" *ngIf="users.length > 0">
                 <thead>
@@ -27,7 +79,10 @@
                         <td>{{ u.name }}</td>
                         <td>{{ u.document | mask: 'CPF_CNPJ' }}</td>
                         <td>{{ u.email }}</td>
-                        <td>{{ u.active ? 'Ativo' : 'Bloqueado' }}</td>
+                        <td>
+                            <span *ngIf="!u.active" class="tag is-warning">Bloqueado</span>
+                            <span *ngIf="u.active" class="tag is-primary is-light">Ativo</span>
+                        </td>
                         <td>
                             <div class="buttons">
                                 <button class="button" (click)="editUser(u)">

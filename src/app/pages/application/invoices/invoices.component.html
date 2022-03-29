@@ -2,24 +2,89 @@
     <div class="container">
         <h1 class="title is-3">Faturas</h1>
         <p class="subtitle">Confira o andamento de todas as suas faturas.</p>
-        <div class="table-container">
+        <form (submit)="getMyOrAllInvoices()">
+            <div class="columns is-multiline">
+                <div class="column is-3">
+                    <div class="field">
+                        <label class="label">Mês de Referência</label>
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select [(ngModel)]="filter.month" name="month">
+                                    <option value="">Selecione o mês...</option>
+                                    <option value="pending">Em aberto</option>
+                                    <option value="paid">Fechada</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-3">
+                    <div class="field">
+                        <label class="label">Número da NF</label>
+                        <div class="control">
+                            <input class="input" type="text" [(ngModel)]="filter.nf" name="nf" placeholder="Digite o número">
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-2">
+                    <div class="field">
+                        <label class="label">Situação da Fatura</label>
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select [(ngModel)]="filter.status" name="status">
+                                    <option value="">Selecione a situação...</option>
+                                    <option value="pending">Em aberto</option>
+                                    <option value="paid">Fechada</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-2">
+                    <div class="field">
+                        <label class="label">Situação do Pagamento</label>
+                        <div class="control">
+                            <div class="select is-fullwidth">
+                                <select [(ngModel)]="filter.payment" name="payment">
+                                    <option value="">Selecione...</option>
+                                    <option value="notReady">Em aberto</option>
+                                    <option value="pending">Pendente</option>
+                                    <option value="paid">Pago</option>
+                                </select>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-2">
+                    <div class="field">
+                        <label class="label">&nbsp;</label>
+                        <div class="control">
+                            <button type="submit" class="button is-dark is-fullwidth">
+                                Pesquisar
+                            </button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </form>
+        <div class="table-container mt-6">
             <table class="boss-an-table" *ngIf="invoices.length > 0">
                 <thead>
                     <tr>
-                        <th>Nome</th>
-                        <th>Documento</th>
-                        <th>Valor</th>
-                        <th>Referência</th>
+                        <th>Mês de Referência</th>
+                        <th>Número da NF</th>
                         <th>Situação</th>
+                        <th>Valor</th>
+                        <th>Pagamento</th>
                         <th></th>
                     </tr>
                 </thead>
                 <tbody>
                     <tr *ngFor="let i of invoices">
-                        <td>{{ i.user.name }}</td>
-                        <td>{{ i.user.document | mask: 'CPF_CNPJ' }}</td>
-                        <td>{{ i.amount | currency: 'BRL' }}</td>
                         <td>{{ i.month }}/{{ i.year }}</td>
+                        <td>{{ i.user.name }}</td>
+                        <td>{{ i.status }}</td>
+                        <td>{{ i.amount | currency: 'BRL' }}</td>
                         <td>
                             <span *ngIf="i.status === 'pending'" class="tag is-warning">Pendente</span>
                             <span *ngIf="i.status === 'paid'" class="tag is-primary is-light">Pago</span>

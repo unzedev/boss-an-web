@@ -14,6 +14,13 @@ export class UsersComponent implements OnInit {
 
   public users: User[] = [];
 
+  public filter = {
+    name: '',
+    email: '',
+    cpf: '',
+    status: '',
+  };
+
   public createModal = {
     open: false,
   };
@@ -50,7 +57,8 @@ export class UsersComponent implements OnInit {
     this.getUsers();
   }
 
-  private getUsers(): void {
+  public getUsers(): void {
+    const filter = Object.fromEntries(Object.entries(this.filter).filter(([_, v]) => v != ''));
     this.userService.getEmployees()
       .pipe(first())
       .subscribe((users: User[]) => {

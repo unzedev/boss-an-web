@@ -11,6 +11,7 @@ import { UserService } from 'src/app/services/user/user.service';
 export class ReportComponent implements OnInit {
 
   public loading: boolean = false;
+  public processing: boolean = false;
 
   public selectedDatas: string[] = [];
 
@@ -19,6 +20,18 @@ export class ReportComponent implements OnInit {
   public cpf: string = '';
   public cnpj: string = '';
   public credit: number = 0;
+
+  public lotModalIsOpen = false;
+  public lotModalForm = [
+    {
+      document: '',
+      credit: 0,
+    },
+    {
+      document: '',
+      credit: 0,
+    }
+  ];
 
   public response: any = [];
 
@@ -52,6 +65,7 @@ export class ReportComponent implements OnInit {
   }
 
   public doConsult() {
+    this.processing = true;
     this.response = [];
     this.loading = true;
     if (this.reportPeople) {
@@ -159,6 +173,31 @@ export class ReportComponent implements OnInit {
       }, (error) => {
         this.loading = false;
       });
+  }
+
+  public addFieldsToLotModalForm() {
+    this.lotModalForm.push({
+      document: '',
+      credit: 0,
+    })
+  }
+
+  public cancelLotModal() {
+    this.lotModalForm = [
+      {
+        document: '',
+        credit: 0,
+      },
+      {
+        document: '',
+        credit: 0,
+      }
+    ];
+    this.lotModalIsOpen = false;
+  }
+
+  public openLotModal() {
+    this.lotModalIsOpen = true;
   }
 
 }
