@@ -23,6 +23,7 @@ import { UsersComponent } from './pages/application/users/users.component';
 import { ReportComponent } from './pages/application/report/report.component';
 import { DashboardComponent } from './pages/application/dashboard/dashboard.component';
 import { ReportsComponent } from './pages/application/reports/reports.component';
+import { ReportResultComponent } from './pages/application/report-result/report-result.component';
 import { InvoicesComponent } from './pages/application/invoices/invoices.component';
 
 import { AdminApplicationComponent } from './pages/admin-application/admin-application.component';
@@ -46,6 +47,7 @@ registerLocaleData(localePt);
     ReportComponent,
     DashboardComponent,
     ReportsComponent,
+    ReportResultComponent,
     InvoicesComponent,
     AdminApplicationComponent,
     AdminDashboardComponent,

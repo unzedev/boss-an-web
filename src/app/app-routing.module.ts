@@ -23,6 +23,7 @@ import { AdminAuthGuard } from './guards/admin-auth/admin-auth.guard';
 import { OwnerAuthGuard } from './guards/owner-auth/owner-auth.guard';
 import { AuthGuard } from './guards/auth/auth.guard';
 import { AdminInvoicesComponent } from './pages/admin-application/admin-invoices/admin-invoices.component';
+import { ReportResultComponent } from './pages/application/report-result/report-result.component';
 
 
 const routes: Routes = [
@@ -64,6 +65,10 @@ const routes: Routes = [
       {
         path: 'consulta',
         component: ReportComponent,
+      },
+      {
+        path: 'consulta/:id',
+        component: ReportResultComponent,
       },
       {
         path: 'consultas',
