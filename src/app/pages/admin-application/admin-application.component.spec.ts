@@ -1,4 +1,4 @@
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
+import { ComponentFixture, TestBed, waitForAsync } from '@angular/core/testing';
 
 import { AdminApplicationComponent } from './admin-application.component';
 
@@ -6,7 +6,7 @@ describe('AdminApplicationComponent', () => {
   let component: AdminApplicationComponent;
   let fixture: ComponentFixture<AdminApplicationComponent>;
 
-  beforeEach(async(() => {
+  beforeEach(waitForAsync(() => {
     TestBed.configureTestingModule({
       declarations: [ AdminApplicationComponent ]
     })
