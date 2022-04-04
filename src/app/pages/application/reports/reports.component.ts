@@ -27,6 +27,8 @@ export class ReportsComponent implements OnInit {
 
   public userRole: string = '';
 
+  private fetchInterval;
+
   constructor(
     private reportService: ReportService,
   ) { }
@@ -42,6 +44,7 @@ export class ReportsComponent implements OnInit {
       .pipe(first())
       .subscribe((reports: any) => {
         this.reports = reports;
+        this.checkForProcessingReports(reports);
       });
   }
 
@@ -61,6 +64,20 @@ export class ReportsComponent implements OnInit {
 
   public isObject(val) {
     return (typeof val === 'object');
+  }
+
+  public checkForProcessingReports(reports: any[]) {
+    if (this.fetchInterval) {
+      clearInterval(this.fetchInterval);
+    }
+    let hasProcessing = reports.some((item, index, array) => {
+      return item.status === 'PROCESSING';
+    });
+    if (hasProcessing) {
+      this.fetchInterval = setInterval(() => {
+        this.getReports();
+      }, 15000)
+    }
   }
 
 }

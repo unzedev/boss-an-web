@@ -7,9 +7,10 @@ import { NgxMaskModule } from 'ngx-mask';
 import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
 import { ChartsModule } from 'ng2-charts';
 import localePt from '@angular/common/locales/pt';
-// import { NgxLoadingModule } from "ngx-loading";
+import { NgxLoadingModule } from "ngx-loading";
 
 import { AuthInterceptor } from './interceptors/auth/auth.interceptor';
+import { LoaderInterceptor } from './interceptors/loader/loader.interceptor';
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 import { RegisterComponent } from './pages/register/register.component';
@@ -62,7 +63,7 @@ registerLocaleData(localePt);
     ReactiveFormsModule,
     HttpClientModule,
     ChartsModule,
-    // NgxLoadingModule.forRoot({}),
+    NgxLoadingModule.forRoot({}),
     NgxMaskModule.forRoot(),
     NgxCurrencyModule.forRoot({
       align: 'right',
@@ -81,6 +82,7 @@ registerLocaleData(localePt);
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: AuthInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: LoaderInterceptor, multi: true },
     { provide: LOCALE_ID, useValue: 'pt-BR' },
   ],
   bootstrap: [AppComponent]

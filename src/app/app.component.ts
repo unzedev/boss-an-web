@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { LoaderService } from './services/loader/loader.service';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,12 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.scss']
 })
 export class AppComponent {
+  
+  loading: boolean;
 
+  constructor(private loaderService: LoaderService) {
+    this.loaderService.isLoading.subscribe((value) => {
+      this.loading = value;
+    });
+  }
 }
