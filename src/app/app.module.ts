@@ -2,12 +2,12 @@ import { BrowserModule } from '@angular/platform-browser';
 import { LOCALE_ID, NgModule } from '@angular/core';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { HttpClientModule, HTTP_INTERCEPTORS } from '@angular/common/http';
-import { LoadingBarHttpClientModule } from '@ngx-loading-bar/http-client';
 import { registerLocaleData } from '@angular/common';
 import { NgxMaskModule } from 'ngx-mask';
 import { CurrencyMaskInputMode, NgxCurrencyModule } from 'ngx-currency';
 import { ChartsModule } from 'ng2-charts';
 import localePt from '@angular/common/locales/pt';
+// import { NgxLoadingModule } from "ngx-loading";
 
 import { AuthInterceptor } from './interceptors/auth/auth.interceptor';
 import { AppRoutingModule } from './app-routing.module';
@@ -62,7 +62,7 @@ registerLocaleData(localePt);
     ReactiveFormsModule,
     HttpClientModule,
     ChartsModule,
-    LoadingBarHttpClientModule,
+    // NgxLoadingModule.forRoot({}),
     NgxMaskModule.forRoot(),
     NgxCurrencyModule.forRoot({
       align: 'right',

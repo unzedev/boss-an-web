@@ -106,6 +106,10 @@ label {
     overflow-x: hidden;
     white-space: nowrap;
   }
+  button.is-text {
+    text-decoration: none;
+    color: #aaa;
+  }
 }
 hr {
   background-color: #aaa;

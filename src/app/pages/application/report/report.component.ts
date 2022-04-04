@@ -33,8 +33,6 @@ export class ReportComponent implements OnInit {
     }
   ];
 
-  public response: any = [];
-
   public pricesPF = {
     register_data: 0,
     behavior_data: 0,
@@ -66,56 +64,19 @@ export class ReportComponent implements OnInit {
 
   public doConsult() {
     this.processing = true;
-    this.response = [];
-    this.loading = true;
-    if (this.reportPeople) {
-      this.reportService.getPeopleReport(
-        this.cpf,
-        this.credit,
-        this.selectedDatas.includes('register'),
-        this.selectedDatas.includes('behavior'),
-        this.selectedDatas.includes('financial'),
-        this.selectedDatas.includes('restrict'),
-        this.selectedDatas.includes('ondemand'),
-        this.selectedDatas.includes('boavista'),
-      )
-        .pipe(first())
-        .subscribe((res) => {
-          for (let key in res) {
-            if (!res.hasOwnProperty(key)) continue;
-            var obj = res[key];
-            if (obj.Result) {
-              this.response.push(obj.Result);
-            }
-          }
-          this.loading = false;
-        }, (error) => {
-          this.loading = false;
-        });
-    } else {
-      this.reportService.getCompanyReport(
-        this.cnpj,
-        this.credit,
-        this.selectedDatas.includes('register'),
-        this.selectedDatas.includes('behavior'),
-        this.selectedDatas.includes('restrict'),
-        this.selectedDatas.includes('ondemand'),
-        this.selectedDatas.includes('boavista'),
-      )
-        .pipe(first())
-        .subscribe((res) => {
-          for (let key in res) {
-            if (!res.hasOwnProperty(key)) continue;
-            var obj = res[key];
-            if (obj.Result) {
-              this.response.push(obj.Result);
-            }
-          }
-          this.loading = false;
-        }, (error) => {
-          this.loading = false;
-        });
-    }
+    this.loading = true;    
+    this.reportService.createQuery(
+      (this.reportPeople ? 'PF' : 'PJ'),
+      (this.reportPeople ? this.cpf : this.cnpj),
+      this.credit,
+      this.selectedDatas
+    )
+      .pipe(first())
+      .subscribe((res) => {
+        this.loading = false;
+      }, (error) => {
+        this.loading = false;
+      });
   }
 
   public selectReportType(people: boolean) {
@@ -125,7 +86,6 @@ export class ReportComponent implements OnInit {
     this.cnpj = '';
     this.credit = 0;
     this.totalCost = 0;
-    this.response = [];
   }
 
   public selectData(dataTitle: string, price: number) {
@@ -136,10 +96,6 @@ export class ReportComponent implements OnInit {
       this.selectedDatas.push(dataTitle);
       this.totalCost += price;
     }
-  }
-
-  public isObject(val) {
-    return (typeof val === 'object');
   }
 
   public getModules() {

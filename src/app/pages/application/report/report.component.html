@@ -47,13 +47,13 @@
                 <h3 class="title is-5 mt-6">Módulos de Pesquisa</h3>
                 <p class="subtitle is-6">Selecione os módulos a serem consultados.</p>
                 <div class="modules-to-select">
-                    <div class="card" (click)="!loading && selectData('register', reportPeople ? pricesPF.register_data : pricesPJ.register_data )" [class]="{ 'is-selected': selectedDatas.includes('register') }">
+                    <div class="card" (click)="!loading && selectData('register_data', reportPeople ? pricesPF.register_data : pricesPJ.register_data )" [class]="{ 'is-selected': selectedDatas.includes('register_data') }">
                         <header class="card-header">
                             <p class="card-header-title is-justify-content-space-between">
                                 <span>
                                     <span class="icon">
-                                        <span class="selected-icon" *ngIf="selectedDatas.includes('register')"></span>
-                                        <span class="unselected-icon" *ngIf="!selectedDatas.includes('register')"></span>
+                                        <span class="selected-icon" *ngIf="selectedDatas.includes('register_data')"></span>
+                                        <span class="unselected-icon" *ngIf="!selectedDatas.includes('register_data')"></span>
                                     </span>
                                     <span>Dados Cadastrais</span>
                                 </span>
@@ -64,19 +64,22 @@
                         </header>
                         <div class="card-content">
                           <div class="content">
-                              <p>
-                                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi neque quam, bibendum quis arcu non, bibendum congue mauris. Praesent ornare iaculis auctor.
-                              </p>
+                                <p *ngIf="reportPeople">
+                                    Dados Cadastrais Completos, telefones, E-mails, Circulo de parentes, vizinhos, sócios, dados profissionais, candidatos eleitorais, dados profissionais, informações sócios Demográficas, Servidores Públicos, Receita Federal.
+                                </p>
+                                <p *ngIf="!reportPeople">
+                                    Dados Cadastrais Completos, Telefones, e-mails, Receita Federal, SINTEGRA, Quadro Social da Empresa consultada, Optante pelo Simples ou não, Grupo Econômico até o terceiro nível , Grupo Empresarial, Endereço s telefones de Pessoas relacionadas, Acordos Sindicais, KYC e compliance dos sócios e funcionários, Consulta do representante legal na Receita Federal.
+                                </p>
                           </div>
                         </div>
                     </div>
-                    <div class="card" (click)="!loading && selectData('behavior', reportPeople ? pricesPF.behavior_data : pricesPJ.behavior_data )" [class]="{ 'is-selected': selectedDatas.includes('behavior') }">
+                    <div class="card" (click)="!loading && selectData('behavior_data', reportPeople ? pricesPF.behavior_data : pricesPJ.behavior_data )" [class]="{ 'is-selected': selectedDatas.includes('behavior_data') }">
                         <header class="card-header">
                             <p class="card-header-title is-justify-content-space-between">
                                 <span>
                                     <span class="icon">
-                                        <span class="selected-icon" *ngIf="selectedDatas.includes('behavior')"></span>
-                                        <span class="unselected-icon" *ngIf="!selectedDatas.includes('behavior')"></span>
+                                        <span class="selected-icon" *ngIf="selectedDatas.includes('behavior_data')"></span>
+                                        <span class="unselected-icon" *ngIf="!selectedDatas.includes('behavior_data')"></span>
                                     </span>
                                     <span>Dados Comportamentais</span>
                                 </span>
@@ -87,19 +90,22 @@
                         </header>
                         <div class="card-content">
                           <div class="content">
-                              <p>
-                                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi neque quam, bibendum quis arcu non, bibendum congue mauris. Praesent ornare iaculis auctor.
-                              </p>
+                                <p *ngIf="reportPeople">
+                                    Anúncios Online; Exposição e Perfil na Mídia; Interesses e Comportamentos; Passagens pela Web; Prêmios e Certificações; Presença Online; Relacionamentos Econômicos; Relacionamentos Pessoais; Programas de Benefícios e Assistência Social; Consulta de Plano de Saúde na ANS; Consulta de Restituição do Imposto de Renda; Consulta de Seguro Desemprego
+                                </p>
+                                <p *ngIf="!reportPeople">
+                                    Retorna informações associadas com o nível de atividade da empresa, que incluem desde a estimativa de faturamento e a quantidade de funcionários até elementos relacionados com as passagens do CNPJ, como se o CNPJ possui algum endereço recente, e se a empresa tem ou não um site.
+                                </p>
                           </div>
                         </div>
                     </div>
-                    <div class="card" (click)="!loading && selectData('financial', reportPeople ? pricesPF.financial_data : pricesPJ.financial_data )" *ngIf="reportPeople" [class]="{ 'is-selected': selectedDatas.includes('financial') }">
+                    <div class="card" (click)="!loading && selectData('financial_data', reportPeople ? pricesPF.financial_data : pricesPJ.financial_data )" *ngIf="reportPeople" [class]="{ 'is-selected': selectedDatas.includes('financial_data') }">
                         <header class="card-header">
                             <p class="card-header-title is-justify-content-space-between">
                                 <span>
                                     <span class="icon">
-                                        <span class="selected-icon" *ngIf="selectedDatas.includes('financial')"></span>
-                                        <span class="unselected-icon" *ngIf="!selectedDatas.includes('financial')"></span>
+                                        <span class="selected-icon" *ngIf="selectedDatas.includes('financial_data')"></span>
+                                        <span class="unselected-icon" *ngIf="!selectedDatas.includes('financial_data')"></span>
                                     </span>
                                     <span>Perfil Financeiros</span>
                                 </span>
@@ -110,9 +116,9 @@
                         </header>
                         <div class="card-content">
                           <div class="content">
-                              <p>
-                                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi neque quam, bibendum quis arcu non, bibendum congue mauris. Praesent ornare iaculis auctor.
-                              </p>
+                                <p>
+                                    Informações Financeiras; Presença em Cobrança; Veículos; Employment D50;  Entrepreneurship Level;  Litigiousness Level; Findability; Diversity Exposure Level
+                                </p>
                           </div>
                         </div>
                     </div>
@@ -133,9 +139,9 @@
                         </header>
                         <div class="card-content">
                           <div class="content">
-                              <p>
-                                  Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi neque quam, bibendum quis arcu non, bibendum congue mauris. Praesent ornare iaculis auctor.
-                              </p>
+                                <p>
+                                    Processos Judiciais e Administrativos, Processos Judiciais dos Sócios, Presença em Cobrança, Certidão Negativa de Protesto
+                                </p>
                           </div>
                         </div>
                     </div>
@@ -157,7 +163,7 @@
                       <div class="card-content">
                         <div class="content">
                             <p>
-                                Lorem ipsum dolor sit amet, consectetur adipiscing elit. Morbi neque quam, bibendum quis arcu non, bibendum congue mauris. Praesent ornare iaculis auctor.
+                                Informações de Dividas Vencidas e não pagas, bancos, financeiras, Cartão de Crédito, Grandes Magazines e varejo em geral.
                             </p>
                         </div>
                       </div>
@@ -167,8 +173,8 @@
                             <p class="card-header-title is-justify-content-space-between">
                                 <span>
                                     <span class="icon">
-                                        <i class="fas fa-check-circle" *ngIf="selectedDatas.includes('ondemand')"></i>
-                                        <i class="far fa-circle" *ngIf="!selectedDatas.includes('ondemand')"></i>
+                                        <span class="selected-icon" *ngIf="selectedDatas.includes('ondemand')"></span>
+                                        <span class="unselected-icon" *ngIf="!selectedDatas.includes('ondemand')"></span>
                                     </span>
                                     <span>Certidões</span>
                                 </span>
@@ -210,9 +216,9 @@
                     <p *ngIf="!reportPeople">Pessoa Jurídica</p>
                     <div *ngIf="selectedDatas.length > 0">
                         <h5 class="title is-6 mt-3 mb-1">Módulos Selecionados</h5>
-                        <p *ngIf="selectedDatas.includes('register')">Dados Cadastrais <span class="is-pulled-right">{{ (reportPeople ? pricesPF.register_data : pricesPJ.register_data) | currency: 'BRL' }}</span></p>
-                        <p *ngIf="selectedDatas.includes('behavior')">Dados Comportamentais <span class="is-pulled-right">{{ (reportPeople ? pricesPF.behavior_data : pricesPJ.behavior_data) | currency: 'BRL' }}</span></p>
-                        <p *ngIf="selectedDatas.includes('financial')">Perfil Financeiro <span class="is-pulled-right">{{ (reportPeople ? pricesPF.financial_data : pricesPJ.financial_data) | currency: 'BRL' }}</span></p>
+                        <p *ngIf="selectedDatas.includes('register_data')">Dados Cadastrais <span class="is-pulled-right">{{ (reportPeople ? pricesPF.register_data : pricesPJ.register_data) | currency: 'BRL' }}</span></p>
+                        <p *ngIf="selectedDatas.includes('behavior_data')">Dados Comportamentais <span class="is-pulled-right">{{ (reportPeople ? pricesPF.behavior_data : pricesPJ.behavior_data) | currency: 'BRL' }}</span></p>
+                        <p *ngIf="selectedDatas.includes('financial_data')">Perfil Financeiro <span class="is-pulled-right">{{ (reportPeople ? pricesPF.financial_data : pricesPJ.financial_data) | currency: 'BRL' }}</span></p>
                         <p *ngIf="selectedDatas.includes('restrict')">Restritivos <span class="is-pulled-right">{{ (reportPeople ? pricesPF.restrict : pricesPJ.restrict) | currency: 'BRL' }}</span></p>
                         <p *ngIf="selectedDatas.includes('ondemand')">Certidões<span class="is-pulled-right">{{ (reportPeople ? pricesPF.ondemand : pricesPJ.ondemand) | currency: 'BRL' }}</span></p>
                         <p *ngIf="selectedDatas.includes('boavista')"><i>Boavista Score</i> <span class="is-pulled-right">{{ (reportPeople ? pricesPF.boavista : pricesPJ.boavista) | currency: 'BRL' }}</span></p>
@@ -223,50 +229,6 @@
                     <button class="button is-primary is-medium is-fullwidth" [class]="{ 'is-loading': loading }" [disabled]="selectedDatas.length === 0 || loading || (reportPeople && cpf.length < 11) || (!reportPeople && cnpj.length < 14)" (click)="doConsult()">
                         Solicitar Consulta
                     </button>
-                </div>
-            </div>
-        </div>
-        <br>
-        <div *ngFor="let node1 of response">
-            <div class="card mb-4" *ngFor="let node2 of node1 | keyvalue">
-                <header class="card-header">
-                    <p class="card-header-title">
-                        {{ node2.key }}
-                    </p>
-                  </header>
-                <div class="card-content">
-                    <div class="content">
-                        <div *ngIf="isObject(node2.value)" class="ml-4">
-                            <div *ngFor="let node3 of node2.value | keyvalue">
-                                <b>{{ node3.key }}</b>:
-                                <div *ngIf="isObject(node3.value)" class="ml-4">
-                                    <div *ngFor="let node4 of node3.value | keyvalue">
-                                        <b>{{ node4.key }}</b>:
-                                        <div *ngIf="isObject(node4.value)" class="ml-4">
-                                            <div *ngFor="let node5 of node4.value | keyvalue">
-                                                <b>{{ node5.key }}</b>:
-                                                <div *ngIf="isObject(node5.value)" class="ml-4">
-                                                    {{ node5.value | json }}
-                                                </div>
-                                                <span *ngIf="!isObject(node5.value)">
-                                                    {{ node5.value }}
-                                                </span>
-                                            </div>
-                                        </div>
-                                        <span *ngIf="!isObject(node4.value)">
-                                            {{ node4.value }}
-                                        </span>
-                                    </div>
-                                </div>
-                                <span *ngIf="!isObject(node3.value)">
-                                    {{ node3.value }}
-                                </span>
-                            </div>
-                        </div>
-                        <span *ngIf="!isObject(node2.value)">
-                            {{ node2.value }}
-                        </span>
-                    </div>
                 </div>
             </div>
         </div>

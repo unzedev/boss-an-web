@@ -98,11 +98,18 @@
                         <td>{{ r.document | mask: 'CPF_CNPJ' }}</td>
                         <td *ngIf="userRole !== 'employee'">{{ r.user.name.split(' ')[0] }}</td>
                         <td>{{ r.createdAt | date: 'dd/MM/yyyy, HH:mm' }}</td>
-                        <td>{{ r.credit | currency: 'BRL' }}</td>
-                        <td></td>
+                        <td>{{ (r.credit | currency: 'BRL') || '-' }}</td>
                         <td>
-                            <button class="button is-light" (click)="getResult(r)">
-                                Ver
+                            <span *ngIf="r.status === 'PROCESSING'" class="tag is-light">Processando</span>
+                            <span *ngIf="r.status === 'ANALYSE'" class="tag is-warning">Analisar</span>
+                            <span *ngIf="r.status === 'Recommended'" class="tag is-primary is-light">Recomendado</span>
+                            <span *ngIf="r.status === 'Not'" class="tag is-danger is-light">Não Recomendado</span>
+                        </td>
+                        <td>
+                            <button class="button is-text" aria-label="Ver" (click)="getResult(r)" *ngIf="r.status !== 'PROCESSING'">
+                                <span class="icon">
+                                    <i class="fas fa-eye"></i>
+                                </span>
                             </button>
                         </td>
                     </tr>

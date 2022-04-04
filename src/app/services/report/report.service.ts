@@ -18,26 +18,12 @@ export class ReportService {
     return this.http.get(`${environment.apiUrl}/queries/me`, { params: filter || null });
   }
 
-  public getPeopleReport(cpf: string, credit: number, registerData: boolean, behaviorData: boolean, financialData: boolean, restrictData: boolean, onDemandData: boolean, boavistaData: boolean): Observable<any> {
-    return this.http.get(`${environment.apiUrl}/people/${cpf}`, { params: {
+  public createQuery(type: 'PF'|'PJ', document: string, credit: number, modules: string[]): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/queries`, {
+      type,
+      document,
       credit: credit.toString(),
-      register_data: registerData.toString(),
-      behavior_data: behaviorData.toString(),
-      financial_data: financialData.toString(),
-      restrict: restrictData.toString(),
-      ondemand: onDemandData.toString(),
-      boavista: boavistaData.toString(),
-    } });
-  }
-
-  public getCompanyReport(cnpj: string, credit: number, registerData: boolean, behaviorData: boolean, restrictData: boolean, onDemandData: boolean, boavistaData: boolean): Observable<any> {
-    return this.http.get(`${environment.apiUrl}/company/${cnpj}`, { params: {
-      credit: credit.toString(),
-      register_data: registerData.toString(),
-      behavior_data: behaviorData.toString(),
-      restrict: restrictData.toString(),
-      ondemand: onDemandData.toString(),
-      boavista: boavistaData.toString(),
-    } });
+      modules,
+    });
   }
 }
