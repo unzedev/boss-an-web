@@ -1,0 +1,225 @@
+.boss-header {
+  background-color: var(--primary-color);
+  color: white;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  height: 40px;
+  padding: 8px 30px;
+  border-radius: 6px 6px 0 0;
+}
+.info-header {
+  background-color: #1d1d1b;
+  padding: 30px 50px 100px 50px;
+  padding-bottom: 30px;
+  margin-bottom: 50px;
+  display: flex;
+  flex-direction: row;
+  flex-wrap: nowrap;
+  justify-content: space-between;
+  border-radius: 0 0 6px 6px;
+  .info-header-item {
+    label {
+      color: #aaaaaa;
+      font-size: 14px;
+    }
+    p {
+      color: white;
+      font-weight: 600;
+      font-size: 17px;
+    }
+  }
+}
+.info-cards {
+  .box {
+    height: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    min-height: 250px;
+    img {
+      width: 60px;
+      margin: 0 auto;
+    }
+    .info-card-title {
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 22px;
+      text-align: center;
+      color: #606060;
+    }
+    .info-card-result {
+      font-weight: 700;
+      font-size: 24px;
+      line-height: 33px;
+      text-align: center;
+      color: #1d1d1b;
+    }
+    .info-card-subtitle {
+      font-weight: 400;
+      font-size: 14px;
+      line-height: 19px;
+      text-align: center;
+      color: #505050;
+      display: block;
+    }
+  }
+}
+.result-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0 10px;
+  td,
+  th {
+    padding: 10px 15px;
+  }
+  tr {
+    background: #ffffff;
+    box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
+    border-radius: 6px;
+    margin-bottom: 20px;
+    &:first-of-type {
+      background: none;
+      box-shadow: none;
+      th {
+        font-weight: 400;
+        color: #909090;
+      }
+    }
+    td {
+      color: #606060;
+      &:first-child {
+        border-radius: 6px 0 0 6px;
+        font-weight: 600;
+      }
+      &:last-child {
+        border-radius: 0 6px 6px 0;
+      }
+    }
+  }
+}
+
+.rainbow-range {
+    .range-labels {
+        display: flex;
+        flex-wrap: nowrap;
+        flex-direction: row;
+        justify-content: space-between;
+        font-weight: 400;
+        font-size: 12px;
+        line-height: 18px;
+        color: #606060;
+    }
+  input[type="range"] {
+    height: 34px;
+    -webkit-appearance: none;
+    margin-top: 10px;
+    width: 100%;
+    background: none;
+
+    &:focus {
+      outline: none;
+    }
+
+    &::-webkit-slider-runnable-track {
+      width: 100%;
+      height: 10px;
+      cursor: pointer;
+      animate: 0.2s;
+      background: linear-gradient(
+        90deg,
+        #0bdb90 0%,
+        #ffbb36 47.92%,
+        #ff4040 100%
+      );
+      border-radius: 50px;
+    }
+
+    &::-webkit-slider-thumb {
+      box-shadow: 1px 1px 1px #000031;
+      border: 1px solid #00001e;
+      height: 26px;
+      width: 26px;
+      border-radius: 15px;
+      background: #ffffff;
+      cursor: pointer;
+      -webkit-appearance: none;
+      margin-top: -8px;
+    }
+
+    &:focus::-webkit-slider-runnable-track {
+      background: linear-gradient(
+        90deg,
+        #0bdb90 0%,
+        #ffbb36 47.92%,
+        #ff4040 100%
+      );
+    }
+
+    &::-moz-range-track {
+      width: 100%;
+      height: 10px;
+      cursor: pointer;
+      animate: 0.2s;
+      background: linear-gradient(
+        90deg,
+        #0bdb90 0%,
+        #ffbb36 47.92%,
+        #ff4040 100%
+      );
+      border-radius: 50px;
+    }
+
+    &::-moz-range-thumb {
+      box-shadow: 1px 1px 1px #000031;
+      border: 1px solid #00001e;
+      height: 26px;
+      width: 26px;
+      border-radius: 15px;
+      background: #ffffff;
+      cursor: pointer;
+    }
+
+    &::-ms-track {
+      width: 100%;
+      height: 10px;
+      cursor: pointer;
+      animate: 0.2s;
+      background: transparent;
+      border-color: transparent;
+      color: transparent;
+    }
+
+    &::-ms-fill-lower,
+    &::-ms-fill-upper {
+      background: #74a9d8;
+      border: 0px solid #010101;
+      border-radius: 2px;
+      box-shadow: 1px 1px 1px #000000;
+    }
+
+    &::-ms-thumb {
+      margin-top: 1px;
+      box-shadow: 1px 1px 1px #000031;
+      border: 1px solid #00001e;
+      height: 26px;
+      width: 26px;
+      border-radius: 15px;
+      background: #ffffff;
+      cursor: pointer;
+    }
+
+    &:focus {
+      &::-ms-fill-lower,
+      &::-ms-fill-upper {
+        background: linear-gradient(
+          90deg,
+          #0bdb90 0%,
+          #ffbb36 47.92%,
+          #ff4040 100%
+        );
+      }
+    }
+  }
+}

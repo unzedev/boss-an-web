@@ -67,7 +67,7 @@ const routes: Routes = [
         component: ReportComponent,
       },
       {
-        path: 'consulta/:id',
+        path: 'consultas/:id',
         component: ReportResultComponent,
       },
       {

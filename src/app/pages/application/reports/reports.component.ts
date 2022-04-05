@@ -27,11 +27,6 @@ export class ReportsComponent implements OnInit, OnDestroy {
     perPage: 10,
   };
 
-  public resultModal = {
-    open: false,
-    result: [],
-  };
-
   public userRole: string = '';
 
   private fetchInterval;
@@ -76,24 +71,6 @@ export class ReportsComponent implements OnInit, OnDestroy {
         this.pagination.maxPages = reports.pagination.maxPages;
         this.checkForProcessingReports(this.reports);
       });
-  }
-
-  public getResult(report: any) {
-    this.resultModal = {
-      open: true,
-      result: report.result,
-    };
-  }
-
-  public closeModal() {
-    this.resultModal = {
-      open: false,
-      result: [],
-    };
-  }
-
-  public isObject(val) {
-    return (typeof val === 'object');
   }
 
   public checkForProcessingReports(reports: any[]) {

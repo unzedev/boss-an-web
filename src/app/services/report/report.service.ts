@@ -32,4 +32,8 @@ export class ReportService {
       modules,
     });
   }
+
+  public getQueryResult(id: string): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/queries/${id}/report`);
+  }
 }
