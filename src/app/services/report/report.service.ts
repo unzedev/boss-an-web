@@ -33,6 +33,14 @@ export class ReportService {
     });
   }
 
+  public createBulkQuery(type: 'PF'|'PJ', documentCredit: {document: string, credit: number}[], modules: string[]): Observable<any> {
+    return this.http.post(`${environment.apiUrl}/queries/bulk`, {
+      type,
+      document_credit: documentCredit,
+      modules,
+    });
+  }
+
   public getQueryResult(id: string): Observable<any> {
     return this.http.get(`${environment.apiUrl}/queries/${id}/report`);
   }

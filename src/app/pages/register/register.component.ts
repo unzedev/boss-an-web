@@ -43,7 +43,16 @@ export class RegisterComponent implements OnInit {
 
   public register(): void {
     this.loading = true;
-    this.userService.createUser(this.registerForm.value)
+    const user = this.registerForm.value;
+    user.address = {
+      street: this.registerForm.value.addressStreet,
+      number: this.registerForm.value.addressNumber,
+      complement: this.registerForm.value.addressComplement,
+      neighborhood: this.registerForm.value.addressNeighborhood,
+      city: this.registerForm.value.addressCity,
+      state: this.registerForm.value.addressState,
+    };
+    this.userService.createUser(user)
       .pipe(first())
       .subscribe((data: any) => {
         this.loading = false;

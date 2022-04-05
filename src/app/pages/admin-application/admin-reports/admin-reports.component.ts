@@ -25,6 +25,13 @@ export class AdminReportsComponent implements OnInit {
     result: [],
   };
 
+  public pagination = {
+    currentPage: 1,
+    maxPages: 0,
+    offset: 0,
+    perPage: 10,
+  };
+
   constructor(
     private adminService: AdminService,
   ) { }
@@ -33,13 +40,26 @@ export class AdminReportsComponent implements OnInit {
     this.getReports();
   }
 
+  goToPage(page: number): void {
+    const p = this.pagination;
+    p.currentPage = page;
+    p.offset = page * p.perPage - p.perPage;
+    this.getReports();
+  }
+
   public getReports(): void {
     const filter = Object.fromEntries(Object.entries(this.filter).filter(([_, v]) => v != ''));
     if (filter.cost) filter.cost = filter.cost.toString();
-    this.adminService.getQueries(filter)
+    const pagination = {
+      offset: this.pagination.offset,
+      perPage: this.pagination.perPage,
+    };
+    this.adminService.getQueries(filter, pagination)
       .pipe(first())
       .subscribe((reports: any) => {
-        this.reports = reports;
+        this.reports = reports.data;
+        this.pagination.currentPage = reports.pagination.currentPage;
+        this.pagination.maxPages = reports.pagination.maxPages;
       });
   }
 

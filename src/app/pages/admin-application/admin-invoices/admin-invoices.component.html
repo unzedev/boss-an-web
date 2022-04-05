@@ -103,6 +103,17 @@
                 </tbody>
             </table>
         </div>
+        <nav class="pagination is-centered" role="navigation" aria-label="pagination" *ngIf="invoices.length > 0">
+            <ul class="pagination-list">
+                <li><a class="pagination-link" aria-label="Ir para página 1" (click)="goToPage(1)" *ngIf="pagination.currentPage > 1">1</a></li>
+                <li><span class="pagination-ellipsis" *ngIf="pagination.currentPage > 1">&hellip;</span></li>
+                <li><a class="pagination-link" (click)="goToPage(pagination.currentPage - 1)" *ngIf="pagination.currentPage - 1 > 0">{{ pagination.currentPage - 1 }}</a></li>
+                <li><a class="pagination-link is-current" aria-current="page">{{ pagination.currentPage }}</a></li>
+                <li><a class="pagination-link" (click)="goToPage(pagination.currentPage + 1)" *ngIf="pagination.currentPage + 1 <= pagination.maxPages">{{ pagination.currentPage + 1 }}</a></li>
+                <li><span class="pagination-ellipsis" *ngIf="pagination.currentPage < pagination.maxPages">&hellip;</span></li>
+                <li><a class="pagination-link" (click)="goToPage(pagination.maxPages)" *ngIf="pagination.currentPage < pagination.maxPages">{{ pagination.maxPages }}</a></li>
+            </ul>
+        </nav>
     </div>
 </section>
 

@@ -25,6 +25,13 @@ export class AdminInvoicesComponent implements OnInit {
     summary: [],
   };
 
+  public pagination = {
+    currentPage: 1,
+    maxPages: 0,
+    offset: 0,
+    perPage: 10,
+  };
+
   constructor(
     private adminService: AdminService,
     private alertService: AlertService,
@@ -34,12 +41,26 @@ export class AdminInvoicesComponent implements OnInit {
     this.getInvoices();
   }
 
+  goToPage(page: number): void {
+    const p = this.pagination;
+    p.currentPage = page;
+    p.offset = page * p.perPage - p.perPage;
+    this.getInvoices();
+  }
+
   public getInvoices(): void {
     const filter = Object.fromEntries(Object.entries(this.filter).filter(([_, v]) => v != ''));
-    this.adminService.getInvoices(filter)
+    const pagination = {
+      offset: this.pagination.offset,
+      perPage: this.pagination.perPage,
+    };
+    this.adminService.getInvoices(filter, pagination)
       .pipe(first())
       .subscribe((invoices: any) => {
-        this.invoices = invoices;
+        this.invoices = invoices.data;
+        this.pagination.currentPage = invoices.pagination.currentPage;
+        this.pagination.maxPages = invoices.pagination.maxPages;
+
       });
   }
 

@@ -19,7 +19,7 @@
             </div>
             <div class="info-header-item">
                 <label>Data de Nascimento/Fundação</label>
-                <p>{{ result.data_nascimento | date: 'dd/MM/yyyy' }}</p>
+                <p>{{ result.data_nascimento.slice(0, 10) | date: 'dd/MM/yyyy' }}</p>
             </div>
             <div class="info-header-item">
                 <label>Naturalidade/Localidade</label>

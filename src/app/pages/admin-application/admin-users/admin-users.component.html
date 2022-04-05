@@ -98,6 +98,17 @@
                 </tbody>
             </table>
         </div>
+        <nav class="pagination is-centered" role="navigation" aria-label="pagination" *ngIf="users.length > 0">
+            <ul class="pagination-list">
+                <li><a class="pagination-link" aria-label="Ir para página 1" (click)="goToPage(1)" *ngIf="pagination.currentPage > 1">1</a></li>
+                <li><span class="pagination-ellipsis" *ngIf="pagination.currentPage > 1">&hellip;</span></li>
+                <li><a class="pagination-link" (click)="goToPage(pagination.currentPage - 1)" *ngIf="pagination.currentPage - 1 > 0">{{ pagination.currentPage - 1 }}</a></li>
+                <li><a class="pagination-link is-current" aria-current="page">{{ pagination.currentPage }}</a></li>
+                <li><a class="pagination-link" (click)="goToPage(pagination.currentPage + 1)" *ngIf="pagination.currentPage + 1 <= pagination.maxPages">{{ pagination.currentPage + 1 }}</a></li>
+                <li><span class="pagination-ellipsis" *ngIf="pagination.currentPage < pagination.maxPages">&hellip;</span></li>
+                <li><a class="pagination-link" (click)="goToPage(pagination.maxPages)" *ngIf="pagination.currentPage < pagination.maxPages">{{ pagination.maxPages }}</a></li>
+            </ul>
+        </nav>
         <div class="empty-message" *ngIf="users.length === 0">
             <div class="icon-container">
                 <i class="fas fa-user-alt"></i>
@@ -120,7 +131,7 @@
                 <div class="field">
                     <label class="label">Valor mínimo</label>
                     <div class="control">
-                        <input class="input" type="tel" currencyMask formControlName="plan">
+                        <input class="input input-light" type="tel" currencyMask formControlName="plan">
                     </div>
                 </div>
                 <div class="columns">
@@ -129,37 +140,37 @@
                         <div class="field">
                             <label class="label">Dados Cadastrais</label>
                             <div class="control">
-                                <input class="input" type="tel" currencyMask formControlName="pf_register_data">
+                                <input class="input input-light" type="tel" currencyMask formControlName="pf_register_data">
                             </div>
                         </div>
                         <div class="field">
                             <label class="label">Perfil Financeiro</label>
                             <div class="control">
-                                <input class="input" type="tel" currencyMask formControlName="pf_financial_data">
+                                <input class="input input-light" type="tel" currencyMask formControlName="pf_financial_data">
                             </div>
                         </div>
                         <div class="field">
                             <label class="label">Dados Comportamentais</label>
                             <div class="control">
-                                <input class="input" type="tel" currencyMask formControlName="pf_behavior_data">
+                                <input class="input input-light" type="tel" currencyMask formControlName="pf_behavior_data">
                             </div>
                         </div>
                         <div class="field">
                             <label class="label">Restritivos</label>
                             <div class="control">
-                                <input class="input" type="tel" currencyMask formControlName="pf_restrict">
+                                <input class="input input-light" type="tel" currencyMask formControlName="pf_restrict">
                             </div>
                         </div>
                         <div class="field">
                             <label class="label">Certidões</label>
                             <div class="control">
-                                <input class="input" type="tel" currencyMask formControlName="pf_ondemand">
+                                <input class="input input-light" type="tel" currencyMask formControlName="pf_ondemand">
                             </div>
                         </div>
                         <div class="field">
                             <label class="label">PEFIN/REFIN Boa Vista</label>
                             <div class="control">
-                                <input class="input" type="tel" currencyMask formControlName="pf_boavista">
+                                <input class="input input-light" type="tel" currencyMask formControlName="pf_boavista">
                             </div>
                         </div>
                     </div>
@@ -168,37 +179,37 @@
                         <div class="field">
                             <label class="label">Dados Cadastrais</label>
                             <div class="control">
-                                <input class="input" type="tel" currencyMask formControlName="pj_register_data">
+                                <input class="input input-light" type="tel" currencyMask formControlName="pj_register_data">
                             </div>
                         </div>
                         <div class="field">
                             <label class="label">Perfil Financeiro</label>
                             <div class="control">
-                                <input class="input" type="tel" currencyMask formControlName="pj_financial_data">
+                                <input class="input input-light" type="tel" currencyMask formControlName="pj_financial_data">
                             </div>
                         </div>
                         <div class="field">
                             <label class="label">Dados Comportamentais</label>
                             <div class="control">
-                                <input class="input" type="tel" currencyMask formControlName="pj_behavior_data">
+                                <input class="input input-light" type="tel" currencyMask formControlName="pj_behavior_data">
                             </div>
                         </div>
                         <div class="field">
                             <label class="label">Restritivos</label>
                             <div class="control">
-                                <input class="input" type="tel" currencyMask formControlName="pj_restrict">
+                                <input class="input input-light" type="tel" currencyMask formControlName="pj_restrict">
                             </div>
                         </div>
                         <div class="field">
                             <label class="label">Certidões</label>
                             <div class="control">
-                                <input class="input" type="tel" currencyMask formControlName="pj_ondemand">
+                                <input class="input input-light" type="tel" currencyMask formControlName="pj_ondemand">
                             </div>
                         </div>
                         <div class="field">
                             <label class="label">PEFIN/REFIN Boa Vista</label>
                             <div class="control">
-                                <input class="input" type="tel" currencyMask formControlName="pj_boavista">
+                                <input class="input input-light" type="tel" currencyMask formControlName="pj_boavista">
                             </div>
                         </div>
                     </div>
@@ -225,7 +236,7 @@
                 <div class="field">
                     <label class="label">Valor mínimo</label>
                     <div class="control">
-                        <input class="input" type="tel" currencyMask formControlName="plan">
+                        <input class="input input-light" type="tel" currencyMask formControlName="plan">
                     </div>
                 </div>
                 <div class="columns">
@@ -234,37 +245,37 @@
                         <div class="field">
                             <label class="label">Dados Cadastrais</label>
                             <div class="control">
-                                <input class="input" type="tel" currencyMask formControlName="pf_register_data">
+                                <input class="input input-light" type="tel" currencyMask formControlName="pf_register_data">
                             </div>
                         </div>
                         <div class="field">
                             <label class="label">Perfil Financeiro</label>
                             <div class="control">
-                                <input class="input" type="tel" currencyMask formControlName="pf_financial_data">
+                                <input class="input input-light" type="tel" currencyMask formControlName="pf_financial_data">
                             </div>
                         </div>
                         <div class="field">
                             <label class="label">Dados Comportamentais</label>
                             <div class="control">
-                                <input class="input" type="tel" currencyMask formControlName="pf_behavior_data">
+                                <input class="input input-light" type="tel" currencyMask formControlName="pf_behavior_data">
                             </div>
                         </div>
                         <div class="field">
                             <label class="label">Restritivos</label>
                             <div class="control">
-                                <input class="input" type="tel" currencyMask formControlName="pf_restrict">
+                                <input class="input input-light" type="tel" currencyMask formControlName="pf_restrict">
                             </div>
                         </div>
                         <div class="field">
                             <label class="label">Certidões</label>
                             <div class="control">
-                                <input class="input" type="tel" currencyMask formControlName="pf_ondemand">
+                                <input class="input input-light" type="tel" currencyMask formControlName="pf_ondemand">
                             </div>
                         </div>
                         <div class="field">
                             <label class="label">PEFIN/REFIN Boa Vista</label>
                             <div class="control">
-                                <input class="input" type="tel" currencyMask formControlName="pf_boavista">
+                                <input class="input input-light" type="tel" currencyMask formControlName="pf_boavista">
                             </div>
                         </div>
                     </div>
@@ -273,37 +284,37 @@
                         <div class="field">
                             <label class="label">Dados Cadastrais</label>
                             <div class="control">
-                                <input class="input" type="tel" currencyMask formControlName="pj_register_data">
+                                <input class="input input-light" type="tel" currencyMask formControlName="pj_register_data">
                             </div>
                         </div>
                         <div class="field">
                             <label class="label">Perfil Financeiro</label>
                             <div class="control">
-                                <input class="input" type="tel" currencyMask formControlName="pj_financial_data">
+                                <input class="input input-light" type="tel" currencyMask formControlName="pj_financial_data">
                             </div>
                         </div>
                         <div class="field">
                             <label class="label">Dados Comportamentais</label>
                             <div class="control">
-                                <input class="input" type="tel" currencyMask formControlName="pj_behavior_data">
+                                <input class="input input-light" type="tel" currencyMask formControlName="pj_behavior_data">
                             </div>
                         </div>
                         <div class="field">
                             <label class="label">Restritivos</label>
                             <div class="control">
-                                <input class="input" type="tel" currencyMask formControlName="pj_restrict">
+                                <input class="input input-light" type="tel" currencyMask formControlName="pj_restrict">
                             </div>
                         </div>
                         <div class="field">
                             <label class="label">Certidões</label>
                             <div class="control">
-                                <input class="input" type="tel" currencyMask formControlName="pj_ondemand">
+                                <input class="input input-light" type="tel" currencyMask formControlName="pj_ondemand">
                             </div>
                         </div>
                         <div class="field">
                             <label class="label">PEFIN/REFIN Boa Vista</label>
                             <div class="control">
-                                <input class="input" type="tel" currencyMask formControlName="pj_boavista">
+                                <input class="input input-light" type="tel" currencyMask formControlName="pj_boavista">
                             </div>
                         </div>
                     </div>
@@ -331,7 +342,7 @@
                         <div class="field">
                             <label class="label">Mês de Referência</label>
                             <div class="control">
-                                <input class="input" type="tel" mask="00" placeholder="12" min="1" max="12" formControlName="month">
+                                <input class="input input-light" type="tel" mask="00" placeholder="12" min="1" max="12" formControlName="month">
                             </div>
                         </div>
                     </div>
@@ -339,7 +350,7 @@
                         <div class="field">
                             <label class="label">Ano de Referência</label>
                             <div class="control">
-                                <input class="input" type="tel" mask="0000" placeholder="2021" formControlName="year">
+                                <input class="input input-light" type="tel" mask="0000" placeholder="2021" formControlName="year">
                             </div>
                         </div>
                     </div>

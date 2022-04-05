@@ -28,7 +28,6 @@ export class ReportResultComponent implements OnInit {
     this.reportService.getQueryResult(id).subscribe((res: any) => {
       this.result = res.results[0].result;
       this.reportDate = res.results[0].createdAt;
-      console.log(this.result)
     });
   }
 

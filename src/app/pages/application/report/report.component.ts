@@ -32,6 +32,7 @@ export class ReportComponent implements OnInit {
       credit: 0,
     }
   ];
+  public useBulk = false;
 
   public pricesPF = {
     register_data: 0,
@@ -62,21 +63,40 @@ export class ReportComponent implements OnInit {
     this.getModules();
   }
 
+  public doBulkConsult() {
+    this.useBulk = true;
+    this.lotModalIsOpen = false;
+  }
+
   public doConsult() {
     this.processing = true;
-    this.loading = true;    
-    this.reportService.createQuery(
-      (this.reportPeople ? 'PF' : 'PJ'),
-      (this.reportPeople ? this.cpf : this.cnpj),
-      this.credit,
-      this.selectedDatas
-    )
-      .pipe(first())
-      .subscribe((res) => {
-        this.loading = false;
-      }, (error) => {
-        this.loading = false;
-      });
+    this.loading = true;
+    if (this.useBulk) {
+      this.reportService.createBulkQuery(
+        (this.reportPeople ? 'PF' : 'PJ'),
+        this.lotModalForm,
+        this.selectedDatas
+      )
+        .pipe(first())
+        .subscribe((res) => {
+          this.loading = false;
+        }, (error) => {
+          this.loading = false;
+        });
+    } else {
+      this.reportService.createQuery(
+        (this.reportPeople ? 'PF' : 'PJ'),
+        (this.reportPeople ? this.cpf : this.cnpj),
+        this.credit,
+        this.selectedDatas
+      )
+        .pipe(first())
+        .subscribe((res) => {
+          this.loading = false;
+        }, (error) => {
+          this.loading = false;
+        });
+    }
   }
 
   public selectReportType(people: boolean) {

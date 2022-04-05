@@ -73,7 +73,7 @@
                     <tr>
                         <th>Mês de Referência</th>
                         <th>Número da NF</th>
-                        <th>Situação</th>
+                        <!-- <th>Situação</th> -->
                         <th>Valor</th>
                         <th>Pagamento</th>
                         <th></th>
@@ -83,16 +83,19 @@
                     <tr *ngFor="let i of invoices">
                         <td>{{ i.month }}/{{ i.year }}</td>
                         <td>{{ i.user.name }}</td>
-                        <td>{{ i.status }}</td>
+                        <!-- <td>{{ i.status }}</td> -->
                         <td>{{ i.amount | currency: 'BRL' }}</td>
                         <td>
                             <span *ngIf="i.status === 'pending'" class="tag is-warning">Pendente</span>
                             <span *ngIf="i.status === 'paid'" class="tag is-primary is-light">Pago</span>
                         </td>
                         <td>
-                          <button class="button" (click)="getSummary(i)">
-                              Resumo
-                          </button>
+                          <a class="button is-text" (click)="getSummary(i)">
+                            <i class="fas fa-eye"></i>
+                          </a>
+                          <a [href]="i.payment.response.bankSlipUrl" target="_blank" class="button is-text">
+                            <i class="fas fa-barcode"></i>
+                          </a>
                         </td>
                     </tr>
                 </tbody>

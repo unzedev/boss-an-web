@@ -25,8 +25,14 @@ export class AdminService {
     return this.http.get(`${this.apiUrl}users/${userId}/config`);
   }
 
-  public getUsers(filter?: { status?: string, role?: string, active?: string, document?: string, email?: string, name?: string, employer?: string }): Observable<any> {
-    return this.http.get(`${this.apiUrl}users`, { params: filter || null });
+  public getUsers(filter: { status?: string, role?: string, active?: string, document?: string, email?: string, name?: string, employer?: string }, pagination: { offset: number, perPage: number }): Observable<any> {
+    return this.http.get(`${this.apiUrl}users`, {
+      params: filter || null,
+      headers: {
+        offset: Number(pagination.offset).toString(),
+        per_page: Number(pagination.perPage).toString()
+      }
+    });
   }
 
   public approveUser(userId: string): Observable<any> {
@@ -37,8 +43,14 @@ export class AdminService {
     return this.http.post(`${this.apiUrl}users/${userId}/disapproval`, {});
   }
 
-  public getQueries(filter?: { type?: string, module?: string, user?: string, start_date?: string, end_date?: string, cost?: string }): Observable<any> {
-    return this.http.get(`${this.apiUrl}queries`, { params: filter || null });
+  public getQueries(filter: { type?: string, module?: string, user?: string, start_date?: string, end_date?: string, cost?: string }, pagination: { offset: number, perPage: number }): Observable<any> {
+    return this.http.get(`${this.apiUrl}queries`, {
+      params: filter || null,
+      headers: {
+        offset: Number(pagination.offset).toString(),
+        per_page: Number(pagination.perPage).toString()
+      }
+    });
   }
 
   public getDashboardQueries(): Observable<any> {
@@ -49,8 +61,14 @@ export class AdminService {
     return this.http.get(`${this.apiUrl}dashboard/queries/types`);
   }
 
-  public getInvoices(filter?: { status?: string, month?: string, year?: string, user?: string }): Observable<any> {
-    return this.http.get(`${this.apiUrl}invoices`, { params: filter });
+  public getInvoices(filter: { status?: string, month?: string, year?: string, user?: string }, pagination: { offset: number, perPage: number }): Observable<any> {
+    return this.http.get(`${this.apiUrl}invoices`, {
+      params: filter,
+      headers: {
+        offset: Number(pagination.offset).toString(),
+        per_page: Number(pagination.perPage).toString()
+      }
+   });
   }
 
   public createInvoice(config: { month: number, year: number, user: string }): Observable<any> {

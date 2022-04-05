@@ -239,7 +239,7 @@
     <div class="modal-background"></div>
     <div class="modal-card">
         <section class="modal-card-body px-6 py-6 has-text-centered">
-            <i class="fas fa-spinner"></i>
+            <!-- <i class="fas fa-spinner"></i> -->
             <h1 class="title is-4 mt-5">Processando sua consulta</h1>
             <p>Aguarde enquanto a consulta está sendo processada.</p>
             <p>Assim que finalizada, você será notificado(a).</p>
@@ -283,7 +283,7 @@
             <button class="button is-dark is-outlined is-fullwidth mt-5" (click)="addFieldsToLotModalForm()">
                 Adicionar Campos
             </button>
-            <button class="button is-primary is-fullwidth mt-5">
+            <button class="button is-primary is-fullwidth mt-5" (click)="doBulkConsult()">
                 Pronto
             </button>
             <button class="button is-text is-fullwidth mt-5" (click)="cancelLotModal()">
