@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { ReportService } from 'src/app/services/report/report.service';
 
@@ -7,7 +7,7 @@ import { ReportService } from 'src/app/services/report/report.service';
   templateUrl: './reports.component.html',
   styleUrls: ['./reports.component.scss']
 })
-export class ReportsComponent implements OnInit {
+export class ReportsComponent implements OnInit, OnDestroy {
 
   public filter = {
     type: '',
@@ -19,6 +19,13 @@ export class ReportsComponent implements OnInit {
   };
 
   public reports: any[] = [];
+
+  public pagination = {
+    currentPage: 1,
+    maxPages: 0,
+    offset: 0,
+    perPage: 10,
+  };
 
   public resultModal = {
     open: false,
@@ -37,14 +44,37 @@ export class ReportsComponent implements OnInit {
     this.getReports();
   }
 
+  ngOnDestroy(): void {
+    console.log('destroy')
+    if (this.fetchInterval) {
+      clearInterval(this.fetchInterval);
+    }
+  }
+
+  goToPage(page: number): void {
+    if (this.fetchInterval) {
+      clearInterval(this.fetchInterval);
+    }
+    const p = this.pagination;
+    p.currentPage = page;
+    p.offset = page * p.perPage - p.perPage;
+    this.getReports();
+  }
+
   public getReports(): void {
     const filter = Object.fromEntries(Object.entries(this.filter).filter(([_, v]) => v != ''));
     if (filter.cost) filter.cost = filter.cost.toString();
-    this.reportService.getAllQueries(filter)
+    const pagination = {
+      offset: this.pagination.offset,
+      perPage: this.pagination.perPage,
+    };
+    this.reportService.getAllQueries(filter, pagination)
       .pipe(first())
       .subscribe((reports: any) => {
-        this.reports = reports;
-        this.checkForProcessingReports(reports);
+        this.reports = reports.data;
+        this.pagination.currentPage = reports.pagination.currentPage;
+        this.pagination.maxPages = reports.pagination.maxPages;
+        this.checkForProcessingReports(this.reports);
       });
   }
 

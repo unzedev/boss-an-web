@@ -103,6 +103,17 @@
                 </tbody>
             </table>
         </div>
+        <nav class="pagination is-centered" role="navigation" aria-label="pagination" *ngIf="users.length > 0">
+            <ul class="pagination-list">
+                <li><a class="pagination-link" aria-label="Ir para página 1" (click)="goToPage(1)" *ngIf="pagination.currentPage > 1">1</a></li>
+                <li><span class="pagination-ellipsis" *ngIf="pagination.currentPage > 1">&hellip;</span></li>
+                <li><a class="pagination-link" (click)="goToPage(pagination.currentPage - 1)" *ngIf="pagination.currentPage - 1 > 0">{{ pagination.currentPage - 1 }}</a></li>
+                <li><a class="pagination-link is-current" aria-current="page">{{ pagination.currentPage }}</a></li>
+                <li><a class="pagination-link" (click)="goToPage(pagination.currentPage + 1)" *ngIf="pagination.currentPage + 1 <= pagination.maxPages">{{ pagination.currentPage + 1 }}</a></li>
+                <li><span class="pagination-ellipsis" *ngIf="pagination.currentPage < pagination.maxPages">&hellip;</span></li>
+                <li><a class="pagination-link" (click)="goToPage(pagination.maxPages)" *ngIf="pagination.currentPage < pagination.maxPages">{{ pagination.maxPages }}</a></li>
+            </ul>
+        </nav>
         <div class="empty-message" *ngIf="users.length === 0">
             <div class="icon-container">
                 <i class="fas fa-user-alt"></i>
@@ -124,7 +135,7 @@
                 <div class="field">
                     <label class="label">Nome Completo</label>
                     <div class="control has-icons-left">
-                        <input class="input" type="text" formControlName="name" [disabled]="loading">
+                        <input class="input input-light" type="text" formControlName="name" [disabled]="loading">
                         <span class="icon is-small is-left">
                         <i class="fas fa-user"></i>
                         </span>
@@ -133,7 +144,7 @@
                 <div class="field">
                     <label class="label">CPF</label>
                     <div class="control has-icons-left">
-                        <input class="input" type="tel" formControlName="document" mask="000.000.000-00" [disabled]="loading">
+                        <input class="input input-light" type="tel" formControlName="document" mask="000.000.000-00" [disabled]="loading">
                         <span class="icon is-small is-left">
                         <i class="fas fa-receipt"></i>
                         </span>
@@ -142,7 +153,7 @@
                 <div class="field">
                     <label class="label">Celular</label>
                     <div class="control has-icons-left">
-                        <input class="input" type="tel" formControlName="phone" mask="(00) 00000-0000" [disabled]="loading">
+                        <input class="input input-light" type="tel" formControlName="phone" mask="(00) 00000-0000" [disabled]="loading">
                         <span class="icon is-small is-left">
                         <i class="fas fa-phone-alt"></i>
                         </span>
@@ -151,7 +162,7 @@
                 <div class="field">
                     <label class="label">E-mail</label>
                     <div class="control has-icons-left">
-                        <input class="input" type="email" formControlName="email" [disabled]="loading">
+                        <input class="input input-light" type="email" formControlName="email" [disabled]="loading">
                         <span class="icon is-small is-left">
                         <i class="fas fa-envelope"></i>
                         </span>
@@ -160,7 +171,7 @@
                 <div class="field">
                     <label class="label">Senha</label>
                     <div class="control has-icons-left">
-                        <input class="input" type="password" formControlName="password" autocomplete="new-password" [disabled]="loading">
+                        <input class="input input-light" type="password" formControlName="password" autocomplete="new-password" [disabled]="loading">
                         <span class="icon is-small is-left">
                         <i class="fas fa-lock"></i>
                         </span>
@@ -187,7 +198,7 @@
                 <div class="field">
                     <label class="label">Nome Completo</label>
                     <div class="control has-icons-left">
-                        <input class="input" type="text" formControlName="name" [disabled]="loading">
+                        <input class="input input-light" type="text" formControlName="name" [disabled]="loading">
                         <span class="icon is-small is-left">
                         <i class="fas fa-user"></i>
                         </span>
@@ -196,7 +207,7 @@
                 <div class="field">
                     <label class="label">CPF ou CNPJ</label>
                     <div class="control has-icons-left">
-                        <input class="input" type="tel" formControlName="document" mask="CPF_CNPJ" [disabled]="loading">
+                        <input class="input input-light" type="tel" formControlName="document" mask="CPF_CNPJ" [disabled]="loading">
                         <span class="icon is-small is-left">
                         <i class="fas fa-receipt"></i>
                         </span>
@@ -205,7 +216,7 @@
                 <div class="field">
                     <label class="label">Celular</label>
                     <div class="control has-icons-left">
-                        <input class="input" type="tel" formControlName="phone" mask="(00) 00000-0000" [disabled]="loading">
+                        <input class="input input-light" type="tel" formControlName="phone" mask="(00) 00000-0000" [disabled]="loading">
                         <span class="icon is-small is-left">
                         <i class="fas fa-phone-alt"></i>
                         </span>
@@ -214,7 +225,7 @@
                 <div class="field">
                     <label class="label">E-mail</label>
                     <div class="control has-icons-left">
-                        <input class="input" type="email" formControlName="email" [disabled]="loading">
+                        <input class="input input-light" type="email" formControlName="email" [disabled]="loading">
                         <span class="icon is-small is-left">
                         <i class="fas fa-envelope"></i>
                         </span>
@@ -223,7 +234,7 @@
                 <div class="field">
                     <label class="label">Senha</label>
                     <div class="control has-icons-left">
-                        <input class="input" type="password" formControlName="password" autocomplete="new-password" [disabled]="loading">
+                        <input class="input input-light" type="password" formControlName="password" autocomplete="new-password" [disabled]="loading">
                         <span class="icon is-small is-left">
                         <i class="fas fa-lock"></i>
                         </span>

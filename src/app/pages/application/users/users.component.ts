@@ -46,6 +46,13 @@ export class UsersComponent implements OnInit {
     password: new FormControl('', Validators.required),
   });
 
+  public pagination = {
+    currentPage: 1,
+    maxPages: 0,
+    offset: 0,
+    perPage: 10,
+  };
+
   public loading: boolean = false;
 
   constructor(
@@ -57,12 +64,25 @@ export class UsersComponent implements OnInit {
     this.getUsers();
   }
 
+  goToPage(page: number): void {
+    const p = this.pagination;
+    p.currentPage = page;
+    p.offset = page * p.perPage - p.perPage;
+    this.getUsers();
+  }
+
   public getUsers(): void {
     const filter = Object.fromEntries(Object.entries(this.filter).filter(([_, v]) => v != ''));
-    this.userService.getEmployees()
+    const pagination = {
+      offset: this.pagination.offset,
+      perPage: this.pagination.perPage,
+    };
+    this.userService.getEmployees(pagination)
       .pipe(first())
-      .subscribe((users: User[]) => {
-        this.users = users;
+      .subscribe((users: any) => {
+        this.users = users.data;
+        this.pagination.currentPage = users.pagination.currentPage;
+        this.pagination.maxPages = users.pagination.maxPages;
       });
   }
 

@@ -24,6 +24,13 @@ export class InvoicesComponent implements OnInit {
     summary: [],
   };
 
+  public pagination = {
+    currentPage: 1,
+    maxPages: 0,
+    offset: 0,
+    perPage: 10,
+  };
+
   public userRole: string = '';
 
   constructor(
@@ -35,29 +42,44 @@ export class InvoicesComponent implements OnInit {
     this.getMyOrAllInvoices();
   }
 
+  goToPage(page: number): void {
+    const p = this.pagination;
+    p.currentPage = page;
+    p.offset = page * p.perPage - p.perPage;
+    this.getMyOrAllInvoices();
+  }
+
   public getMyOrAllInvoices() {
     const filter = Object.fromEntries(Object.entries(this.filter).filter(([_, v]) => v != ''));
+    const pagination = {
+      offset: this.pagination.offset,
+      perPage: this.pagination.perPage,
+    };
     this.userRole = this.authService.getUser().role;
     if (this.userRole === 'user') {
-      this.getInvoices();
+      this.getInvoices(pagination);
     } else {
-      this.getMyInvoices();
+      this.getMyInvoices(pagination);
     }
   }
 
-  private getMyInvoices(): void {
-    this.userService.getUserInvoices()
+  private getMyInvoices(pagination: any): void {
+    this.userService.getUserInvoices(pagination)
       .pipe(first())
       .subscribe((invoices: any) => {
-        this.invoices = invoices;
+        this.invoices = invoices.data;
+        this.pagination.currentPage = invoices.pagination.currentPage;
+        this.pagination.maxPages = invoices.pagination.maxPages;
       });
   }
 
-  private getInvoices(): void {
-    this.userService.getUserInvoices()
+  private getInvoices(pagination: any): void {
+    this.userService.getUserInvoices(pagination)
       .pipe(first())
       .subscribe((invoices: any) => {
-        this.invoices = invoices;
+        this.invoices = invoices.data;
+        this.pagination.currentPage = invoices.pagination.currentPage;
+        this.pagination.maxPages = invoices.pagination.maxPages;
       });
   }
 

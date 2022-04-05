@@ -25,8 +25,13 @@ export class UserService {
     return this.http.post(`${this.apiUrl}`, data);
   }
 
-  public getEmployees(): Observable<any> {
-    return this.http.get(`${this.apiUrl}employees`);
+  public getEmployees(pagination: { offset: number, perPage: number }): Observable<any> {
+    return this.http.get(`${this.apiUrl}employees`, {
+      headers: {
+        offset: Number(pagination.offset).toString(),
+        per_page: Number(pagination.perPage).toString()
+      }
+    });
   }
 
   public createEmployee(data: User): Observable<any> {
@@ -53,8 +58,13 @@ export class UserService {
     return this.http.get(`${this.apiUrl}modules`);
   }
 
-  public getUserInvoices(): Observable<any> {
-    return this.http.get(`${this.apiUrl}invoices`);
+  public getUserInvoices(pagination: { offset: number, perPage: number }): Observable<any> {
+    return this.http.get(`${this.apiUrl}invoices`, {
+      headers: {
+        offset: Number(pagination.offset).toString(),
+        per_page: Number(pagination.perPage).toString()
+      }
+    });
   }
 
   public getDashboardQueries(): Observable<any> {

@@ -10,8 +10,14 @@ export class ReportService {
 
   public constructor(private http: HttpClient) { }
 
-  public getAllQueries(filter?: { type?: string, module?: string, user?: string, start_date?: string, end_date?: string, cost?: string }): Observable<any> {
-    return this.http.get(`${environment.apiUrl}/queries`, { params: filter || null });
+  public getAllQueries(filter: { type?: string, module?: string, user?: string, start_date?: string, end_date?: string, cost?: string }, pagination: { offset: number, perPage: number }): Observable<any> {
+    return this.http.get(`${environment.apiUrl}/queries`, {
+      params: filter || null,
+      headers: {
+        offset: Number(pagination.offset).toString(),
+        per_page: Number(pagination.perPage).toString()
+      }
+    });
   }
 
   public getUserQueries(filter?: { type?: string, module?: string, user?: string, start_date?: string, end_date?: string, cost?: string }): Observable<any> {
