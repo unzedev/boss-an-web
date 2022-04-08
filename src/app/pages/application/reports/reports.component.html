@@ -88,13 +88,7 @@
                 <tbody>
                     <tr *ngFor="let r of reports">
                         <td>{{ r.type }}</td>
-                        <td>
-                            <span *ngIf="r.module === 'register_data'">Cadastrais</span>
-                            <span *ngIf="r.module === 'behavior_data'">Comportamentais</span>
-                            <span *ngIf="r.module === 'financial_data'">Financeiros</span>
-                            <span *ngIf="r.module === 'restrict'">Restritos</span>
-                            <span *ngIf="r.module === 'ondemand'">Certidões</span>
-                        </td>
+                        <td>{{ r.module | bossModule }}</td>
                         <td>{{ r.document | mask: 'CPF_CNPJ' }}</td>
                         <td *ngIf="userRole !== 'employee'">{{ r.user.name.split(' ')[0] }}</td>
                         <td>{{ r.createdAt | date: 'dd/MM/yyyy, HH:mm' }}</td>

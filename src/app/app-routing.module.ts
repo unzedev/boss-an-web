@@ -13,23 +13,27 @@ import { ReportComponent } from './pages/application/report/report.component';
 import { DashboardComponent } from './pages/application/dashboard/dashboard.component';
 import { ReportsComponent } from './pages/application/reports/reports.component';
 import { InvoicesComponent } from './pages/application/invoices/invoices.component';
+import { ReportResultComponent } from './pages/application/report-result/report-result.component';
+import { PlansComponent } from './pages/application/plans/plans.component';
 
 import { AdminApplicationComponent } from './pages/admin-application/admin-application.component';
 import { AdminUsersComponent } from './pages/admin-application/admin-users/admin-users.component';
 import { AdminDashboardComponent } from './pages/admin-application/admin-dashboard/admin-dashboard.component';
 import { AdminReportsComponent } from './pages/admin-application/admin-reports/admin-reports.component';
+import { AdminPlansComponent } from './pages/admin-application/admin-plans/admin-plans.component';
+import { AdminInvoicesComponent } from './pages/admin-application/admin-invoices/admin-invoices.component';
 
 import { AdminAuthGuard } from './guards/admin-auth/admin-auth.guard';
 import { OwnerAuthGuard } from './guards/owner-auth/owner-auth.guard';
 import { AuthGuard } from './guards/auth/auth.guard';
-import { AdminInvoicesComponent } from './pages/admin-application/admin-invoices/admin-invoices.component';
-import { ReportResultComponent } from './pages/application/report-result/report-result.component';
 
 
 const routes: Routes = [
   {
     path: '',
-    component: HomeComponent
+    // component: HomeComponent,
+    redirectTo: '/entrar',
+    pathMatch: 'full'
   },
   {
     path: 'cadastrar',
@@ -79,6 +83,11 @@ const routes: Routes = [
         component: InvoicesComponent,
         canActivate: [OwnerAuthGuard],
       },
+      {
+        path: 'planos',
+        component: PlansComponent,
+        canActivate: [OwnerAuthGuard],
+      },
     ],
   },
   {
@@ -101,6 +110,10 @@ const routes: Routes = [
       {
         path: 'consultas',
         component: AdminReportsComponent,
+      },
+      {
+        path: 'planos',
+        component: AdminPlansComponent,
       },
     ],
   },

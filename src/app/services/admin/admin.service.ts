@@ -82,4 +82,17 @@ export class AdminService {
   public deleteInvoice(invoiceId: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}invoices/${invoiceId}`);
   }
+
+  public getPlans(pagination: { offset: number, perPage: number }): Observable<any> {
+    return this.http.get(`${this.apiUrl}plans`, {
+      headers: {
+        offset: Number(pagination.offset).toString(),
+        per_page: Number(pagination.perPage).toString()
+      }
+   });
+  }
+
+  public createPlan(params: { price: number, name: string, itens: string[] }): Observable<any> {
+    return this.http.post(`${this.apiUrl}plans`, params);
+  }
 }

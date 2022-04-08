@@ -8,8 +8,8 @@
               <img src="/assets/svg/boss-logo-04.svg" alt="Boss Analytics">
             </a>
           </div>
-          <div class="box px-6 py-6 mt-6">
-            <h1 class="title is-3 mb-6 has-text-black has-text-centered">
+          <div class="box px-6 py-6 mt-6" *ngIf="!userIsBlocked">
+            <h1 class="title is-4 mb-6 has-text-black has-text-centered">
               Acesse sua conta
             </h1>
             <form [formGroup]="loginForm" (ngSubmit)="login()">
@@ -55,6 +55,15 @@
             <div class="has-text-centered mt-6">
               <a href="/cadastrar">Ainda não tenho uma conta</a>
             </div>
+          </div>
+          <div class="box px-6 py-6 mt-6 has-text-centered" *ngIf="userIsBlocked">
+            <h1 class="title is-4 mb-6 has-text-black">
+              Seu acesso está bloqueado.
+            </h1>
+            <p class="subtitle is-6 mb-6">
+              Entre em contato com seu administrador para saber mais.
+            </p>
+            <a class="button is-primary is-fullwidth mt-6" (click)="goBackToForm()">Voltar para o login</a>
           </div>
         </div>
       </div>

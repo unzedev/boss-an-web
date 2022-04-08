@@ -2,20 +2,67 @@
   <div class="hero-body">
     <div class="container">
       <div class="columns is-centered">
-        <div class="column is-12-mobile is-8-tablet is-5-desktop">
+        <div class="column is-12-mobile is-8-tablet" [class]="{ 'is-5-desktop': currentStep > 1, 'is-10-desktop': currentStep == 1 }">
           <div class="has-text-centered">
             <a href="">
               <img src="/assets/svg/boss-logo-04.svg" alt="Boss Analytics">
             </a>
           </div>
-          <div class="box px-6 py-6 mt-6">
+          <div class="box px-6 py-6 mt-6" *ngIf="currentStep == 1">
             <div class="has-text-centered">
-              <h1 class="title is-3 has-text-black has-text-centered">
+              <h1 class="title is-4 has-text-black has-text-centered">
+                Escolha o seu plano
+              </h1>
+              <p class="subtitle is-6 mb-6">Para efetuar seu cadastro, primeiro selecione o plano desejado.</p>
+              <div class="columns is-multiline">
+                <div class="column is-4" *ngFor="let p of plans">
+                  <div class="card">
+                    <header class="card-header has-background-dark">
+                      <p class="card-header-title has-text-white px-3 py-3">
+                        {{ p.name }}
+                      </p>
+                    </header>
+                    <div class="card-content has-text-left px-3 py-3">
+                      <div class="content">
+                        <p *ngFor="let li of p.itens">
+                          <span class="icon has-text-success">
+                            <i class="fas fa-check"></i>
+                          </span>
+                          <span>{{ li }}</span>
+                        </p>
+                      </div>
+                    </div>
+                    <footer class="card-footer px-3 py-3 is-flex-direction-column has-text-left">
+                      <p class="mb-4"><b>{{ p.price | currency: 'BRL' }} / Mês</b></p>
+                      <button (click)="selectPlan(p)" class="button is-primary is-fullwidth">Selecionar</button>
+                    </footer>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="has-text-centered mt-6">
+              <a href="/entrar">Eu já tenho uma conta</a>
+            </div>
+          </div>
+          <div class="box px-6 py-6 mt-6" *ngIf="currentStep == 2">
+            <div class="has-text-centered">
+              <h1 class="title is-4 has-text-black has-text-centered">
                 Formulário de cadastro
               </h1>
               <p class="subtitle is-6 mb-6">Preencha os campos abaixo para cadastrar sua empresa.</p>
             </div>
-            <form [formGroup]="registerForm" (ngSubmit)="register()">          
+            <form [formGroup]="registerForm" (ngSubmit)="register()">
+              <div class="field">
+                <label class="label">
+                  Plano selecionado
+                  <span class="is-pulled-right">
+                    <a (click)="goToStep(1)" class="is-underlined has-text-light">Escolher outro plano</a>
+                  </span>
+                </label>
+                <div class="control">
+                  <input class="input" type="text" [value]="selectedPlan.name" readonly>
+                </div>
+              </div>
               <div class="field">
                 <label class="label">Nome Completo</label>
                 <div class="control has-icons-left">
@@ -168,7 +215,7 @@
               </div>
               <h3 class="title is-5 has-text-black mt-5 mb-2">Segurança</h3>
               <div class="field">
-                <label class="label">Senha</label>
+                <label class="label">Senha <small class="has-text-light">(mínimo de 6 caracteres alfanuméricos)</small></label>
                 <div class="control has-icons-left">
                   <input class="input" type="password" formControlName="password" autocomplete="new-password" [class]="{ 'is-danger': registerForm.controls['password'].invalid && (registerForm.controls['password'].dirty || registerForm.controls['password'].touched) }">
                   <span class="icon is-small is-left">
@@ -179,8 +226,8 @@
                   <p *ngIf="registerForm.controls['password'].errors.required" class="help is-danger">
                     Informe a Senha.
                   </p>
-                  <p *ngIf="registerForm.controls['password'].errors.email" class="help is-danger">
-                    Senha inválida.
+                  <p *ngIf="registerForm.controls['password'].errors.minlength" class="help is-danger">
+                    Informe no mínimo 6 carateres.
                   </p>
                 </div>
               </div>
@@ -195,9 +242,6 @@
                 <div *ngIf="registerForm.controls['confirmPassword'].invalid && (registerForm.controls['confirmPassword'].dirty || registerForm.controls['confirmPassword'].touched)">
                   <p *ngIf="registerForm.controls['confirmPassword'].errors.required" class="help is-danger">
                     Confirme a Senha.
-                  </p>
-                  <p *ngIf="registerForm.controls['confirmPassword'].errors.email" class="help is-danger">
-                    Senha inválida.
                   </p>
                   <p *ngIf="registerForm.controls['confirmPassword'].errors.notMatch" class="help is-danger">
                     Senha precisa ser idêntica.
@@ -229,6 +273,15 @@
             </form>
             <div class="has-text-centered mt-6">
               <a href="/entrar">Eu já tenho uma conta</a>
+            </div>
+          </div>
+          <div class="box px-6 py-6 mt-6" *ngIf="currentStep == 3">
+            <div class="has-text-centered">
+              <h1 class="title is-4 has-text-black has-text-centered">
+                Parabéns! Seu cadastro foi efetuado com sucesso.
+              </h1>
+              <p class="subtitle is-6 mb-6 mt-4">Seja muito bem-vindo(a) à Boss Analytics. Clique no botão abaixo para acessar a sua conta..</p>
+              <a href="/entrar" class="button is-primary is-fullwidth">Acessar minha conta</a>
             </div>
           </div>
         </div>

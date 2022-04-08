@@ -137,3 +137,9 @@ hr {
 .input-light {
   background-color: #eee;
 }
+
+.modal-card {
+  width: auto;
+  min-width: 640px;
+  max-width: calc(100vw - 100px);
+}

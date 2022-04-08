@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { first } from 'rxjs/operators';
 import { AdminService } from 'src/app/services/admin/admin.service';
 import { AlertService } from 'src/app/services/alert/alert.service';
+import { UserService } from 'src/app/services/user/user.service';
 
 @Component({
   selector: 'app-admin-invoices',
@@ -22,7 +23,9 @@ export class AdminInvoicesComponent implements OnInit {
 
   public resultModal = {
     open: false,
+    invoiceId: null,
     summary: [],
+    reports: [],
   };
 
   public pagination = {
@@ -32,9 +35,17 @@ export class AdminInvoicesComponent implements OnInit {
     perPage: 10,
   };
 
+  public resultPagination = {
+    currentPage: 1,
+    maxPages: 0,
+    offset: 0,
+    perPage: 10,
+  };
+
   constructor(
     private adminService: AdminService,
     private alertService: AlertService,
+    private userService: UserService
   ) { }
 
   ngOnInit(): void {
@@ -78,17 +89,40 @@ export class AdminInvoicesComponent implements OnInit {
     });
   }
 
-  public getSummary(invoice: any) {
-    this.resultModal = {
-      open: true,
-      summary: invoice.summary,
+  goToPageResult(page: number): void {
+    const p = this.resultPagination;
+    p.currentPage = page;
+    p.offset = page * p.perPage - p.perPage;
+    this.getSummary();
+  }
+
+  public getSummary(invoice?: any) {
+    const pagination = {
+      offset: this.resultPagination.offset,
+      perPage: this.resultPagination.perPage,
     };
+    const id = invoice?._id || this.resultModal.invoiceId;
+    const summary = invoice?.summary || this.resultModal.summary;
+    this.userService.getInvoiceStatement(id , pagination)
+      .pipe(first())
+      .subscribe((res: any) => {
+        this.resultModal = {
+          open: true,
+          invoiceId: id,
+          summary: summary,
+          reports: res.data,
+        };
+        this.resultPagination.currentPage = res.pagination.currentPage;
+        this.resultPagination.maxPages = res.pagination.maxPages;
+      });
   }
 
   public closeModal() {
     this.resultModal = {
       open: false,
+      invoiceId: null,
       summary: [],
+      reports: [],
     };
   }
 

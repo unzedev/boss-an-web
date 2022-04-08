@@ -223,10 +223,12 @@
                         <p *ngIf="selectedDatas.includes('ondemand')">Certidões<span class="is-pulled-right">{{ (reportPeople ? pricesPF.ondemand : pricesPJ.ondemand) | currency: 'BRL' }}</span></p>
                         <p *ngIf="selectedDatas.includes('boavista')"><i>Boavista Score</i> <span class="is-pulled-right">{{ (reportPeople ? pricesPF.boavista : pricesPJ.boavista) | currency: 'BRL' }}</span></p>
                         <hr class="mb-1 mt-2">
-                        <p>Valor Total <span class="is-pulled-right">{{ totalCost | currency: 'BRL' }}</span></p>
+                        <p *ngIf="useBulk">Lote de {{ lotModalForm.length }} {{ reportPeople ? 'CPFs' : 'CNPJs' }}</p>
+                        <p>Valor {{ useBulk? 'por consulta' : 'Total' }} <span class="is-pulled-right">{{ totalCost | currency: 'BRL' }}</span></p>
+                        <p *ngIf="useBulk">Valor Total <span class="is-pulled-right">{{ totalCost * lotModalForm.length | currency: 'BRL' }}</span></p>
                     </div>
                     <br>
-                    <button class="button is-primary is-medium is-fullwidth" [class]="{ 'is-loading': loading }" [disabled]="selectedDatas.length === 0 || loading || (reportPeople && cpf.length < 11) || (!reportPeople && cnpj.length < 14)" (click)="doConsult()">
+                    <button class="button is-primary is-medium is-fullwidth" [class]="{ 'is-loading': loading }" [disabled]="selectedDatas.length === 0 || loading || (reportPeople && cpf.length < 11 && !useBulk) || (!reportPeople && cnpj.length < 14 && !useBulk)" (click)="doConsult()">
                         Solicitar Consulta
                     </button>
                 </div>
@@ -280,7 +282,7 @@
                     </div>
                 </div>
             </div>
-            <button class="button is-dark is-outlined is-fullwidth mt-5" (click)="addFieldsToLotModalForm()">
+            <button class="button is-dark is-outlined is-fullwidth mt-5" (click)="addFieldsToLotModalForm()" [disabled]="lotModalForm.length >= 10">
                 Adicionar Campos
             </button>
             <button class="button is-primary is-fullwidth mt-5" (click)="doBulkConsult()">

@@ -4,6 +4,7 @@ import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms'
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { first } from 'rxjs/operators';
 import { AuthService } from 'src/app/services/auth/auth.service';
+import { ConfirmField } from 'src/app/validators/confirm-field.validator';
 
 @Component({
   selector: 'app-forgot-password-step-two',
@@ -16,7 +17,7 @@ export class ForgotPasswordStepTwoComponent implements OnInit {
   public loading: boolean;
   public forgotPasswordForm: FormGroup = new FormGroup({
     newPassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
-    // confirmPassword: new FormControl('', [Validators.required, Validators.minLength(6)]),
+    confirmPassword: new FormControl('', [Validators.required, ConfirmField('newPassword')]),
   });
   public token: string;
 
@@ -34,7 +35,7 @@ export class ForgotPasswordStepTwoComponent implements OnInit {
 
   public forgotPassword(): void {
     this.loading = true;
-    this.authService.resetPassword(this.token, this.forgotPasswordForm.get('newPassword').value, this.forgotPasswordForm.get('newPassword').value)
+    this.authService.resetPassword(this.token, this.forgotPasswordForm.get('newPassword').value, this.forgotPasswordForm.get('confirmPassword').value)
       .pipe(first())
       .subscribe((data: any) => {
         this.loading = false;

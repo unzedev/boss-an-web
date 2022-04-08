@@ -106,6 +106,7 @@ export class ReportComponent implements OnInit {
     this.cnpj = '';
     this.credit = 0;
     this.totalCost = 0;
+    this.cancelLotModal();
   }
 
   public selectData(dataTitle: string, price: number) {
@@ -170,6 +171,7 @@ export class ReportComponent implements OnInit {
       }
     ];
     this.lotModalIsOpen = false;
+    this.useBulk = false;
   }
 
   public openLotModal() {

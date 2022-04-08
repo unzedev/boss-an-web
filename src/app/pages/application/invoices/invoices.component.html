@@ -93,7 +93,7 @@
                           <a class="button is-text" (click)="getSummary(i)">
                             <i class="fas fa-eye"></i>
                           </a>
-                          <a [href]="i.payment.response.bankSlipUrl" target="_blank" class="button is-text">
+                          <a *ngIf="i.payment?.response.bankSlipUrl" [href]="i.payment?.response.bankSlipUrl" target="_blank" class="button is-text">
                             <i class="fas fa-barcode"></i>
                           </a>
                         </td>
@@ -122,33 +122,69 @@
 </section>
 
 <div class="modal" [class]="{ 'is-active': resultModal.open }">
-  <div class="modal-background"></div>
-  <div class="modal-card">
-      <header class="modal-card-head">
-        <p class="modal-card-title">Resumo da fatura</p>
-        <button class="delete" aria-label="close" (click)="closeModal()"></button>
-      </header>
-      <section class="modal-card-body">
-
-        <table class="boss-an-table">
-          <thead>
-              <tr>
-                  <th>Tipo</th>
-                  <th>Quantidade</th>
-                  <th>Valor</th>
-              </tr>
-          </thead>
-          <tbody>
-              <tr *ngFor="let s of resultModal.summary">
-                  <td>{{ s._id }}</td>
-                  <td>{{ s.count }}</td>
-                  <td>{{ s.amount | currency: 'BRL' }}</td>
-                </tr>
-            </tbody>
-        </table>
-      </section>
-      <footer class="modal-card-foot is-justify-content-end">
-          <button type="button" class="button" (click)="closeModal()">Fechar</button>
-      </footer>
-  </div>
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+            <p class="modal-card-title">Resumo da fatura</p>
+            <button class="delete" aria-label="close" (click)="closeModal()"></button>
+        </header>
+        <section class="modal-card-body">
+            <p class="title is-5 mb-0">Valores totais</p>
+            <table class="boss-an-table">
+                <thead>
+                    <tr>
+                        <th>Tipo</th>
+                        <th>Quantidade</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let s of resultModal.summary">
+                        <td>{{ s._id }}</td>
+                        <td>{{ s.count }}</td>
+                        <td>{{ s.amount | currency: 'BRL' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <p class="title is-5 mt-5 mb-0">Lista de consultas</p>
+            <table class="boss-an-table">
+                <thead>
+                    <tr>
+                        <th>Data</th>
+                        <th>Hora</th>
+                        <!-- <th>Usuário</th> -->
+                        <th>CPF/CNPJ</th>
+                        <th>Módulo</th>
+                        <th>Crédito</th>
+                        <th>Valor</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let r of resultModal.reports">
+                        <td>{{ r.createdAt | date: 'dd/MM/yyyy' }}</td>
+                        <td>{{ r.createdAt | date: 'HH:mm' }}</td>
+                        <!-- <td>{{ r.user.name }}</td> -->
+                        <td>{{ r.document | mask: 'CPF_CNPJ' }}</td>
+                        <td>{{ r.module | bossModule }}</td>
+                        <td>{{ (r.credit | currency: 'BRL') || '-' }}</td>
+                        <td>{{ r.cost | currency: 'BRL' }}</td>
+                    </tr>
+                </tbody>
+            </table>
+            <nav class="pagination is-centered" role="navigation" aria-label="pagination" *ngIf="invoices.length > 0">
+                <ul class="pagination-list">
+                    <li><a class="pagination-link" aria-label="Ir para página 1" (click)="goToPageResult(1)" *ngIf="resultPagination.currentPage > 1">1</a></li>
+                    <li><span class="pagination-ellipsis" *ngIf="resultPagination.currentPage > 1">&hellip;</span></li>
+                    <li><a class="pagination-link" (click)="goToPageResult(resultPagination.currentPage - 1)" *ngIf="resultPagination.currentPage - 1 > 0">{{ resultPagination.currentPage - 1 }}</a></li>
+                    <li><a class="pagination-link is-current" aria-current="page">{{ resultPagination.currentPage }}</a></li>
+                    <li><a class="pagination-link" (click)="goToPageResult(resultPagination.currentPage + 1)" *ngIf="resultPagination.currentPage + 1 <= resultPagination.maxPages">{{ resultPagination.currentPage + 1 }}</a></li>
+                    <li><span class="pagination-ellipsis" *ngIf="resultPagination.currentPage < resultPagination.maxPages">&hellip;</span></li>
+                    <li><a class="pagination-link" (click)="goToPageResult(resultPagination.maxPages)" *ngIf="resultPagination.currentPage < resultPagination.maxPages">{{ resultPagination.maxPages }}</a></li>
+                </ul>
+            </nav>
+        </section>
+        <footer class="modal-card-foot is-justify-content-end">
+            <button type="button" class="button" (click)="closeModal()">Fechar</button>
+        </footer>
+    </div>
 </div>

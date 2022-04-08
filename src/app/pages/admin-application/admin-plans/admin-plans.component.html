@@ -1,0 +1,253 @@
+<section class="section">
+    <div class="container">
+        <div class="columns">
+            <div class="column">
+                <h1 class="title is-3">Planos e Tarifas</h1>
+                <p class="subtitle">Gerencie os planos e tarifas Boss Analytics.</p>
+            </div>
+            <div class="column has-text-right">
+                <button class="button is-dark" (click)="openCreateModal()">
+                    Adicionar novo Plano
+                </button>
+            </div>
+        </div>
+        <div class="table-container mt-6">
+            <table class="boss-an-table" *ngIf="plans.length > 0">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Valor</th>
+                        <th>Descrição</th>
+                        <th>Situação</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let p of plans">
+                        <td>{{ p.name }}</td>
+                        <td>{{ p.price | currency: 'BRL' }}</td>
+                        <td>{{ p.itens.join(', ') }}</td>
+                        <td>
+                            <!-- <span *ngIf="!u.active" class="tag is-danger">Excluído</span>
+                            <span *ngIf="!u.active" class="tag is-warning">Bloqueado</span>
+                            <span *ngIf="u.active" class="tag is-primary is-light">Ativo</span> -->
+                            <span class="tag is-primary is-light">Ativo</span>
+                        </td>
+                        <td>
+                            <div class="buttons">
+                                <!-- <button class="button" (click)="editPlan(u)">
+                                    Editar
+                                </button>
+                                <button class="button is-light is-warning is-outlined" (click)="blockPlan(u)" *ngIf="u.active">
+                                    Bloquear
+                                </button>
+                                <button class="button is-light is-success is-outlined" (click)="unblockPlan(u)" *ngIf="!u.active">
+                                    Desbloquear
+                                </button>
+                                <button class="button is-danger is-warning is-outlined" (click)="deletePlan(u)">
+                                    Excluir
+                                </button> -->
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!-- <nav class="pagination is-centered" role="navigation" aria-label="pagination" *ngIf="plans.length > 0">
+            <ul class="pagination-list">
+                <li><a class="pagination-link" aria-label="Ir para página 1" (click)="goToPage(1)" *ngIf="pagination.currentPage > 1">1</a></li>
+                <li><span class="pagination-ellipsis" *ngIf="pagination.currentPage > 1">&hellip;</span></li>
+                <li><a class="pagination-link" (click)="goToPage(pagination.currentPage - 1)" *ngIf="pagination.currentPage - 1 > 0">{{ pagination.currentPage - 1 }}</a></li>
+                <li><a class="pagination-link is-current" aria-current="page">{{ pagination.currentPage }}</a></li>
+                <li><a class="pagination-link" (click)="goToPage(pagination.currentPage + 1)" *ngIf="pagination.currentPage + 1 <= pagination.maxPages">{{ pagination.currentPage + 1 }}</a></li>
+                <li><span class="pagination-ellipsis" *ngIf="pagination.currentPage < pagination.maxPages">&hellip;</span></li>
+                <li><a class="pagination-link" (click)="goToPage(pagination.maxPages)" *ngIf="pagination.currentPage < pagination.maxPages">{{ pagination.maxPages }}</a></li>
+            </ul>
+        </nav> -->
+        <div class="empty-message" *ngIf="plans.length === 0">
+            <div class="icon-container">
+                <i class="fas fa-dollar-sign"></i>
+            </div>
+            <p>Não encontramos nenhum plano</p>
+        </div>
+    </div>
+</section>
+
+<div class="modal" [class]="{ 'is-active': createModal.open }">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Cadastrar Plano</p>
+          <button class="delete" aria-label="close" (click)="closeModal()"></button>
+        </header>
+        <section class="modal-card-body">
+            <form [formGroup]="createPlanForm" (ngSubmit)="createPlan()" id="createPlanForm">
+                <div class="field">
+                    <label class="label">Nome do plano</label>
+                    <div class="control">
+                        <input class="input input-light" type="text" formControlName="name" [disabled]="loading">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Valor mínimo mensal</label>
+                    <div class="control">
+                        <input class="input input-light" type="tel" formControlName="price" currencyMask [disabled]="loading">
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Descrição (separar itens por vírgula)</label>
+                    <div class="control">
+                        <textarea class="textarea input-light" type="tel" formControlName="itens" [disabled]="loading" placeholder="Item 1, Item 2, Item 3"></textarea>
+                    </div>
+                </div>
+                <div class="columns">
+                    <div class="column">
+                        <h4 class="title is-5 mb-2 mt-4">Tarifas Pessoa Física</h4>
+                        <div class="field">
+                            <label class="label">Dados Cadastrais</label>
+                            <div class="control">
+                                <input class="input input-light" type="tel" currencyMask formControlName="pf_register_data">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Perfil Financeiro</label>
+                            <div class="control">
+                                <input class="input input-light" type="tel" currencyMask formControlName="pf_financial_data">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Dados Comportamentais</label>
+                            <div class="control">
+                                <input class="input input-light" type="tel" currencyMask formControlName="pf_behavior_data">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Restritivos</label>
+                            <div class="control">
+                                <input class="input input-light" type="tel" currencyMask formControlName="pf_restrict">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Certidões</label>
+                            <div class="control">
+                                <input class="input input-light" type="tel" currencyMask formControlName="pf_ondemand">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">PEFIN/REFIN Boa Vista</label>
+                            <div class="control">
+                                <input class="input input-light" type="tel" currencyMask formControlName="pf_boavista">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column">
+                        <h4 class="title is-5 mb-2 mt-4">Tarifas Pessoa Jurídica</h4>
+                        <div class="field">
+                            <label class="label">Dados Cadastrais</label>
+                            <div class="control">
+                                <input class="input input-light" type="tel" currencyMask formControlName="pj_register_data">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Perfil Financeiro</label>
+                            <div class="control">
+                                <input class="input input-light" type="tel" currencyMask formControlName="pj_financial_data">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Dados Comportamentais</label>
+                            <div class="control">
+                                <input class="input input-light" type="tel" currencyMask formControlName="pj_behavior_data">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Restritivos</label>
+                            <div class="control">
+                                <input class="input input-light" type="tel" currencyMask formControlName="pj_restrict">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Certidões</label>
+                            <div class="control">
+                                <input class="input input-light" type="tel" currencyMask formControlName="pj_ondemand">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">PEFIN/REFIN Boa Vista</label>
+                            <div class="control">
+                                <input class="input input-light" type="tel" currencyMask formControlName="pj_boavista">
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </section>
+        <footer class="modal-card-foot is-justify-content-end">
+            <button type="button" class="button" (click)="closeModal()" [disabled]="loading">Cancelar</button>
+            <button type="submit" form="createPlanForm" class="button is-success" [class]="{ 'is-loading': loading }" [disabled]="loading || createPlanForm.invalid">Cadastrar</button>
+        </footer>
+    </div>
+</div>
+
+<!-- <div class="modal" [class]="{ 'is-active': updateModal.open }">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+        <header class="modal-card-head">
+          <p class="modal-card-title">Editar Usuário</p>
+          <button class="delete" aria-label="close" (click)="closeModal()"></button>
+        </header>
+        <form [formGroup]="updatePlanForm" (ngSubmit)="updatePlan()">
+            <section class="modal-card-body">
+                <div class="field">
+                    <label class="label">Nome Completo</label>
+                    <div class="control has-icons-left">
+                        <input class="input input-light" type="text" formControlName="name" [disabled]="loading">
+                        <span class="icon is-small is-left">
+                        <i class="fas fa-plan"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">CPF ou CNPJ</label>
+                    <div class="control has-icons-left">
+                        <input class="input input-light" type="tel" formControlName="document" mask="CPF_CNPJ" [disabled]="loading">
+                        <span class="icon is-small is-left">
+                        <i class="fas fa-receipt"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Celular</label>
+                    <div class="control has-icons-left">
+                        <input class="input input-light" type="tel" formControlName="phone" mask="(00) 00000-0000" [disabled]="loading">
+                        <span class="icon is-small is-left">
+                        <i class="fas fa-phone-alt"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">E-mail</label>
+                    <div class="control has-icons-left">
+                        <input class="input input-light" type="email" formControlName="email" [disabled]="loading">
+                        <span class="icon is-small is-left">
+                        <i class="fas fa-envelope"></i>
+                        </span>
+                    </div>
+                </div>
+                <div class="field">
+                    <label class="label">Senha</label>
+                    <div class="control has-icons-left">
+                        <input class="input input-light" type="password" formControlName="password" autocomplete="new-password" [disabled]="loading">
+                        <span class="icon is-small is-left">
+                        <i class="fas fa-lock"></i>
+                        </span>
+                    </div>
+                </div>
+            </section>
+            <footer class="modal-card-foot is-justify-content-end">
+                <button type="button" class="button" (click)="closeModal()" [disabled]="loading">Cancelar</button>
+                <button type="submit" class="button is-success" [class]="{ 'is-loading': loading }" [disabled]="loading">Salvar</button>
+            </footer>
+        </form>
+    </div>
+</div> -->

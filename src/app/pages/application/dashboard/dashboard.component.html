@@ -2,34 +2,32 @@
     <div class="container">
         <h1 class="title is-3">Dashboard</h1>
         <p class="subtitle">Acompanhe números e informações em tempo real.</p>
-        <div class="columns mt-6">
-            <div class="column">
+        <div class="columns mt-6 is-multiline">
+            <div class="column is-3">
                 <div class="box">
                     <h3 class="title is-2 mb-2">{{ reportsTotal }}</h3>
                     <p class="has-text-light">Consultas Realizadas</p>
                 </div>
             </div>
-            <div class="column"> 
+            <div class="column is-3"> 
                 <div class="box">
                     <h3 class="title is-2 mb-2 has-text-primary">{{ reportsTotalPF }}</h3>
                     <p class="has-text-light">Consultas Pessoa Física</p>
                 </div>
             </div>
-            <div class="column">
+            <div class="column is-3">
                 <div class="box">
                     <h3 class="title is-2 mb-2 has-text-link">{{ reportsTotalPJ }}</h3>
                     <p class="has-text-light">Consultas Pessoa Jurídica</p>
                 </div>
             </div>
-            <div class="column">
+            <div class="column is-3">
                 <div class="box">
                     <h3 class="title is-2 mb-2 has-text-light">{{ investedAmount | currency: 'BRL' }}</h3>
                     <p class="has-text-light">Valor Investido</p>
                 </div>
             </div>
-        </div>
-        <div class="columns mt-6">
-            <div class="column">
+            <div class="column is-6">
                 <h2 class="title is-4">Tipos de Consulta</h2>
                 <div class="box">
                     <div class="columns">
@@ -49,11 +47,41 @@
                     </div>
                 </div>
             </div>
-            <div class="column">
-                <!-- <h2 class="title is-4">Últimas Consultas</h2>
+            <div class="column is-6">
+                <h2 class="title is-4">Nº de Consultas</h2>
                 <div class="box">
 
-                </div> -->
+                </div>
+            </div>
+            <div class="column is-6">
+                <h2 class="title is-4">Valor de Crédito Solicitado x Aprovado (R$)</h2>
+                <div class="box">
+
+                </div>
+            </div>
+            <div class="column is-6">
+                <h2 class="title is-4">Recomendações %</h2>
+                <div class="box">
+
+                </div>
+            </div>
+            <div class="column is-6">
+                <h2 class="title is-4">Tickect Médio de solicitação de Crédito</h2>
+                <div class="box">
+
+                </div>
+            </div>
+            <div class="column is-6">
+                <h2 class="title is-4">Taxa de Aprovação x Faixa Etária</h2>
+                <div class="box">
+
+                </div>
+            </div>
+            <div class="column is-12">
+                <h2 class="title is-4">Mapa de Consultas</h2>
+                <div class="box">
+
+                </div>
             </div>
         </div>
     </div>

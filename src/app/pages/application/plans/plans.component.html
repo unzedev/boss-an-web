@@ -1,0 +1,51 @@
+<section class="section">
+    <div class="container">
+        <div class="columns">
+            <div class="column">
+                <h1 class="title is-3">Planos e Tarifas</h1>
+                <p class="subtitle">Gerencie os planos e tarifas Boss Analytics.</p>
+            </div>
+        </div>
+        <div class="table-container mt-6">
+            <table class="boss-an-table" *ngIf="plans.length > 0">
+                <thead>
+                    <tr>
+                        <th>Nome</th>
+                        <th>Valor</th>
+                        <th>Descrição</th>
+                        <th></th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr *ngFor="let p of plans">
+                        <td>{{ p.name }}</td>
+                        <td>{{ p.price | currency: 'BRL' }}</td>
+                        <td>{{ p.itens.join(', ') }}</td>
+                        <td>
+                            <div class="buttons">
+                                <button class="button is-light is-success is-outlined" (click)="choosePlan(p)">
+                                    Mudar para este plano
+                                </button>
+                                <!-- <button class="button is-light is-warning is-outlined" (click)="blockPlan(u)" *ngIf="u.active">
+                                    Bloquear
+                                </button>
+                                <button class="button is-light is-success is-outlined" (click)="unblockPlan(u)" *ngIf="!u.active">
+                                    Desbloquear
+                                </button>
+                                <button class="button is-danger is-warning is-outlined" (click)="deletePlan(u)">
+                                    Excluir
+                                </button> -->
+                            </div>
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <div class="empty-message" *ngIf="plans.length === 0">
+            <div class="icon-container">
+                <i class="fas fa-dollar-sign"></i>
+            </div>
+            <p>Não encontramos nenhum plano</p>
+        </div>
+    </div>
+</section>

@@ -17,6 +17,7 @@ export class LoginComponent implements OnInit {
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', Validators.required),
   });
+  public userIsBlocked: boolean;
 
   public constructor(
     private authService: AuthService,
@@ -27,18 +28,26 @@ export class LoginComponent implements OnInit {
   public ngOnInit(): void {
   }
 
+  public goBackToForm() {
+    this.userIsBlocked = false;
+  }
+
   public login(): void {
     this.loading = true;
     this.authService.login(this.loginForm.get('email').value, this.loginForm.get('password').value)
       .pipe(first())
       .subscribe((data: any) => {
         this.loading = false;
-        this.authService.setAuthToken(data.accessToken);
-        this.authService.setUser(data.user);
-        if (data.user.role === 'admin') {
-          this.router.navigateByUrl('/admin');
+        if (data.user.active) {
+          this.authService.setAuthToken(data.accessToken);
+          this.authService.setUser(data.user);
+          if (data.user.role === 'admin') {
+            this.router.navigateByUrl('/admin');
+          } else {
+            this.router.navigateByUrl('/app');
+          }
         } else {
-          this.router.navigateByUrl('/app');
+          this.userIsBlocked = true;
         }
       }, (error: any) => {
         this.loading = false;

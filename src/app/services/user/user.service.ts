@@ -67,11 +67,24 @@ export class UserService {
     });
   }
 
+  public getInvoiceStatement(invoiceId: string, pagination: { offset: number, perPage: number }): Observable<any> {
+    return this.http.get(`${this.apiUrl}invoices/${invoiceId}/statement`, {
+      headers: {
+        offset: Number(pagination.offset).toString(),
+        per_page: Number(pagination.perPage).toString()
+      }
+    });
+  }
+
   public getDashboardQueries(): Observable<any> {
     return this.http.get(`${this.apiUrl}dashboard/queries`);
   }
 
   public getDashboardQueriesByTypes(): Observable<any> {
     return this.http.get(`${this.apiUrl}dashboard/queries/types`);
+  }
+
+  public getPlans(): Observable<any> {
+    return this.http.get(`${this.apiUrl}plans`);
   }
 }

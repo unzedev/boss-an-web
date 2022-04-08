@@ -3,8 +3,8 @@ import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { AlertService } from 'src/app/services/alert/alert.service';
 import { UserService } from 'src/app/services/user/user.service';
 import { first } from 'rxjs/operators';
-import { Router } from '@angular/router';
-import { isValidCNPJ } from '@brazilian-utils/brazilian-utils';
+import { ConfirmField } from 'src/app/validators/confirm-field.validator';
+import { IsValidCNPJ } from 'src/app/validators/cnpj.validator';
 
 @Component({
   selector: 'app-register',
@@ -20,7 +20,7 @@ export class RegisterComponent implements OnInit {
     phone: new FormControl('', [Validators.required, Validators.minLength(11)]),
     email: new FormControl('', [Validators.required, Validators.email]),
     confirmEmail: new FormControl('', [Validators.required, Validators.email, ConfirmField('email')]),
-    password: new FormControl('', Validators.required),
+    password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     confirmPassword: new FormControl('', [Validators.required, ConfirmField('password')]),
     addressStreet: new FormControl('', Validators.required),
     addressNumber: new FormControl('', Validators.required),
@@ -30,15 +30,36 @@ export class RegisterComponent implements OnInit {
     addressState: new FormControl('', Validators.required),
     terms: new FormControl('', Validators.requiredTrue),
   });
+  public currentStep = 1;
+  public plans = [];
+  public selectedPlan: any;
 
   public constructor(
     private userService: UserService,
     private alertService: AlertService,
-    private router: Router,
   ) { }
 
   public ngOnInit(): void {
+    this.getPlans();
+  }
 
+  public getPlans(): void {
+    this.userService.getPlans()
+      .pipe(first())
+      .subscribe((data: any) => {
+        this.plans = data;
+      }, (error: any) => {
+        this.alertService.openToast('error', 'Erro ao buscar planos');
+      });
+  }
+
+  public selectPlan(plan: any) {
+    this.selectedPlan = plan;
+    this.currentStep = 2;
+  }
+
+  public goToStep(step: number) {
+    this.currentStep = step;
   }
 
   public register(): void {
@@ -52,47 +73,15 @@ export class RegisterComponent implements OnInit {
       city: this.registerForm.value.addressCity,
       state: this.registerForm.value.addressState,
     };
+    user.plan = this.selectedPlan._id;
     this.userService.createUser(user)
       .pipe(first())
       .subscribe((data: any) => {
         this.loading = false;
-        this.alertService.openSuccessConfirmDialog('Seu cadastro está sendo analisado!', 'Por favor aguarde a validação para começar a utilizar a sua conta Boss Analytics', 'Ok', '', () => {
-          this.router.navigate(['/']);
-        });
+        this.currentStep = 3;
       }, (error: any) => {
         this.loading = false;
         this.alertService.openToast('error', 'Erro ao realizar cadastro');
       });
   }
-
-}
-
-function IsValidCNPJ() {
-  return (control: FormControl) => {
-    return isValidCNPJ(control.value) ? null : { invalidCNPJ: true };
-  };
-}
-
-function ConfirmField(fieldInput: string) {
-  let confirmControl: FormControl;
-
-  return (control: FormControl) => {
-    if (!control.parent) {
-      return null;
-    }
-
-    if (!confirmControl) {
-      confirmControl = control.parent.get(fieldInput) as FormControl;
-      control.valueChanges.subscribe(() => {
-        confirmControl.updateValueAndValidity();
-      });
-    }
-
-    if (control.value !== confirmControl.value) {
-      return {
-        notMatch: true
-      };
-    }
-    return null;
-  };
 }
