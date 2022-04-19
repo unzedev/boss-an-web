@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
+import { delay } from 'rxjs/operators';
 import { LoaderService } from './services/loader/loader.service';
 
 @Component({
@@ -6,12 +7,14 @@ import { LoaderService } from './services/loader/loader.service';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.scss']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
   
   loading: boolean;
 
-  constructor(private loaderService: LoaderService) {
-    this.loaderService.isLoading.subscribe((value) => {
+  constructor(private loaderService: LoaderService) { }
+
+  ngOnInit() {
+    this.loaderService.isLoading.pipe(delay(0)).subscribe((value) => {
       this.loading = value;
     });
   }

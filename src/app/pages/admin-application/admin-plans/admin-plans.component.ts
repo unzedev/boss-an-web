@@ -21,18 +21,24 @@ export class AdminPlansComponent implements OnInit {
     name: new FormControl('', [Validators.required]),
     price: new FormControl('', [Validators.required]),
     itens: new FormControl('', [Validators.required]),
-    pf_register_data: new FormControl('', [Validators.required]),
-    pf_financial_data: new FormControl('', [Validators.required]),
-    pf_behavior_data: new FormControl('', [Validators.required]),
-    pf_restrict: new FormControl('', [Validators.required]),
-    pf_ondemand: new FormControl('', Validators.required),
-    pf_boavista: new FormControl('', Validators.required),
-    pj_register_data: new FormControl('', [Validators.required]),
-    pj_financial_data: new FormControl('', [Validators.required]),
-    pj_behavior_data: new FormControl('', [Validators.required]),
-    pj_restrict: new FormControl('', [Validators.required]),
-    pj_ondemand: new FormControl('', Validators.required),
-    pj_boavista: new FormControl('', Validators.required),
+    person_modules: new FormGroup({
+      register_data: new FormControl('', [Validators.required]),
+      financial_data: new FormControl('', [Validators.required]),
+      behavior_data: new FormControl('', [Validators.required]),
+      restrict: new FormControl('', [Validators.required]),
+      ondemand: new FormControl('', Validators.required),
+      boavista: new FormControl('', Validators.required),
+      serasa: new FormControl('', Validators.required),
+    }),
+    company_modules: new FormGroup({
+      register_data: new FormControl('', [Validators.required]),
+      financial_data: new FormControl('', [Validators.required]),
+      behavior_data: new FormControl('', [Validators.required]),
+      restrict: new FormControl('', [Validators.required]),
+      ondemand: new FormControl('', Validators.required),
+      boavista: new FormControl('', Validators.required),
+      serasa: new FormControl('', Validators.required),
+    }),
   });
 
   public updateModal = {
@@ -42,10 +48,26 @@ export class AdminPlansComponent implements OnInit {
 
   public updatePlanForm: FormGroup = new FormGroup({
     name: new FormControl('', [Validators.required]),
-    document: new FormControl('', [Validators.required]),
-    phone: new FormControl('', [Validators.required]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', Validators.required),
+    price: new FormControl('', [Validators.required]),
+    itens: new FormControl('', [Validators.required]),
+    person_modules: new FormGroup({
+      register_data: new FormControl('', [Validators.required]),
+      financial_data: new FormControl('', [Validators.required]),
+      behavior_data: new FormControl('', [Validators.required]),
+      restrict: new FormControl('', [Validators.required]),
+      ondemand: new FormControl('', Validators.required),
+      boavista: new FormControl('', Validators.required),
+      serasa: new FormControl('', Validators.required),
+    }),
+    company_modules: new FormGroup({
+      register_data: new FormControl('', [Validators.required]),
+      financial_data: new FormControl('', [Validators.required]),
+      behavior_data: new FormControl('', [Validators.required]),
+      restrict: new FormControl('', [Validators.required]),
+      ondemand: new FormControl('', Validators.required),
+      boavista: new FormControl('', Validators.required),
+      serasa: new FormControl('', Validators.required),
+    }),
   });
 
   public pagination = {
@@ -104,35 +126,32 @@ export class AdminPlansComponent implements OnInit {
       });
   }
 
-  // public updatePlan() {
-  //   this.loading = true;
-  //   const planToUpdate = this.updatePlanForm.value;
-  //   planToUpdate.id = this.updateModal.id;
-  //   this.adminService.savePlan(this.updatePlanForm.value)
-  //     .pipe(first())
-  //     .subscribe(() => {
-  //       this.plans.forEach((r, index) => {
-  //         if (r._id === this.updateModal.id) {
-  //           this.plans[index] = this.updatePlanForm.value;
-  //           this.plans[index].id = planToUpdate.id;
-  //           return;
-  //         }
-  //       });
-  //       this.closeModal();
-  //       this.loading = false;
-  //     });
-  // }
+  public updatePlan() {
+    this.loading = true;
+    const planToUpdate = this.updatePlanForm.value;
+    planToUpdate.id = this.updateModal.id;
+    this.adminService.savePlan(this.updatePlanForm.value)
+      .pipe(first())
+      .subscribe(() => {
+        this.plans.forEach((r, index) => {
+          if (r._id === this.updateModal.id) {
+            this.plans[index] = this.updatePlanForm.value;
+            this.plans[index].id = planToUpdate.id;
+            return;
+          }
+        });
+        this.closeModal();
+        this.loading = false;
+      });
+  }
 
-  // public editPlan(plan: Plan) {
-  //   this.updateModal = {
-  //     open: true,
-  //     id: plan._id,
-  //   };
-  //   this.updatePlanForm.get('name').setValue(plan.name);
-  //   this.updatePlanForm.get('document').setValue(plan.document);
-  //   this.updatePlanForm.get('phone').setValue(plan.phone);
-  //   this.updatePlanForm.get('email').setValue(plan.email);
-  // }
+  public editPlan(plan: any) {
+    this.updateModal = {
+      open: true,
+      id: plan._id,
+    };
+    this.updatePlanForm.patchValue(plan);
+  }
 
   public openCreateModal() {
     this.createModal.open = true;
@@ -146,6 +165,8 @@ export class AdminPlansComponent implements OnInit {
       open: false,
       id: '',
     };
+    this.createPlanForm.reset();
+    this.updatePlanForm.reset();
   }
 
   // public blockPlan(plan: Plan) {
@@ -174,25 +195,25 @@ export class AdminPlansComponent implements OnInit {
   //     });
   // }
 
-  // public deletePlan(plan: Plan) {
-  //   this.alertService.openDangerConfirmDialog(
-  //     'Excluir',
-  //     `Você tem certeza que deseja excluir o usuário ${plan.name}?`,
-  //     'Excluir',
-  //     'Cancelar',
-  //     () => {
-  //       this.adminService.deletePlan(plan._id)
-  //         .pipe(first())
-  //         .subscribe(() => {
-  //           this.plans.forEach((r, index) => {
-  //             if (r._id === plan._id) {
-  //               this.plans.splice(index, 1);
-  //               return;
-  //             }
-  //           });
-  //         });
-  //     }
-  //   );
-  // }
+  public deletePlan(plan: any) {
+    this.alertService.openDangerConfirmDialog(
+      'Excluir',
+      `Você tem certeza que deseja excluir o plano ${plan.name}?`,
+      'Excluir',
+      'Cancelar',
+      () => {
+        this.adminService.deletePlan(plan._id)
+          .pipe(first())
+          .subscribe(() => {
+            this.plans.forEach((r, index) => {
+              if (r._id === plan._id) {
+                this.plans.splice(index, 1);
+                return;
+              }
+            });
+          });
+      }
+    );
+  }
 
 }

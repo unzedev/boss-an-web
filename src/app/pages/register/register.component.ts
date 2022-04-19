@@ -22,17 +22,23 @@ export class RegisterComponent implements OnInit {
     confirmEmail: new FormControl('', [Validators.required, Validators.email, ConfirmField('email')]),
     password: new FormControl('', [Validators.required, Validators.minLength(6)]),
     confirmPassword: new FormControl('', [Validators.required, ConfirmField('password')]),
-    addressStreet: new FormControl('', Validators.required),
-    addressNumber: new FormControl('', Validators.required),
-    addressComplement: new FormControl(''),
-    addressNeighborhood: new FormControl('', Validators.required),
-    addressCity: new FormControl('', Validators.required),
-    addressState: new FormControl('', Validators.required),
+    address: new FormGroup({
+      street: new FormControl('', Validators.required),
+      number: new FormControl('', Validators.required),
+      complement: new FormControl(''),
+      neighborhood: new FormControl('', Validators.required),
+      city: new FormControl('', Validators.required),
+      state: new FormControl('', Validators.required),
+    }),
     terms: new FormControl('', Validators.requiredTrue),
   });
   public currentStep = 1;
   public plans = [];
   public selectedPlan: any;
+  public taxesModal = {
+    open: false,
+    plan: null,
+  };
 
   public constructor(
     private userService: UserService,
@@ -65,14 +71,6 @@ export class RegisterComponent implements OnInit {
   public register(): void {
     this.loading = true;
     const user = this.registerForm.value;
-    user.address = {
-      street: this.registerForm.value.addressStreet,
-      number: this.registerForm.value.addressNumber,
-      complement: this.registerForm.value.addressComplement,
-      neighborhood: this.registerForm.value.addressNeighborhood,
-      city: this.registerForm.value.addressCity,
-      state: this.registerForm.value.addressState,
-    };
     user.plan = this.selectedPlan._id;
     this.userService.createUser(user)
       .pipe(first())
@@ -83,5 +81,19 @@ export class RegisterComponent implements OnInit {
         this.loading = false;
         this.alertService.openToast('error', 'Erro ao realizar cadastro');
       });
+  }
+
+  public openTaxesModal(plan: any) {
+    this.taxesModal = {
+      open: true,
+      plan: plan,
+    };
+  }
+
+  public closeModal() {
+    this.taxesModal = {
+      open: false,
+      plan: null,
+    };
   }
 }

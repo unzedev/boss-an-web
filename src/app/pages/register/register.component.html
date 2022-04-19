@@ -33,7 +33,12 @@
                       </div>
                     </div>
                     <footer class="card-footer px-3 py-3 is-flex-direction-column has-text-left">
-                      <p class="mb-4"><b>{{ p.price | currency: 'BRL' }} / Mês</b></p>
+                      <p class="mb-4">
+                        <b>{{ p.price | currency: 'BRL' }} / Mês</b>
+                        <a (click)="openTaxesModal(p)" class="is-underlined is-pulled-right">
+                          Ver tarifas
+                        </a>
+                      </p>
                       <button (click)="selectPlan(p)" class="button is-primary is-fullwidth">Selecionar</button>
                     </footer>
                   </div>
@@ -151,66 +156,68 @@
                   </p>
                 </div>
               </div>
-              <h3 class="title is-5 has-text-black mt-5 mb-2">Endereço</h3>
-              <div class="field">
-                <label class="label">Rua</label>
-                <div class="control">
-                  <input class="input" type="text" formControlName="addressStreet" [class]="{ 'is-danger': registerForm.controls['addressStreet'].invalid && (registerForm.controls['addressStreet'].dirty || registerForm.controls['addressStreet'].touched) }">
+              <div formGroupName="address">
+                <h3 class="title is-5 has-text-black mt-5 mb-2">Endereço</h3>
+                <div class="field">
+                  <label class="label">Rua</label>
+                  <div class="control">
+                    <input class="input" type="text" formControlName="street" [class]="{ 'is-danger': registerForm.controls['address'].controls['street'].invalid && (registerForm.controls['address'].controls['street'].dirty || registerForm.controls['address'].controls['street'].touched) }">
+                  </div>
+                  <div *ngIf="registerForm.controls['address'].controls['street'].invalid && (registerForm.controls['address'].controls['street'].dirty || registerForm.controls['address'].controls['street'].touched)">
+                    <p *ngIf="registerForm.controls['address'].controls['street'].errors.required" class="help is-danger">
+                      Informe a Rua.
+                    </p>
+                  </div>
                 </div>
-                <div *ngIf="registerForm.controls['addressStreet'].invalid && (registerForm.controls['addressStreet'].dirty || registerForm.controls['addressStreet'].touched)">
-                  <p *ngIf="registerForm.controls['addressStreet'].errors.required" class="help is-danger">
-                    Informe a Rua.
-                  </p>
+                <div class="field">
+                  <label class="label">Número</label>
+                  <div class="control">
+                    <input class="input" type="tel" formControlName="number" [class]="{ 'is-danger': registerForm.controls['address'].controls['number'].invalid && (registerForm.controls['address'].controls['number'].dirty || registerForm.controls['address'].controls['number'].touched) }">
+                  </div>
+                  <div *ngIf="registerForm.controls['address'].controls['number'].invalid && (registerForm.controls['address'].controls['number'].dirty || registerForm.controls['address'].controls['number'].touched)">
+                    <p *ngIf="registerForm.controls['address'].controls['number'].errors.required" class="help is-danger">
+                      Informe o Número.
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div class="field">
-                <label class="label">Número</label>
-                <div class="control">
-                  <input class="input" type="tel" formControlName="addressNumber" [class]="{ 'is-danger': registerForm.controls['addressNumber'].invalid && (registerForm.controls['addressNumber'].dirty || registerForm.controls['addressNumber'].touched) }">
+                <div class="field">
+                  <label class="label">Complemento <small>(opcional)</small></label>
+                  <div class="control">
+                    <input class="input" type="text" formControlName="complement">
+                  </div>
                 </div>
-                <div *ngIf="registerForm.controls['addressNumber'].invalid && (registerForm.controls['addressNumber'].dirty || registerForm.controls['addressNumber'].touched)">
-                  <p *ngIf="registerForm.controls['addressNumber'].errors.required" class="help is-danger">
-                    Informe o Número.
-                  </p>
+                <div class="field">
+                  <label class="label">Bairro</label>
+                  <div class="control">
+                    <input class="input" type="text" formControlName="neighborhood" [class]="{ 'is-danger': registerForm.controls['address'].controls['neighborhood'].invalid && (registerForm.controls['address'].controls['neighborhood'].dirty || registerForm.controls['address'].controls['neighborhood'].touched) }">
+                  </div>
+                  <div *ngIf="registerForm.controls['address'].controls['neighborhood'].invalid && (registerForm.controls['address'].controls['neighborhood'].dirty || registerForm.controls['address'].controls['neighborhood'].touched)">
+                    <p *ngIf="registerForm.controls['address'].controls['neighborhood'].errors.required" class="help is-danger">
+                      Informe o Bairro.
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div class="field">
-                <label class="label">Complemento <small>(opcional)</small></label>
-                <div class="control">
-                  <input class="input" type="text" formControlName="addressComplement">
+                <div class="field">
+                  <label class="label">Cidade</label>
+                  <div class="control">
+                    <input class="input" type="text" formControlName="city" [class]="{ 'is-danger': registerForm.controls['address'].controls['city'].invalid && (registerForm.controls['address'].controls['city'].dirty || registerForm.controls['address'].controls['city'].touched) }">
+                  </div>
+                  <div *ngIf="registerForm.controls['address'].controls['city'].invalid && (registerForm.controls['address'].controls['city'].dirty || registerForm.controls['address'].controls['city'].touched)">
+                    <p *ngIf="registerForm.controls['address'].controls['city'].errors.required" class="help is-danger">
+                      Informe a Cidade.
+                    </p>
+                  </div>
                 </div>
-              </div>
-              <div class="field">
-                <label class="label">Bairro</label>
-                <div class="control">
-                  <input class="input" type="text" formControlName="addressNeighborhood" [class]="{ 'is-danger': registerForm.controls['addressNeighborhood'].invalid && (registerForm.controls['addressNeighborhood'].dirty || registerForm.controls['addressNeighborhood'].touched) }">
-                </div>
-                <div *ngIf="registerForm.controls['addressNeighborhood'].invalid && (registerForm.controls['addressNeighborhood'].dirty || registerForm.controls['addressNeighborhood'].touched)">
-                  <p *ngIf="registerForm.controls['addressNeighborhood'].errors.required" class="help is-danger">
-                    Informe o Bairro.
-                  </p>
-                </div>
-              </div>
-              <div class="field">
-                <label class="label">Cidade</label>
-                <div class="control">
-                  <input class="input" type="text" formControlName="addressCity" [class]="{ 'is-danger': registerForm.controls['addressCity'].invalid && (registerForm.controls['addressCity'].dirty || registerForm.controls['addressCity'].touched) }">
-                </div>
-                <div *ngIf="registerForm.controls['addressCity'].invalid && (registerForm.controls['addressCity'].dirty || registerForm.controls['addressCity'].touched)">
-                  <p *ngIf="registerForm.controls['addressCity'].errors.required" class="help is-danger">
-                    Informe a Cidade.
-                  </p>
-                </div>
-              </div>
-              <div class="field">
-                <label class="label">Estado</label>
-                <div class="control">
-                  <input class="input" type="text" formControlName="addressState" [class]="{ 'is-danger': registerForm.controls['addressState'].invalid && (registerForm.controls['addressState'].dirty || registerForm.controls['addressState'].touched) }">
-                </div>
-                <div *ngIf="registerForm.controls['addressState'].invalid && (registerForm.controls['addressState'].dirty || registerForm.controls['addressState'].touched)">
-                  <p *ngIf="registerForm.controls['addressState'].errors.required" class="help is-danger">
-                    Informe o Estado.
-                  </p>
+                <div class="field">
+                  <label class="label">Estado</label>
+                  <div class="control">
+                    <input class="input" type="text" formControlName="state" [class]="{ 'is-danger': registerForm.controls['address'].controls['state'].invalid && (registerForm.controls['address'].controls['state'].dirty || registerForm.controls['address'].controls['state'].touched) }">
+                  </div>
+                  <div *ngIf="registerForm.controls['address'].controls['state'].invalid && (registerForm.controls['address'].controls['state'].dirty || registerForm.controls['address'].controls['state'].touched)">
+                    <p *ngIf="registerForm.controls['address'].controls['state'].errors.required" class="help is-danger">
+                      Informe o Estado.
+                    </p>
+                  </div>
                 </div>
               </div>
               <h3 class="title is-5 has-text-black mt-5 mb-2">Segurança</h3>
@@ -289,3 +296,32 @@
     </div>
   </div>
 </section>
+
+<div class="modal" [class]="{ 'is-active': taxesModal.open }">
+  <div class="modal-background"></div>
+  <div class="modal-card">
+    <header class="modal-card-head">
+      <p class="modal-card-title">{{ taxesModal.plan?.name }}</p>
+      <button class="delete" aria-label="close" (click)="closeModal()"></button>
+    </header>
+    <section class="modal-card-body">
+      <div class="columns">
+        <div class="column">
+          <h4 class="title is-5 mb-2">Tarifas Pessoa Física</h4>
+          <p *ngFor="let t of taxesModal.plan?.person_modules | keyvalue">
+            {{ t.key | bossModule }}: {{ t.value | currency: 'BRL' }}
+          </p>
+        </div>
+        <div class="column">
+          <h4 class="title is-5 mb-2">Tarifas Pessoa Jurídica</h4>
+          <p *ngFor="let t of taxesModal.plan?.company_modules | keyvalue">
+            {{ t.key | bossModule }}: {{ t.value | currency: 'BRL' }}
+          </p>
+        </div>
+      </div>
+    </section>
+    <footer class="modal-card-foot is-justify-content-end">
+      <button type="button" class="button" (click)="closeModal()">Voltar</button>
+    </footer>
+  </div>
+</div>

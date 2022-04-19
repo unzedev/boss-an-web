@@ -28,25 +28,24 @@
                         <td>{{ p.price | currency: 'BRL' }}</td>
                         <td>{{ p.itens.join(', ') }}</td>
                         <td>
-                            <!-- <span *ngIf="!u.active" class="tag is-danger">Excluído</span>
-                            <span *ngIf="!u.active" class="tag is-warning">Bloqueado</span>
-                            <span *ngIf="u.active" class="tag is-primary is-light">Ativo</span> -->
-                            <span class="tag is-primary is-light">Ativo</span>
+                            <!-- <span *ngIf="u.status == 'active'" class="tag is-danger">Excluído</span> -->
+                            <span *ngIf="p.status != 'active'" class="tag is-warning">Bloqueado</span>
+                            <span *ngIf="p.status == 'active'" class="tag is-primary is-light">Ativo</span>
                         </td>
                         <td>
                             <div class="buttons">
-                                <!-- <button class="button" (click)="editPlan(u)">
+                                <button class="button" (click)="editPlan(p)">
                                     Editar
                                 </button>
-                                <button class="button is-light is-warning is-outlined" (click)="blockPlan(u)" *ngIf="u.active">
+                                <!-- <button class="button is-light is-warning is-outlined" (click)="blockPlan(u)" *ngIf="u.active">
                                     Bloquear
                                 </button>
                                 <button class="button is-light is-success is-outlined" (click)="unblockPlan(u)" *ngIf="!u.active">
                                     Desbloquear
-                                </button>
-                                <button class="button is-danger is-warning is-outlined" (click)="deletePlan(u)">
-                                    Excluir
                                 </button> -->
+                                <button class="button is-danger is-warning is-outlined" (click)="deletePlan(p)">
+                                    Excluir
+                                </button>
                             </div>
                         </td>
                     </tr>
@@ -101,81 +100,93 @@
                     </div>
                 </div>
                 <div class="columns">
-                    <div class="column">
+                    <div class="column" formGroupName="person_modules">
                         <h4 class="title is-5 mb-2 mt-4">Tarifas Pessoa Física</h4>
                         <div class="field">
                             <label class="label">Dados Cadastrais</label>
                             <div class="control">
-                                <input class="input input-light" type="tel" currencyMask formControlName="pf_register_data">
+                                <input class="input input-light" type="tel" currencyMask formControlName="register_data">
                             </div>
                         </div>
                         <div class="field">
                             <label class="label">Perfil Financeiro</label>
                             <div class="control">
-                                <input class="input input-light" type="tel" currencyMask formControlName="pf_financial_data">
+                                <input class="input input-light" type="tel" currencyMask formControlName="financial_data">
                             </div>
                         </div>
                         <div class="field">
                             <label class="label">Dados Comportamentais</label>
                             <div class="control">
-                                <input class="input input-light" type="tel" currencyMask formControlName="pf_behavior_data">
+                                <input class="input input-light" type="tel" currencyMask formControlName="behavior_data">
                             </div>
                         </div>
                         <div class="field">
                             <label class="label">Restritivos</label>
                             <div class="control">
-                                <input class="input input-light" type="tel" currencyMask formControlName="pf_restrict">
+                                <input class="input input-light" type="tel" currencyMask formControlName="restrict">
                             </div>
                         </div>
                         <div class="field">
                             <label class="label">Certidões</label>
                             <div class="control">
-                                <input class="input input-light" type="tel" currencyMask formControlName="pf_ondemand">
+                                <input class="input input-light" type="tel" currencyMask formControlName="ondemand">
                             </div>
                         </div>
                         <div class="field">
                             <label class="label">PEFIN/REFIN Boa Vista</label>
                             <div class="control">
-                                <input class="input input-light" type="tel" currencyMask formControlName="pf_boavista">
+                                <input class="input input-light" type="tel" currencyMask formControlName="boavista">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">PEFIN/REFIN Serasa</label>
+                            <div class="control">
+                                <input class="input input-light" type="tel" currencyMask formControlName="serasa">
                             </div>
                         </div>
                     </div>
-                    <div class="column">
+                    <div class="column" formGroupName="company_modules">
                         <h4 class="title is-5 mb-2 mt-4">Tarifas Pessoa Jurídica</h4>
                         <div class="field">
                             <label class="label">Dados Cadastrais</label>
                             <div class="control">
-                                <input class="input input-light" type="tel" currencyMask formControlName="pj_register_data">
+                                <input class="input input-light" type="tel" currencyMask formControlName="register_data">
                             </div>
                         </div>
                         <div class="field">
                             <label class="label">Perfil Financeiro</label>
                             <div class="control">
-                                <input class="input input-light" type="tel" currencyMask formControlName="pj_financial_data">
+                                <input class="input input-light" type="tel" currencyMask formControlName="financial_data">
                             </div>
                         </div>
                         <div class="field">
                             <label class="label">Dados Comportamentais</label>
                             <div class="control">
-                                <input class="input input-light" type="tel" currencyMask formControlName="pj_behavior_data">
+                                <input class="input input-light" type="tel" currencyMask formControlName="behavior_data">
                             </div>
                         </div>
                         <div class="field">
                             <label class="label">Restritivos</label>
                             <div class="control">
-                                <input class="input input-light" type="tel" currencyMask formControlName="pj_restrict">
+                                <input class="input input-light" type="tel" currencyMask formControlName="restrict">
                             </div>
                         </div>
                         <div class="field">
                             <label class="label">Certidões</label>
                             <div class="control">
-                                <input class="input input-light" type="tel" currencyMask formControlName="pj_ondemand">
+                                <input class="input input-light" type="tel" currencyMask formControlName="ondemand">
                             </div>
                         </div>
                         <div class="field">
                             <label class="label">PEFIN/REFIN Boa Vista</label>
                             <div class="control">
-                                <input class="input input-light" type="tel" currencyMask formControlName="pj_boavista">
+                                <input class="input input-light" type="tel" currencyMask formControlName="boavista">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">PEFIN/REFIN Serasa</label>
+                            <div class="control">
+                                <input class="input input-light" type="tel" currencyMask formControlName="serasa">
                             </div>
                         </div>
                     </div>
@@ -189,65 +200,130 @@
     </div>
 </div>
 
-<!-- <div class="modal" [class]="{ 'is-active': updateModal.open }">
+<div class="modal" [class]="{ 'is-active': updateModal.open }">
     <div class="modal-background"></div>
     <div class="modal-card">
         <header class="modal-card-head">
-          <p class="modal-card-title">Editar Usuário</p>
+          <p class="modal-card-title">Editar Plano</p>
           <button class="delete" aria-label="close" (click)="closeModal()"></button>
         </header>
-        <form [formGroup]="updatePlanForm" (ngSubmit)="updatePlan()">
-            <section class="modal-card-body">
+        <section class="modal-card-body">
+            <form [formGroup]="updatePlanForm" (ngSubmit)="updatePlan()" id="updatePlanForm">
                 <div class="field">
-                    <label class="label">Nome Completo</label>
-                    <div class="control has-icons-left">
+                    <label class="label">Nome do plano</label>
+                    <div class="control">
                         <input class="input input-light" type="text" formControlName="name" [disabled]="loading">
-                        <span class="icon is-small is-left">
-                        <i class="fas fa-plan"></i>
-                        </span>
                     </div>
                 </div>
                 <div class="field">
-                    <label class="label">CPF ou CNPJ</label>
-                    <div class="control has-icons-left">
-                        <input class="input input-light" type="tel" formControlName="document" mask="CPF_CNPJ" [disabled]="loading">
-                        <span class="icon is-small is-left">
-                        <i class="fas fa-receipt"></i>
-                        </span>
+                    <label class="label">Valor mínimo mensal</label>
+                    <div class="control">
+                        <input class="input input-light" type="tel" formControlName="price" currencyMask [disabled]="loading">
                     </div>
                 </div>
                 <div class="field">
-                    <label class="label">Celular</label>
-                    <div class="control has-icons-left">
-                        <input class="input input-light" type="tel" formControlName="phone" mask="(00) 00000-0000" [disabled]="loading">
-                        <span class="icon is-small is-left">
-                        <i class="fas fa-phone-alt"></i>
-                        </span>
+                    <label class="label">Descrição (separar itens por vírgula)</label>
+                    <div class="control">
+                        <textarea class="textarea input-light" type="tel" formControlName="itens" [disabled]="loading" placeholder="Item 1, Item 2, Item 3"></textarea>
                     </div>
                 </div>
-                <div class="field">
-                    <label class="label">E-mail</label>
-                    <div class="control has-icons-left">
-                        <input class="input input-light" type="email" formControlName="email" [disabled]="loading">
-                        <span class="icon is-small is-left">
-                        <i class="fas fa-envelope"></i>
-                        </span>
+                <div class="columns">
+                    <div class="column" formGroupName="person_modules">
+                        <h4 class="title is-5 mb-2 mt-4">Tarifas Pessoa Física</h4>
+                        <div class="field">
+                            <label class="label">Dados Cadastrais</label>
+                            <div class="control">
+                                <input class="input input-light" type="tel" currencyMask formControlName="register_data">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Perfil Financeiro</label>
+                            <div class="control">
+                                <input class="input input-light" type="tel" currencyMask formControlName="financial_data">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Dados Comportamentais</label>
+                            <div class="control">
+                                <input class="input input-light" type="tel" currencyMask formControlName="behavior_data">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Restritivos</label>
+                            <div class="control">
+                                <input class="input input-light" type="tel" currencyMask formControlName="restrict">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Certidões</label>
+                            <div class="control">
+                                <input class="input input-light" type="tel" currencyMask formControlName="ondemand">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">PEFIN/REFIN Boa Vista</label>
+                            <div class="control">
+                                <input class="input input-light" type="tel" currencyMask formControlName="boavista">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">PEFIN/REFIN Serasa</label>
+                            <div class="control">
+                                <input class="input input-light" type="tel" currencyMask formControlName="serasa">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="column" formGroupName="company_modules">
+                        <h4 class="title is-5 mb-2 mt-4">Tarifas Pessoa Jurídica</h4>
+                        <div class="field">
+                            <label class="label">Dados Cadastrais</label>
+                            <div class="control">
+                                <input class="input input-light" type="tel" currencyMask formControlName="register_data">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Perfil Financeiro</label>
+                            <div class="control">
+                                <input class="input input-light" type="tel" currencyMask formControlName="financial_data">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Dados Comportamentais</label>
+                            <div class="control">
+                                <input class="input input-light" type="tel" currencyMask formControlName="behavior_data">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Restritivos</label>
+                            <div class="control">
+                                <input class="input input-light" type="tel" currencyMask formControlName="restrict">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">Certidões</label>
+                            <div class="control">
+                                <input class="input input-light" type="tel" currencyMask formControlName="ondemand">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">PEFIN/REFIN Boa Vista</label>
+                            <div class="control">
+                                <input class="input input-light" type="tel" currencyMask formControlName="boavista">
+                            </div>
+                        </div>
+                        <div class="field">
+                            <label class="label">PEFIN/REFIN Serasa</label>
+                            <div class="control">
+                                <input class="input input-light" type="tel" currencyMask formControlName="serasa">
+                            </div>
+                        </div>
                     </div>
                 </div>
-                <div class="field">
-                    <label class="label">Senha</label>
-                    <div class="control has-icons-left">
-                        <input class="input input-light" type="password" formControlName="password" autocomplete="new-password" [disabled]="loading">
-                        <span class="icon is-small is-left">
-                        <i class="fas fa-lock"></i>
-                        </span>
-                    </div>
-                </div>
-            </section>
-            <footer class="modal-card-foot is-justify-content-end">
-                <button type="button" class="button" (click)="closeModal()" [disabled]="loading">Cancelar</button>
-                <button type="submit" class="button is-success" [class]="{ 'is-loading': loading }" [disabled]="loading">Salvar</button>
-            </footer>
-        </form>
+            </form>
+        </section>
+        <footer class="modal-card-foot is-justify-content-end">
+            <button type="button" class="button" (click)="closeModal()" [disabled]="loading">Cancelar</button>
+            <button type="submit" form="updatePlanForm" class="button is-success" [class]="{ 'is-loading': loading }" [disabled]="loading || updatePlanForm.invalid">Salvar</button>
+        </footer>
     </div>
-</div> -->
+</div>

@@ -153,6 +153,7 @@
                         <th>Data</th>
                         <th>Hora</th>
                         <!-- <th>Usuário</th> -->
+                        <th>IP Consulta</th>
                         <th>CPF/CNPJ</th>
                         <th>Módulo</th>
                         <th>Crédito</th>
@@ -164,6 +165,7 @@
                         <td>{{ r.createdAt | date: 'dd/MM/yyyy' }}</td>
                         <td>{{ r.createdAt | date: 'HH:mm' }}</td>
                         <!-- <td>{{ r.user.name }}</td> -->
+                        <td>{{ r.requestIp || '-' }}</td>
                         <td>{{ r.document | mask: 'CPF_CNPJ' }}</td>
                         <td>{{ r.module | bossModule }}</td>
                         <td>{{ (r.credit | currency: 'BRL') || '-' }}</td>

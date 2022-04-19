@@ -92,7 +92,15 @@ export class AdminService {
    });
   }
 
-  public createPlan(params: { price: number, name: string, itens: string[] }): Observable<any> {
+  public createPlan(params: { price: number, name: string, itens: string[], company_modules: any, person_modules: any }): Observable<any> {
     return this.http.post(`${this.apiUrl}plans`, params);
+  }
+
+  public savePlan(params: { id: string, price: number, name: string, itens: string[], company_modules: any, person_modules: any }): Observable<any> {
+    return this.http.put(`${this.apiUrl}plans/${params.id}`, params);
+  }
+
+  public deletePlan(planId: string): Observable<any> {
+    return this.http.delete(`${this.apiUrl}plans/${planId}`);
   }
 }

@@ -28,7 +28,7 @@ export class PlansComponent implements OnInit {
   }
 
   public choosePlan(plan): void {
-
+    
   }
 
   public getPlans(): void {
