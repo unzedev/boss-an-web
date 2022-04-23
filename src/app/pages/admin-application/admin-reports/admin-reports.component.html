@@ -92,11 +92,11 @@
                         <td>{{ r.module | bossModule }}</td>
                         <td>{{ r.user.name }}</td>
                         <td>{{ r.document | mask: 'CPF_CNPJ' }}</td>
-                        <td>{{ r.date | date: 'dd/MM/yyyy, HH:mm' }}</td>
+                        <td>{{ (r.date || r.createdAt) | date: 'dd/MM/yyyy, HH:mm' }}</td>
                         <td>{{ (r.credit | currency: 'BRL') || '-' }}</td>
                         <td>{{ r.cost | currency: 'BRL' }}</td>
                         <td>
-                            <span *ngIf="r.status === 'PROCESSING'" class="tag is-light">Processando</span>
+                            <span *ngIf="r.status === 'PROCESSING'" class="tag">Processando</span>
                             <span *ngIf="r.status === 'ANALYSE'" class="tag is-warning">Analisar</span>
                             <span *ngIf="r.status === 'Recommended'" class="tag is-primary is-light">Recomendado</span>
                             <span *ngIf="r.status === 'Not'" class="tag is-danger is-light">Não Recomendado</span>

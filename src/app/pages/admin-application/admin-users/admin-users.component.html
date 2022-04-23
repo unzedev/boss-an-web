@@ -80,13 +80,13 @@
                         </td>
                         <td>
                             <div class="buttons">
-                                <button class="button is-primary is-outlined is-light" (click)="createUserInvoice(u)" *ngIf="u.role === 'user' && u.status === 'approved'">
+                                <button class="button is-primary is-light" (click)="createUserInvoice(u)" *ngIf="u.role === 'user' && u.status === 'approved'">
                                     Gerar Fatura
                                 </button>
                                 <!-- <button class="button" (click)="editUserConfig(u)" *ngIf="u.role === 'user' && u.status === 'approved'">
                                     Editar
                                 </button> -->
-                                <button class="button is-primary" (click)="approveUser(u)" *ngIf="u.status === 'pending'">
+                                <button class="button is-primary is-light" (click)="approveUser(u)" *ngIf="u.status === 'pending'">
                                     Aprovar
                                 </button>
                                 <button class="button is-danger is-light" (click)="rejectUser(u)" *ngIf="u.status === 'pending'">

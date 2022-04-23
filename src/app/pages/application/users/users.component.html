@@ -88,13 +88,13 @@
                                 <button class="button" (click)="editUser(u)">
                                     Editar
                                 </button>
-                                <button class="button is-light is-warning is-outlined" (click)="blockUser(u)" *ngIf="u.active">
+                                <button class="button is-light is-warning" (click)="blockUser(u)" *ngIf="u.active">
                                     Bloquear
                                 </button>
-                                <button class="button is-light is-success is-outlined" (click)="unblockUser(u)" *ngIf="!u.active">
+                                <button class="button is-light is-success" (click)="unblockUser(u)" *ngIf="!u.active">
                                     Desbloquear
                                 </button>
-                                <button class="button is-danger is-warning is-outlined" (click)="deleteUser(u)">
+                                <button class="button is-danger is-warning" (click)="deleteUser(u)">
                                     Excluir
                                 </button>
                             </div>

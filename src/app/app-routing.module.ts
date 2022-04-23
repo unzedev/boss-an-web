@@ -15,6 +15,7 @@ import { ReportsComponent } from './pages/application/reports/reports.component'
 import { InvoicesComponent } from './pages/application/invoices/invoices.component';
 import { ReportResultComponent } from './pages/application/report-result/report-result.component';
 import { PlansComponent } from './pages/application/plans/plans.component';
+import { UserInfoComponent } from './pages/application/user-info/user-info.component';
 
 import { AdminApplicationComponent } from './pages/admin-application/admin-application.component';
 import { AdminUsersComponent } from './pages/admin-application/admin-users/admin-users.component';
@@ -22,11 +23,11 @@ import { AdminDashboardComponent } from './pages/admin-application/admin-dashboa
 import { AdminReportsComponent } from './pages/admin-application/admin-reports/admin-reports.component';
 import { AdminPlansComponent } from './pages/admin-application/admin-plans/admin-plans.component';
 import { AdminInvoicesComponent } from './pages/admin-application/admin-invoices/admin-invoices.component';
+import { AdminInfoComponent } from './pages/admin-application/admin-info/admin-info.component';
 
 import { AdminAuthGuard } from './guards/admin-auth/admin-auth.guard';
 import { OwnerAuthGuard } from './guards/owner-auth/owner-auth.guard';
 import { AuthGuard } from './guards/auth/auth.guard';
-import { UserInfoComponent } from './pages/application/user-info/user-info.component';
 
 
 const routes: Routes = [
@@ -103,6 +104,10 @@ const routes: Routes = [
       {
         path: '',
         component: AdminDashboardComponent,
+      },
+      {
+        path: 'conta',
+        component: AdminInfoComponent,
       },
       {
         path: 'usuarios',

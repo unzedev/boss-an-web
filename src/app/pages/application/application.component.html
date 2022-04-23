@@ -59,7 +59,7 @@
             <span class="icon">
               <i class="fas fa-user"></i>
             </span>
-            <span>Minha conta</span>
+            <span>{{ user.name.indexOf(' ') != -1 ? user.name.slice(0, user.name.indexOf(' ')) : user.name }}</span>
           </a>
       
           <div class="navbar-dropdown">

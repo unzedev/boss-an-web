@@ -169,45 +169,40 @@ export class AdminPlansComponent implements OnInit {
     this.updatePlanForm.reset();
   }
 
-  // public blockPlan(plan: Plan) {
-  //   this.adminService.blockPlan(plan._id)
-  //     .pipe(first())
-  //     .subscribe(() => {
-  //       this.plans.forEach((r, index) => {
-  //         if (r._id === plan._id) {
-  //           this.plans[index].active = false;
-  //           return;
-  //         }
-  //       });
-  //     });
-  // }
-
-  // public unblockPlan(plan: Plan) {
-  //   this.adminService.unblockPlan(plan._id)
-  //     .pipe(first())
-  //     .subscribe(() => {
-  //       this.plans.forEach((r, index) => {
-  //         if (r._id === plan._id) {
-  //           this.plans[index].active = true;
-  //           return;
-  //         }
-  //       });
-  //     });
-  // }
-
   public deletePlan(plan: any) {
     this.alertService.openDangerConfirmDialog(
-      'Excluir',
-      `Você tem certeza que deseja excluir o plano ${plan.name}?`,
-      'Excluir',
-      'Cancelar',
+      'Desativar',
+      `Você tem certeza que deseja desativar o plano ${plan.name}?`,
+      'Desativar',
+      'Voltar',
       () => {
         this.adminService.deletePlan(plan._id)
           .pipe(first())
           .subscribe(() => {
-            this.plans.forEach((r, index) => {
-              if (r._id === plan._id) {
-                this.plans.splice(index, 1);
+            this.plans.forEach((p) => {
+              if (p._id === plan._id) {
+                p.status = 'inactive';
+                return;
+              }
+            });
+          });
+      }
+    );
+  }
+
+  public reactivatePlan(plan: any) {
+    this.alertService.openSuccessConfirmDialog(
+      'Reativar',
+      `Você tem certeza que deseja reativar o plano ${plan.name}?`,
+      'Reativar',
+      'Voltar',
+      () => {
+        this.adminService.reactivatePlan(plan._id)
+          .pipe(first())
+          .subscribe(() => {
+            this.plans.forEach((p) => {
+              if (p._id === plan._id) {
+                p.status = 'active';
                 return;
               }
             });

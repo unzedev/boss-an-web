@@ -23,13 +23,13 @@
                         <td>{{ p.itens.join(', ') }}</td>
                         <td>
                             <div class="buttons">
-                                <button class="button is-light is-outlined" (click)="openTaxesModal(p)">
+                                <button class="button is-light" (click)="openTaxesModal(p)">
                                     Ver tarifas
                                 </button>
-                                <button disabled class="button is-light is-success is-outlined" *ngIf="currentPlan?._id == p._id">
+                                <button disabled class="button is-light is-success" *ngIf="currentPlan?._id == p._id">
                                     Plano atual
                                 </button>
-                                <button class="button is-light is-success is-outlined" (click)="choosePlan(p)" *ngIf="currentPlan?._id != p._id">
+                                <button class="button is-light is-success" (click)="choosePlan(p)" *ngIf="currentPlan?._id != p._id">
                                     Mudar para este plano
                                 </button>
                             </div>

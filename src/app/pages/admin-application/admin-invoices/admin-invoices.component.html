@@ -74,8 +74,9 @@
                         <th>CNPJ</th>
                         <th>Razão Social</th>
                         <th>Mês de Referência</th>
-                        <th>Valor</th>
                         <th>Situação</th>
+                        <th>Valor</th>
+                        <th>Pagamento</th>
                         <th></th>
                     </tr>
                 </thead>
@@ -84,17 +85,22 @@
                         <td>{{ i.user.document | mask: 'CPF_CNPJ' }}</td>
                         <td>{{ i.user.name }}</td>
                         <td>{{ i.month }}/{{ i.year }}</td>
+                        <td>
+                            <span *ngIf="i.status != 'opened'" class="tag">Fechada</span>
+                            <span *ngIf="i.status == 'opened'" class="tag is-light">Em aberto</span>
+                        </td>
                         <td>{{ i.amount | currency: 'BRL' }}</td>
                         <td>
-                            <span *ngIf="i.status === 'pending'" class="tag is-warning">Pendente</span>
-                            <span *ngIf="i.status === 'paid'" class="tag is-primary is-light">Pago</span>
+                            <span *ngIf="i.status == 'pending'" class="tag is-warning">Pendente</span>
+                            <span *ngIf="i.status == 'paid'" class="tag is-primary is-light">Pago</span>
+                            <span *ngIf="i.status == 'opened'" class="tag">Não disponível</span>
                         </td>
                         <td>
                             <div class="buttons">
                                 <button class="button" (click)="getSummary(i)">
                                     Resumo
                                 </button>
-                                <button class="button is-primary is-light is-outlined" (click)="setInvoiceAsPaid(i._id)" *ngIf="i.status === 'pending'">
+                                <button class="button is-primary is-light" (click)="setInvoiceAsPaid(i._id)" *ngIf="i.status === 'pending'">
                                     Marcar como pago
                                 </button>
                             </div>

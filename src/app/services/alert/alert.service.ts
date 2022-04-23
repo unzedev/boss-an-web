@@ -23,7 +23,7 @@ export class AlertService {
     focusCancel: true,
     customClass: {
       actions: 'buttons',
-      confirmButton: 'button is-danger is-light is-outlined',
+      confirmButton: 'button is-danger is-light',
       cancelButton: 'button',
     },
   });
@@ -55,7 +55,7 @@ export class AlertService {
       focusCancel: true,
       customClass: {
         actions: 'buttons',
-        confirmButton: 'button is-success is-light is-outlined',
+        confirmButton: 'button is-success is-light',
         cancelButton: 'button',
       },
     }).fire({

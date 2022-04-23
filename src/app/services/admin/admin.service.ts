@@ -103,4 +103,16 @@ export class AdminService {
   public deletePlan(planId: string): Observable<any> {
     return this.http.delete(`${this.apiUrl}plans/${planId}`);
   }
+
+  public reactivatePlan(planId: string): Observable<any> {
+    return this.http.patch(`${this.apiUrl}plans/${planId}/reactivate`, { planId });
+  }
+
+  public getAdminInfo(): Observable<any> {
+    return this.http.get(`${this.apiUrl}me`);
+  }
+
+  public saveAdminInfo(body: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}me`, body);
+  }
 }

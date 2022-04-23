@@ -28,8 +28,7 @@
                         <td>{{ p.price | currency: 'BRL' }}</td>
                         <td>{{ p.itens.join(', ') }}</td>
                         <td>
-                            <!-- <span *ngIf="u.status == 'active'" class="tag is-danger">Excluído</span> -->
-                            <span *ngIf="p.status != 'active'" class="tag is-warning">Bloqueado</span>
+                            <span *ngIf="p.status == 'inactive'" class="tag">Desativado</span>
                             <span *ngIf="p.status == 'active'" class="tag is-primary is-light">Ativo</span>
                         </td>
                         <td>
@@ -37,14 +36,11 @@
                                 <button class="button" (click)="editPlan(p)">
                                     Editar
                                 </button>
-                                <!-- <button class="button is-light is-warning is-outlined" (click)="blockPlan(u)" *ngIf="u.active">
-                                    Bloquear
+                                <button class="button is-success" (click)="reactivatePlan(p)" *ngIf="p.status == 'inactive'">
+                                    Reativar
                                 </button>
-                                <button class="button is-light is-success is-outlined" (click)="unblockPlan(u)" *ngIf="!u.active">
-                                    Desbloquear
-                                </button> -->
-                                <button class="button is-danger is-warning is-outlined" (click)="deletePlan(p)">
-                                    Excluir
+                                <button class="button is-danger" (click)="deletePlan(p)" *ngIf="p.status == 'active'">
+                                    Desativar
                                 </button>
                             </div>
                         </td>

@@ -35,6 +35,7 @@ import { AdminReportsComponent } from './pages/admin-application/admin-reports/a
 import { AdminUsersComponent } from './pages/admin-application/admin-users/admin-users.component';
 import { AdminInvoicesComponent } from './pages/admin-application/admin-invoices/admin-invoices.component';
 import { AdminPlansComponent } from './pages/admin-application/admin-plans/admin-plans.component';
+import { AdminInfoComponent } from './pages/admin-application/admin-info/admin-info.component';
 
 import { BossModulePipe } from './pipes/boss-module.pipe';
 
@@ -63,6 +64,7 @@ registerLocaleData(localePt);
     AdminUsersComponent,
     AdminInvoicesComponent,
     AdminPlansComponent,
+    AdminInfoComponent,
     // PIPES
     BossModulePipe,
   ],

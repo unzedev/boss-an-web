@@ -84,14 +84,14 @@
                         <td>{{ i.month }}/{{ i.year }}</td>
                         <!-- <td>{{ i.user.name }}</td> -->
                         <td>
-                            <span *ngIf="i.status != 'opened'" class="tag is-light">Fechada</span>
+                            <span *ngIf="i.status != 'opened'" class="tag">Fechada</span>
                             <span *ngIf="i.status == 'opened'" class="tag is-light">Em aberto</span>
                         </td>
                         <td>{{ i.amount | currency: 'BRL' }}</td>
                         <td>
                             <span *ngIf="i.status == 'pending'" class="tag is-warning">Pendente</span>
                             <span *ngIf="i.status == 'paid'" class="tag is-primary is-light">Pago</span>
-                            <span *ngIf="i.status == 'opened'" class="tag is-light">Não disponível</span>
+                            <span *ngIf="i.status == 'opened'" class="tag">Não disponível</span>
                         </td>
                         <td>
                           <a class="button is-text" (click)="getSummary(i)">
