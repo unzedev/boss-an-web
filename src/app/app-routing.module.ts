@@ -26,6 +26,7 @@ import { AdminInvoicesComponent } from './pages/admin-application/admin-invoices
 import { AdminAuthGuard } from './guards/admin-auth/admin-auth.guard';
 import { OwnerAuthGuard } from './guards/owner-auth/owner-auth.guard';
 import { AuthGuard } from './guards/auth/auth.guard';
+import { UserInfoComponent } from './pages/application/user-info/user-info.component';
 
 
 const routes: Routes = [
@@ -60,6 +61,10 @@ const routes: Routes = [
         path: '',
         component: DashboardComponent,
         canActivate: [OwnerAuthGuard],
+      },
+      {
+        path: 'conta',
+        component: UserInfoComponent,
       },
       {
         path: 'usuarios',

@@ -4,29 +4,29 @@
         <p class="subtitle">Confira o andamento de todas as suas faturas.</p>
         <form (submit)="getMyOrAllInvoices()">
             <div class="columns is-multiline">
-                <div class="column is-3">
+                <div class="column is-5">
                     <div class="field">
                         <label class="label">Mês de Referência</label>
                         <div class="control">
                             <div class="select is-fullwidth">
                                 <select [(ngModel)]="filter.month" name="month">
                                     <option value="">Selecione o mês...</option>
-                                    <option value="pending">Em aberto</option>
-                                    <option value="paid">Fechada</option>
+                                    <option value="1">Janeiro</option>
+                                    <option value="2">Fevereiro</option>
                                 </select>
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="column is-3">
+                <!-- <div class="column is-4">
                     <div class="field">
                         <label class="label">Número da NF</label>
                         <div class="control">
                             <input class="input" type="text" [(ngModel)]="filter.nf" name="nf" placeholder="Digite o número">
                         </div>
                     </div>
-                </div>
-                <div class="column is-2">
+                </div> -->
+                <!-- <div class="column is-2">
                     <div class="field">
                         <label class="label">Situação da Fatura</label>
                         <div class="control">
@@ -39,15 +39,15 @@
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="column is-2">
+                </div> -->
+                <div class="column is-5">
                     <div class="field">
                         <label class="label">Situação do Pagamento</label>
                         <div class="control">
                             <div class="select is-fullwidth">
                                 <select [(ngModel)]="filter.payment" name="payment">
                                     <option value="">Selecione...</option>
-                                    <option value="notReady">Em aberto</option>
+                                    <option value="opened">Em aberto</option>
                                     <option value="pending">Pendente</option>
                                     <option value="paid">Pago</option>
                                 </select>
@@ -72,8 +72,8 @@
                 <thead>
                     <tr>
                         <th>Mês de Referência</th>
-                        <th>Número da NF</th>
-                        <!-- <th>Situação</th> -->
+                        <!-- <th>Número da NF</th> -->
+                        <th>Situação</th>
                         <th>Valor</th>
                         <th>Pagamento</th>
                         <th></th>
@@ -82,18 +82,22 @@
                 <tbody>
                     <tr *ngFor="let i of invoices">
                         <td>{{ i.month }}/{{ i.year }}</td>
-                        <td>{{ i.user.name }}</td>
-                        <!-- <td>{{ i.status }}</td> -->
+                        <!-- <td>{{ i.user.name }}</td> -->
+                        <td>
+                            <span *ngIf="i.status != 'opened'" class="tag is-light">Fechada</span>
+                            <span *ngIf="i.status == 'opened'" class="tag is-light">Em aberto</span>
+                        </td>
                         <td>{{ i.amount | currency: 'BRL' }}</td>
                         <td>
-                            <span *ngIf="i.status === 'pending'" class="tag is-warning">Pendente</span>
-                            <span *ngIf="i.status === 'paid'" class="tag is-primary is-light">Pago</span>
+                            <span *ngIf="i.status == 'pending'" class="tag is-warning">Pendente</span>
+                            <span *ngIf="i.status == 'paid'" class="tag is-primary is-light">Pago</span>
+                            <span *ngIf="i.status == 'opened'" class="tag is-light">Não disponível</span>
                         </td>
                         <td>
                           <a class="button is-text" (click)="getSummary(i)">
                             <i class="fas fa-eye"></i>
                           </a>
-                          <a *ngIf="i.payment?.response.bankSlipUrl" [href]="i.payment?.response.bankSlipUrl" target="_blank" class="button is-text">
+                          <a *ngIf="i.payment?.response.bankSlipUrl" [href]="i.payment?.response.bankSlipUrl && i.status == 'pending'" target="_blank" class="button is-text">
                             <i class="fas fa-barcode"></i>
                           </a>
                         </td>

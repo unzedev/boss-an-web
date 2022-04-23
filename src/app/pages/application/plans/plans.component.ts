@@ -11,9 +11,11 @@ import { UserService } from 'src/app/services/user/user.service';
 export class PlansComponent implements OnInit {
 
   public plans: any[] = [];
+  public currentPlan: any;
 
-  public createModal = {
+  public taxesModal = {
     open: false,
+    plan: null,
   };
 
   public loading: boolean = false;
@@ -25,10 +27,23 @@ export class PlansComponent implements OnInit {
 
   ngOnInit(): void {
     this.getPlans();
+    this.getUserPlan();
   }
 
   public choosePlan(plan): void {
-    
+    this.userService.changeUserPlan(plan._id)
+      .pipe(first())
+      .subscribe((res: any) => {
+        this.currentPlan = plan;
+      });
+  }
+
+  public getUserPlan() {
+    this.userService.getUserPlan()
+      .pipe(first())
+      .subscribe((plan: any) => {
+        this.currentPlan = plan;
+      });
   }
 
   public getPlans(): void {
@@ -39,33 +54,17 @@ export class PlansComponent implements OnInit {
       });
   }
 
-  // public updatePlan() {
-  //   this.loading = true;
-  //   const planToUpdate = this.updatePlanForm.value;
-  //   planToUpdate.id = this.updateModal.id;
-  //   this.adminService.savePlan(this.updatePlanForm.value)
-  //     .pipe(first())
-  //     .subscribe(() => {
-  //       this.plans.forEach((r, index) => {
-  //         if (r._id === this.updateModal.id) {
-  //           this.plans[index] = this.updatePlanForm.value;
-  //           this.plans[index].id = planToUpdate.id;
-  //           return;
-  //         }
-  //       });
-  //       this.closeModal();
-  //       this.loading = false;
-  //     });
-  // }
-
-
-  public openCreateModal() {
-    this.createModal.open = true;
+  public openTaxesModal(plan: any) {
+    this.taxesModal = {
+      open: true,
+      plan: plan,
+    };
   }
 
   public closeModal() {
-    this.createModal = {
+    this.taxesModal = {
       open: false,
+      plan: null,
     };
   }
 

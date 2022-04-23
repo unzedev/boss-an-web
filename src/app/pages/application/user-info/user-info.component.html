@@ -2,37 +2,219 @@
     <div class="container">
         <h1 class="title is-3">Meus dados</h1>
         <p class="subtitle">Gerencie suas informações e seu cadastro.</p>
+        <div class="columns is-centered">
+          <div class="column is-6">
+            <div class="card">
+              <div class="card-header pt-3">
+                <div class="tabs is-fullwidth is-medium">
+                  <ul>
+                    <li [class]="{ 'is-active': currentStep == 1 }"><a (click)="currentStep = 1">Dados</a></li>
+                    <li [class]="{ 'is-active': currentStep == 2 }"><a (click)="currentStep = 2">Segurança</a></li>
+                  </ul>
+                </div>
+              </div>
+              <div class="card-content" *ngIf="currentStep == 1">
+                <h3 class="title is-5 has-text-black mt-5 mb-2">Dados Gerais</h3>
+                <form [formGroup]="userForm" (ngSubmit)="saveUser()">
+                  <div class="field">
+                    <label class="label">Nome Completo</label>
+                    <div class="control has-icons-left">
+                      <input class="input input-light" type="text" formControlName="name" [class]="{ 'is-danger': userForm.controls['name']?.invalid && (userForm.controls['name'].dirty || userForm.controls['name'].touched) }">
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-user"></i>
+                      </span>
+                    </div>
+                    <div *ngIf="userForm.controls['name']?.invalid && (userForm.controls['name'].dirty || userForm.controls['name'].touched)">
+                      <p *ngIf="userForm.controls['name'].errors.required" class="help is-danger">
+                        Informe o Nome.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="label">Celular</label>
+                    <div class="control has-icons-left">
+                      <input class="input input-light" type="tel" formControlName="phone" mask="(00) 00000-0000" [class]="{ 'is-danger': userForm.controls['phone']?.invalid && (userForm.controls['phone'].dirty || userForm.controls['phone'].touched) }">
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-phone-alt"></i>
+                      </span>
+                    </div>
+                    <div *ngIf="userForm.controls['phone']?.invalid && (userForm.controls['phone'].dirty || userForm.controls['phone'].touched)">
+                      <p *ngIf="userForm.controls['phone'].errors.required" class="help is-danger">
+                        Informe o Celular.
+                      </p>
+                      <p *ngIf="userForm.controls['phone'].errors.minlength" class="help is-danger">
+                        Celular incompleto.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="label">E-mail</label>
+                    <div class="control has-icons-left">
+                      <input class="input input-light" type="email" formControlName="email" disabled>
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-envelope"></i>
+                      </span>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="label">CPF/CNPJ</label>
+                    <div class="control has-icons-left">
+                      <input class="input input-light" type="tel" formControlName="document" mask="CPF_CNPJ" disabled>
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-receipt"></i>
+                      </span>
+                    </div>
+                  </div>
+                  <div formGroupName="address">
+                    <h3 class="title is-5 has-text-black mt-5 mb-2">Endereço</h3>
+                    <div class="field">
+                      <label class="label">Rua</label>
+                      <div class="control">
+                        <input class="input input-light" type="text" formControlName="street" [class]="{ 'is-danger': userForm.get('address')['controls']['street']?.invalid && (userForm.get('address')['controls']['street'].dirty || userForm.get('address')['controls']['street'].touched) }">
+                      </div>
+                      <div *ngIf="userForm.get('address')['controls']['street']?.invalid && (userForm.get('address')['controls']['street'].dirty || userForm.get('address')['controls']['street'].touched)">
+                        <p *ngIf="userForm.get('address')['controls']['street'].errors.required" class="help is-danger">
+                          Informe a Rua.
+                        </p>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label class="label">Número</label>
+                      <div class="control">
+                        <input class="input input-light" type="tel" formControlName="number" [class]="{ 'is-danger': userForm.get('address')['controls']['number']?.invalid && (userForm.get('address')['controls']['number'].dirty || userForm.get('address')['controls']['number'].touched) }">
+                      </div>
+                      <div *ngIf="userForm.get('address')['controls']['number']?.invalid && (userForm.get('address')['controls']['number'].dirty || userForm.get('address')['controls']['number'].touched)">
+                        <p *ngIf="userForm.get('address')['controls']['number'].errors.required" class="help is-danger">
+                          Informe o Número.
+                        </p>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label class="label">Complemento <small>(opcional)</small></label>
+                      <div class="control">
+                        <input class="input input-light" type="text" formControlName="complement">
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label class="label">Bairro</label>
+                      <div class="control">
+                        <input class="input input-light" type="text" formControlName="neighborhood" [class]="{ 'is-danger': userForm.get('address')['controls']['neighborhood']?.invalid && (userForm.get('address')['controls']['neighborhood'].dirty || userForm.get('address')['controls']['neighborhood'].touched) }">
+                      </div>
+                      <div *ngIf="userForm.get('address')['controls']['neighborhood']?.invalid && (userForm.get('address')['controls']['neighborhood'].dirty || userForm.get('address')['controls']['neighborhood'].touched)">
+                        <p *ngIf="userForm.get('address')['controls']['neighborhood'].errors.required" class="help is-danger">
+                          Informe o Bairro.
+                        </p>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label class="label">Cidade</label>
+                      <div class="control">
+                        <input class="input input-light" type="text" formControlName="city" [class]="{ 'is-danger': userForm.get('address')['controls']['city']?.invalid && (userForm.get('address')['controls']['city'].dirty || userForm.get('address')['controls']['city'].touched) }">
+                      </div>
+                      <div *ngIf="userForm.get('address')['controls']['city']?.invalid && (userForm.get('address')['controls']['city'].dirty || userForm.get('address')['controls']['city'].touched)">
+                        <p *ngIf="userForm.get('address')['controls']['city'].errors.required" class="help is-danger">
+                          Informe a Cidade.
+                        </p>
+                      </div>
+                    </div>
+                    <div class="field">
+                      <label class="label">Estado</label>
+                      <div class="control">
+                        <input class="input input-light" type="text" formControlName="state" [class]="{ 'is-danger': userForm.get('address')['controls']['state']?.invalid && (userForm.get('address')['controls']['state'].dirty || userForm.get('address')['controls']['state'].touched) }">
+                      </div>
+                      <div *ngIf="userForm.get('address')['controls']['state']?.invalid && (userForm.get('address')['controls']['state'].dirty || userForm.get('address')['controls']['state'].touched)">
+                        <p *ngIf="userForm.get('address')['controls']['state'].errors.required" class="help is-danger">
+                          Informe o Estado.
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="has-text-centered">
+                    <div class="field">
+                      <div class="control">
+                        <button type="submit"
+                          class="button is-primary is-fullwidth"
+                          [class]="{ 'is-loading': loading }"
+                          [disabled]="!userForm.valid || loading">
+                          Salvar dados
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+              <div class="card-content" *ngIf="currentStep == 2">
+                <form [formGroup]="userPasswordForm" (ngSubmit)="saveUserPassword()">
+                  <h3 class="title is-5 has-text-black mt-5 mb-2">Segurança</h3>
+                  <div class="field">
+                    <label class="label">Senha Antiga</label>
+                    <div class="control has-icons-left">
+                      <input class="input input-light" type="password" formControlName="oldPassword" autocomplete="password" [class]="{ 'is-danger': userPasswordForm.controls['oldPassword']?.invalid && (userPasswordForm.controls['oldPassword'].dirty || userPasswordForm.controls['oldPassword'].touched) }">
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-lock"></i>
+                      </span>
+                    </div>
+                    <div *ngIf="userPasswordForm.controls['oldPassword']?.invalid && (userPasswordForm.controls['oldPassword'].dirty || userPasswordForm.controls['oldPassword'].touched)">
+                      <p *ngIf="userPasswordForm.controls['oldPassword'].errors.required" class="help is-danger">
+                        Informe a Senha.
+                      </p>
+                      <p *ngIf="userPasswordForm.controls['oldPassword'].errors.minlength" class="help is-danger">
+                        Informe no mínimo 6 carateres.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="label">Nova Senha <small class="has-text-light">(mínimo de 6 caracteres alfanuméricos)</small></label>
+                    <div class="control has-icons-left">
+                      <input class="input input-light" type="password" formControlName="newPassword" autocomplete="new-password" [class]="{ 'is-danger': userPasswordForm.controls['newPassword']?.invalid && (userPasswordForm.controls['newPassword'].dirty || userPasswordForm.controls['newPassword'].touched) }">
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-lock"></i>
+                      </span>
+                    </div>
+                    <div *ngIf="userPasswordForm.controls['newPassword']?.invalid && (userPasswordForm.controls['newPassword'].dirty || userPasswordForm.controls['newPassword'].touched)">
+                      <p *ngIf="userPasswordForm.controls['newPassword'].errors.required" class="help is-danger">
+                        Informe a Senha.
+                      </p>
+                      <p *ngIf="userPasswordForm.controls['newPassword'].errors.minlength" class="help is-danger">
+                        Informe no mínimo 6 carateres.
+                      </p>
+                    </div>
+                  </div>
+                  <div class="field">
+                    <label class="label">Repita a Nova Senha</label>
+                    <div class="control has-icons-left">
+                      <input class="input input-light" type="password" formControlName="confirmPassword" autocomplete="new-password" [class]="{ 'is-danger': userPasswordForm.controls['confirmPassword']?.invalid && (userPasswordForm.controls['confirmPassword'].dirty || userPasswordForm.controls['confirmPassword'].touched) }">
+                      <span class="icon is-small is-left">
+                        <i class="fas fa-lock"></i>
+                      </span>
+                    </div>
+                    <div *ngIf="userPasswordForm.controls['confirmPassword']?.invalid && (userPasswordForm.controls['confirmPassword'].dirty || userPasswordForm.controls['confirmPassword'].touched)">
+                      <p *ngIf="userPasswordForm.controls['confirmPassword'].errors.required" class="help is-danger">
+                        Confirme a Senha.
+                      </p>
+                      <p *ngIf="userPasswordForm.controls['confirmPassword'].errors.notMatch" class="help is-danger">
+                        Senha precisa ser idêntica.
+                      </p>
+                    </div>
+                  </div>
+                  <br>
+                  <div class="has-text-centered">
+                    <div class="field">
+                      <div class="control">
+                        <button type="submit"
+                          class="button is-primary is-fullwidth"
+                          [class]="{ 'is-loading': loading }"
+                          [disabled]="!userPasswordForm.valid || loading">
+                          Salvar nova senha
+                        </button>
+                      </div>
+                    </div>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
     </div>
 </section>
-
-<!-- <div class="modal" [class]="{ 'is-active': resultModal.open }">
-  <div class="modal-background"></div>
-  <div class="modal-card">
-      <header class="modal-card-head">
-        <p class="modal-card-title">Resumo da fatura</p>
-        <button class="delete" aria-label="close" (click)="closeModal()"></button>
-      </header>
-      <section class="modal-card-body">
-
-        <table class="boss-an-table">
-          <thead>
-              <tr>
-                  <th>Tipo</th>
-                  <th>Quantidade</th>
-                  <th>Valor</th>
-              </tr>
-          </thead>
-          <tbody>
-              <tr *ngFor="let s of resultModal.summary">
-                  <td>{{ s._id }}</td>
-                  <td>{{ s.count }}</td>
-                  <td>{{ s.amount | currency: 'BRL' }}</td>
-                </tr>
-            </tbody>
-        </table>
-      </section>
-      <footer class="modal-card-foot is-justify-content-end">
-          <button type="button" class="button" (click)="closeModal()">Fechar</button>
-      </footer>
-  </div>
-</div> -->

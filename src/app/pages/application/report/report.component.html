@@ -168,6 +168,29 @@
                         </div>
                       </div>
                     </div>
+                    <div class="card" (click)="!loading && selectData('serasa', reportPeople ? pricesPF.serasa : pricesPJ.serasa )" [class]="{ 'is-selected': selectedDatas.includes('serasa') }">
+                      <header class="card-header">
+                          <p class="card-header-title is-justify-content-space-between">
+                              <span>
+                                <span class="icon">
+                                    <span class="selected-icon" *ngIf="selectedDatas.includes('serasa')"></span>
+                                    <span class="unselected-icon" *ngIf="!selectedDatas.includes('serasa')"></span>
+                                </span>
+                                  <span>PEFIN/REFIN Serasa</span>
+                              </span>
+                              <span class="has-text-weight-normal">
+                                  {{ (reportPeople ? pricesPF.serasa : pricesPJ.serasa) | currency: 'BRL' }}
+                              </span>
+                          </p>
+                      </header>
+                      <div class="card-content">
+                        <div class="content">
+                            <p>
+                                Informações de Dividas Vencidas e não pagas, bancos, financeiras, Cartão de Crédito, Grandes Magazines e varejo em geral.
+                            </p>
+                        </div>
+                      </div>
+                    </div>
                     <div class="card" (click)="!loading && selectData('ondemand', reportPeople ? pricesPF.ondemand : pricesPJ.ondemand )" [class]="{ 'is-selected': selectedDatas.includes('ondemand') }">
                         <header class="card-header">
                             <p class="card-header-title is-justify-content-space-between">

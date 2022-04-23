@@ -15,7 +15,7 @@ export function ConfirmField(fieldInput: string) {
         });
       }
   
-      if (control.value !== confirmControl.value) {
+      if (control.value !== confirmControl?.value) {
         return {
           notMatch: true
         };

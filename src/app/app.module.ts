@@ -26,14 +26,16 @@ import { DashboardComponent } from './pages/application/dashboard/dashboard.comp
 import { ReportsComponent } from './pages/application/reports/reports.component';
 import { ReportResultComponent } from './pages/application/report-result/report-result.component';
 import { InvoicesComponent } from './pages/application/invoices/invoices.component';
-import { AdminPlansComponent } from './pages/admin-application/admin-plans/admin-plans.component';
+import { UserInfoComponent } from './pages/application/user-info/user-info.component';
+import { PlansComponent } from './pages/application/plans/plans.component';
 
 import { AdminApplicationComponent } from './pages/admin-application/admin-application.component';
 import { AdminDashboardComponent } from './pages/admin-application/admin-dashboard/admin-dashboard.component';
 import { AdminReportsComponent } from './pages/admin-application/admin-reports/admin-reports.component';
 import { AdminUsersComponent } from './pages/admin-application/admin-users/admin-users.component';
 import { AdminInvoicesComponent } from './pages/admin-application/admin-invoices/admin-invoices.component';
-import { PlansComponent } from './pages/application/plans/plans.component';
+import { AdminPlansComponent } from './pages/admin-application/admin-plans/admin-plans.component';
+
 import { BossModulePipe } from './pipes/boss-module.pipe';
 
 registerLocaleData(localePt);
@@ -48,6 +50,7 @@ registerLocaleData(localePt);
     HomeComponent,
     ApplicationComponent,
     UsersComponent,
+    UserInfoComponent,
     ReportComponent,
     DashboardComponent,
     ReportsComponent,

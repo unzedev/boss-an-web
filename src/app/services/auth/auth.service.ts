@@ -54,4 +54,8 @@ export class AuthService {
   public getUser(): any {
     return JSON.parse(localStorage.getItem('user'));
   }
+
+  public changeUserPassword(body: { oldPassword: string, newPassword: string }): Observable<any> {
+    return this.http.patch(`${environment.apiUrl}/auth/password/change`, body);
+  }
 }

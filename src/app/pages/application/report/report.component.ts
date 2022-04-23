@@ -41,6 +41,7 @@ export class ReportComponent implements OnInit {
     restrict: 0,
     ondemand: 0,
     boavista: 0,
+    serasa: 0,
   };
 
   public pricesPJ = {
@@ -50,6 +51,7 @@ export class ReportComponent implements OnInit {
     restrict: 0,
     ondemand: 0,
     boavista: 0,
+    serasa: 0,
   };
 
   public totalCost: number = 0;
@@ -121,31 +123,11 @@ export class ReportComponent implements OnInit {
 
   public getModules() {
     this.loading = true;
-    this.userService.getUserModules()
+    this.userService.getUserPlan()
       .pipe(first())
       .subscribe((res: any) => {
-        res.forEach((item: any) => {
-          if (item.type === 'PF') {
-            this.pricesPF = {
-              register_data: item.register_data,
-              behavior_data: item.behavior_data,
-              financial_data: item.financial_data,
-              restrict: item.restrict,
-              ondemand: item.ondemand,
-              boavista: item.boavista,
-            };
-          }
-          if (item.type === 'PJ') {
-            this.pricesPJ = {
-              register_data: item.register_data,
-              behavior_data: item.behavior_data,
-              financial_data: item.financial_data,
-              restrict: item.restrict,
-              ondemand: item.ondemand,
-              boavista: item.boavista,
-            };
-          }
-        });
+        this.pricesPF = res.person_modules;
+        this.pricesPJ = res.company_modules;
         this.loading = false;
       }, (error) => {
         this.loading = false;

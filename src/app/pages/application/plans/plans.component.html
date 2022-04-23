@@ -23,18 +23,15 @@
                         <td>{{ p.itens.join(', ') }}</td>
                         <td>
                             <div class="buttons">
-                                <button class="button is-light is-success is-outlined" (click)="choosePlan(p)">
+                                <button class="button is-light is-outlined" (click)="openTaxesModal(p)">
+                                    Ver tarifas
+                                </button>
+                                <button disabled class="button is-light is-success is-outlined" *ngIf="currentPlan?._id == p._id">
+                                    Plano atual
+                                </button>
+                                <button class="button is-light is-success is-outlined" (click)="choosePlan(p)" *ngIf="currentPlan?._id != p._id">
                                     Mudar para este plano
                                 </button>
-                                <!-- <button class="button is-light is-warning is-outlined" (click)="blockPlan(u)" *ngIf="u.active">
-                                    Bloquear
-                                </button>
-                                <button class="button is-light is-success is-outlined" (click)="unblockPlan(u)" *ngIf="!u.active">
-                                    Desbloquear
-                                </button>
-                                <button class="button is-danger is-warning is-outlined" (click)="deletePlan(u)">
-                                    Excluir
-                                </button> -->
                             </div>
                         </td>
                     </tr>
@@ -49,3 +46,32 @@
         </div>
     </div>
 </section>
+
+<div class="modal" [class]="{ 'is-active': taxesModal.open }">
+    <div class="modal-background"></div>
+    <div class="modal-card">
+      <header class="modal-card-head">
+        <p class="modal-card-title">{{ taxesModal.plan?.name }}</p>
+        <button class="delete" aria-label="close" (click)="closeModal()"></button>
+      </header>
+      <section class="modal-card-body">
+        <div class="columns">
+          <div class="column">
+            <h4 class="title is-5 mb-2">Tarifas Pessoa Física</h4>
+            <p *ngFor="let t of taxesModal.plan?.person_modules | keyvalue">
+              {{ t.key | bossModule }}: {{ t.value | currency: 'BRL' }}
+            </p>
+          </div>
+          <div class="column">
+            <h4 class="title is-5 mb-2">Tarifas Pessoa Jurídica</h4>
+            <p *ngFor="let t of taxesModal.plan?.company_modules | keyvalue">
+              {{ t.key | bossModule }}: {{ t.value | currency: 'BRL' }}
+            </p>
+          </div>
+        </div>
+      </section>
+      <footer class="modal-card-foot is-justify-content-end">
+        <button type="button" class="button" (click)="closeModal()">Voltar</button>
+      </footer>
+    </div>
+  </div>

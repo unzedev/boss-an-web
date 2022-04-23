@@ -87,4 +87,20 @@ export class UserService {
   public getPlans(): Observable<any> {
     return this.http.get(`${this.apiUrl}plans`);
   }
+
+  public getUserPlan(): Observable<any> {
+    return this.http.get(`${this.apiUrl}plans/me`);
+  }
+
+  public changeUserPlan(planId: string): Observable<any> {
+    return this.http.patch(`${this.apiUrl}plans/${planId}`, { planId });
+  }
+
+  public getUserInfo(): Observable<any> {
+    return this.http.get(`${this.apiUrl}me`);
+  }
+
+  public saveUserInfo(body: any): Observable<any> {
+    return this.http.put(`${this.apiUrl}me`, body);
+  }
 }
