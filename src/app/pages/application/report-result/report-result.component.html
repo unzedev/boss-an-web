@@ -1,5 +1,5 @@
 <section class="section">
-    <div class="container" *ngIf="result">
+    <div class="container" *ngIf="registerData">
         <a href="/app/consultas" class="button is-text">
             &lt; Voltar
         </a>
@@ -11,19 +11,19 @@
         <div class="info-header">
             <div class="info-header-item">
                 <label>CPF/CNPJ Consultado</label>
-                <p>{{ result.cpf | mask: 'CPF_CNPJ' }}</p>
+                <p>{{ registerData.cpf | mask: 'CPF_CNPJ' }}</p>
             </div>
             <div class="info-header-item">
                 <label>Nome/Razão Social</label>
-                <p>{{ result.nome }}</p>
+                <p>{{ registerData.nome }}</p>
             </div>
             <div class="info-header-item">
                 <label>Data de Nascimento/Fundação</label>
-                <p>{{ result.data_nascimento.slice(0, 10) | date: 'dd/MM/yyyy' }}</p>
+                <p>{{ registerData.data_nascimento.slice(0, 10) | date: 'dd/MM/yyyy' }}</p>
             </div>
             <div class="info-header-item">
                 <label>Naturalidade/Localidade</label>
-                <p>{{ result.naturalidade }}</p>
+                <p>{{ registerData.naturalidade }}</p>
             </div>
         </div>
         <div class="dados-cadastrais">
@@ -34,40 +34,40 @@
                     <div class="box">
                         <img src="/assets/png/report/dc-1.png">
                         <p class="info-card-title">Situação do CPF na Receita Federal</p>
-                        <h3 class="info-card-result">{{ result.situacao_cpf }}</h3>
-                        <small class="info-card-subtitle">CPF {{ result.situacao_cpf == 'REGULAR' ? 'sem' : 'com' }} restrição</small>
+                        <h3 class="info-card-result">{{ registerData.situacao_cpf }}</h3>
+                        <small class="info-card-subtitle">CPF {{ registerData.situacao_cpf == 'REGULAR' ? 'sem' : 'com' }} restrição</small>
                     </div>
                 </div>
                 <div class="column">
                     <div class="box">
                         <img src="/assets/png/report/dc-2.png">
                         <p class="info-card-title">Maioridade Civil</p>
-                        <h3 class="info-card-result">{{ result.age >= 18 ? 'Maior' : 'Menor' }}</h3>
-                        <small class="info-card-subtitle">{{ result.age }} anos</small>
+                        <h3 class="info-card-result">{{ registerData.age >= 18 ? 'Maior' : 'Menor' }}</h3>
+                        <small class="info-card-subtitle">{{ registerData.age }} anos</small>
                     </div>
                 </div>
                 <div class="column">
                     <div class="box">
                         <img src="/assets/png/report/dc-3.png">
                         <p class="info-card-title">Participação em Empresas</p>
-                        <h3 class="info-card-result">{{ result.participacoes_empresas > 0 ? 'Sim' : 'Não' }}</h3>
-                        <small class="info-card-subtitle">{{ result.participacoes_empresas }} empresas</small>
+                        <h3 class="info-card-result">{{ registerData.participacoes_empresas > 0 ? 'Sim' : 'Não' }}</h3>
+                        <small class="info-card-subtitle">{{ registerData.participacoes_empresas }} empresas</small>
                     </div>
                 </div>
                 <div class="column">
                     <div class="box">
                         <img src="/assets/png/report/dc-4.png">
                         <p class="info-card-title">Estado de Origem do CPF</p>
-                        <h3 class="info-card-result">{{ result.estado_origem_cpf }}</h3>
-                        <small class="info-card-subtitle">{{ result.estado_origem_cpf }}</small>
+                        <h3 class="info-card-result">{{ registerData.estado_origem_cpf }}</h3>
+                        <small class="info-card-subtitle">{{ registerData.estado_origem_cpf }}</small>
                     </div>
                 </div>
                 <div class="column">
                     <div class="box">
                         <img src="/assets/png/report/dc-5.png">
                         <p class="info-card-title">Exposição Política</p>
-                        <h3 class="info-card-result">{{ result.exposicao_politica ? 'Sim': 'Não' }}</h3>
-                        <small class="info-card-subtitle">{{ result.exposicao_politica ? 'Com': 'Sem' }} exposição</small>
+                        <h3 class="info-card-result">{{ registerData.exposicao_politica ? 'Sim': 'Não' }}</h3>
+                        <small class="info-card-subtitle">{{ registerData.exposicao_politica ? 'Com': 'Sem' }} exposição</small>
                     </div>
                 </div>
             </div>
@@ -78,138 +78,104 @@
                     <th>Análise</th>
                 </tr>
                 <tr>
-                    <td>Consulta de CPF na Receita Federal</td>
-                    <td>{{ result.situacao_cpf }}</td>
+                    <td>CPF na Receita Federal</td>
+                    <td>{{ registerData.cpf | mask: 'CPF_CNPJ' }} - {{ registerData.situacao_cpf }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>RG</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Nome Completo</td>
+                    <td>{{ registerData.nome }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Nome da Mãe</td>
+                    <td>{{ registerData.dados_cadastrais.mae }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Gênero</td>
+                    <td>{{ registerData.dados_cadastrais.genero }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Idade</td>
+                    <td>{{ registerData.dados_cadastrais.idade }}</td>
                     <td>-</td>
                 </tr>
                 <tr>
                     <td>Signo</td>
-                    <td>{{ result.signo }}</td>
+                    <td>{{ registerData.signo }}</td>
+                    <td>-</td>
+                </tr>
+                <!--  -->
+                <tr>
+                    <td>Endereço Completo</td>
+                    <td>{{ registerData.enderecos[0] }}</td>
                     <td>-</td>
                 </tr>
                 <tr>
-                    <td>Candidatos Eleitorais</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Colegas de Classe</td>
-                    <td>{{ result.colegas_classe.pessoas }}</td>
+                    <td>Escolaridade</td>
+                    <td>{{ registerData.dados_academicos.nivel_educacional }}</td>
                     <td>-</td>
                 </tr>
                 <tr>
-                    <td>Colegas de trabalho</td>
-                    <td>{{ result.colegas_trabalho.pessoas }}</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Household</td>
-                    <td>{{ result.morador_da_mesma_casa.pessoas }}</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Parentes</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Parentes (1º grau)</td>
-                    <td>{{ result.parentes_primeiro_grau.pessoas }}</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Sócios</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Vizinhos</td>
-                    <td>{{ result.vizinhos.pessoas }}</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Vizinhos (mesmo prédio)</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Conselhos de Classe</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Dados Cadastrais Básicos</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Dados Profissionais</td>
-                    <td>{{ result.dados_profissionais.profissoes }}</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Dados de Sites</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>E-mails</td>
-                    <td>{{ result.emails[0] }}</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>E-mails - Extendido</td>
-                    <td>{{ result.emails[1] }}</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Emails - Pessoas Relacionadas</td>
-                    <td>{{ result.emails_pessoas_relacionadas }}</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Endereços</td>
-                    <td>{{ result.enderecos[0] }}</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Endereços - Extendido</td>
-                    <td>{{ result.enderecos[1] }}</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Endereços - Pessoas Relacionadas</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Histórico Escolar e Acadêmico</td>
-                    <td>{{ result.dados_academicos.nivel_educacional }}</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Informações Sócio-Demográficas</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Servidores Públicos</td>
-                    <td>-</td>
+                    <td>Ocupação</td>
+                    <td>{{ registerData.dados_profissionais.profissao }}</td>
                     <td>-</td>
                 </tr>
                 <tr>
                     <td>Telefones</td>
-                    <td>{{ result.telefones[0] }}</td>
+                    <td>{{ registerData.telefones.join(', ') }}</td>
                     <td>-</td>
                 </tr>
                 <tr>
-                    <td>Telefones - Extendido</td>
-                    <td>{{ result.telefones[1] }}</td>
+                    <td>E-mails</td>
+                    <td>{{ registerData.emails.join(', ') }}</td>
                     <td>-</td>
                 </tr>
                 <tr>
-                    <td>Telefones - Pessoas Relacionadas</td>
+                    <td>TV a Cabo</td>
                     <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Internet</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Parentes</td>
+                    <td>{{ registerData.parentes_primeiro_grau.pessoas }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Colegas de Classe</td>
+                    <td>{{ registerData.colegas_classe.pessoas }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Colegas de Trabalho</td>
+                    <td>{{ registerData.colegas_trabalho.pessoas }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Moradores da Mesma Casa</td>
+                    <td>{{ registerData.morador_da_mesma_casa.pessoas }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Vizinhos</td>
+                    <td>{{ registerData.vizinhos.pessoas }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Telefones de Pessoas Relacionadas</td>
+                    <td>{{ registerData.telefones_pessoas_relacionadas.join(', ') }}</td>
                     <td>-</td>
                 </tr>
                 <tr>
@@ -218,13 +184,12 @@
                     <td>-</td>
                 </tr>
                 <tr>
-                    <td>KYC e Complance de Familiares de Primeiro Nível</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Consulta Rais Empregado</td>
-                    <td>-</td>
+                    <td>KYC e Compliance Pessoas Envolvidas</td>
+                    <td>
+                        <p *ngFor="let p of registerData.kyc_compliance_pessoas_envolvidos">
+                            {{ p.documento }} - {{ p.relacionamento }}
+                        </p>
+                    </td>
                     <td>-</td>
                 </tr>
             </table>
@@ -237,8 +202,8 @@
                     <div class="box">
                         <img src="/assets/png/report/dc-3.png">
                         <p class="info-card-title">Participação em Empresas</p>
-                        <h3 class="info-card-result">Sim</h3>
-                        <small class="info-card-subtitle">2 empresas</small>
+                        <h3 class="info-card-result">{{ !!behaviorData.relacionamentos_economicos.TotalRelationships ? 'Sim' : 'Não' }}</h3>
+                        <small class="info-card-subtitle">{{ behaviorData.relacionamentos_economicos.TotalRelationships }} empresas</small>
                     </div>
                 </div>
                 <div class="column">
@@ -269,7 +234,7 @@
                     <div class="box">
                         <img src="/assets/png/report/dc-9.png">
                         <p class="info-card-title">Exposição na Mídia</p>
-                        <h3 class="info-card-result">G</h3>
+                        <h3 class="info-card-result">{{ behaviorData.exposicao_e_perfil_na_midia.CelebrityLevel }}</h3>
                         <small class="info-card-subtitle">Baixa exposição</small>
                     </div>
                 </div>
@@ -282,14 +247,44 @@
                     <th>Análise</th>
                 </tr>
                 <tr>
-                    <td>Participa de Empresa como Sócio ou Funcionário</td>
+                    <td>Relações Empresariais</td>
+                    <td>{{ behaviorData.relacionamentos_economicos.TotalRelationships }}</td>
                     <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Tipos de Relação</td>
+                    <td>
+                        <p *ngFor="let br of behaviorData.relacionamentos_economicos.BusinessRelationships">
+                            - {{ br.RelationshipName }}
+                        </p>
+                    </td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>CNPJ</td>
+                    <td>
+                        <p *ngFor="let br of behaviorData.relacionamentos_economicos.BusinessRelationships">
+                            - {{ br.RelatedEntityTaxIdNumber | mask: 'CPF_CNPJ' }}
+                        </p>
+                    </td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Razão Social</td>
+                    <td>
+                        <p *ngFor="let br of behaviorData.relacionamentos_economicos.BusinessRelationships">
+                            - {{ br.RelatedEntityName }} 
+                        </p>
+                    </td>
                     <td>-</td>
                     <td>-</td>
                 </tr>
                 <tr>
                     <td>Participa de Programas de Benefício do Governo</td>
-                    <td>-</td>
+                    <td>{{ behaviorData.programas_de_beneficios_e_assistencia_social }}</td>
                     <td>-</td>
                     <td>-</td>
                 </tr>
@@ -306,20 +301,32 @@
                     <td>-</td>
                 </tr>
                 <tr>
-                    <td>Utiliza Seguro Desemprego</td>
+                    <td>Consulta de Seguro Desemprego</td>
+                    <td>{{ behaviorData.consulta_de_seguro_desemprego }}</td>
                     <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Interesses e Comportamentos</td>
+                    <td>{{ behaviorData.interesses_e_comportamentos }}</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Prêmios e Certificações</td>
+                    <td>{{ behaviorData.premios_e_certificacoes.TotalAwards + behaviorData.premios_e_certificacoes.TotalCertifications }}</td>
                     <td>-</td>
                     <td>-</td>
                 </tr>
                 <tr>
                     <td>Exposição e Perfil na Mídia</td>
-                    <td>-</td>
+                    <td>{{ behaviorData.exposicao_e_perfil_na_midia.CelebrityLevel }}</td>
                     <td>-</td>
                     <td>-</td>
                 </tr>
                 <tr>
                     <td>Régua de Celebridade</td>
-                    <td>-</td>
+                    <td>{{ behaviorData.exposicao_e_perfil_na_midia.CelebrityLevel }}</td>
                     <td>-</td>
                     <td>-</td>
                 </tr>
@@ -336,19 +343,49 @@
                     <th>Análise</th>
                 </tr>
                 <tr>
-                    <td>Renda estimada</td>
+                    <td>Atividade Financeira</td>
+                    <td>{{ financialData.informacoes_financeiras }}</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Renda Média Estimada</td>
                     <td>-</td>
                     <td>-</td>
                     <td>-</td>
                 </tr>
                 <tr>
-                    <td>CPF tem presença em cobrança</td>
+                    <td>Cartão de Crédito</td>
                     <td>-</td>
                     <td>-</td>
                     <td>-</td>
                 </tr>
                 <tr>
-                    <td>CPF possui veículos ou anúncios na web</td>
+                    <td>Crédito Imobiliário</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Consignado</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Presença em Cobranças</td>
+                    <td>{{ financialData.presenca_em_cobranca }}</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Veículos</td>
+                    <td>{{ financialData.veiculos.length }}</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Anúncios na Web</td>
                     <td>-</td>
                     <td>-</td>
                     <td>-</td>
@@ -366,32 +403,32 @@
                     <th>Análise</th>
                 </tr>
                 <tr>
-                    <td>Possui ações judiciais</td>
+                    <td>Processos Judiciais e Administrativos</td>
+                    <td>{{ restrict.processos_judiciais_e_administrativos }}</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Total de Processos Réu</td>
                     <td>-</td>
                     <td>-</td>
                     <td>-</td>
                 </tr>
                 <tr>
-                    <td>Possui protestos</td>
+                    <td>Total de Processos Autor</td>
                     <td>-</td>
                     <td>-</td>
                     <td>-</td>
                 </tr>
                 <tr>
-                    <td>Total de processos e protestos</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Data do primeiro protesto</td>
-                    <td>-</td>
+                    <td>Protestos</td>
+                    <td>{{ restrict.certidao_negativa_de_protesto }}</td>
                     <td>-</td>
                     <td>-</td>
                 </tr>
                 <tr>
-                    <td>Data do último protesto</td>
-                    <td>-</td>
+                    <td>Total de Protestos</td>
+                    <td>{{ restrict.certidao_negativa_de_protesto }}</td>
                     <td>-</td>
                     <td>-</td>
                 </tr>
@@ -424,7 +461,7 @@
                 </tr>
                 <tr>
                     <td>Possui pendências financeiras</td>
-                    <td>-</td>
+                    <td>{{ serasa.pendencias_financeiras }}</td>
                     <td>-</td>
                     <td>-</td>
                 </tr>
@@ -483,6 +520,63 @@
                     <td>Valor total das pendências</td>
                     <td>-</td>
                     <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <p>Risco PEFIN/REFIN</p>
+                        <div class="rainbow-range">
+                            <input type="range" min="0" max="9" value="1" disabled>
+                            <div class="range-labels">
+                                <span>Baixíssimo Risco</span>
+                                <span>Baixo Risco</span>
+                                <span>Médio Risco</span>
+                                <span>Alto Risco</span>
+                                <span>Altíssimo Risco</span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+            </table>
+        </div>
+        <div class="serasa mt-6"> 
+            <h2 class="title is-4">CERTIDÕES</h2>
+            <p class="subtitle is-6 has-text-light mb-1">Módulo 7</p>
+            <table class="result-table">
+                <tr>
+                    <th>Item</th>
+                    <th>Retorno</th>
+                    <th>Detalhes/Observações</th>
+                    <th>Análise</th>
+                </tr>
+                <tr>
+                    <td>Antecedentes Criminais</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Certidão COAF</td>
+                    <td><a class="is-underlined" target="_blank" [href]="onDemand.certidao_coaf.AdditionalOutputData.RawResultFile">Link</a></td>
+                    <td>{{ onDemand.certidao_coaf.BaseStatus }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Certidão de Embargos no IBAMA</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Certidão ECAC</td>
+                    <td>-</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Certidão PGFN</td>
+                    <td><a class="is-underlined" target="_blank" [href]="onDemand.certidao_pgfn.AdditionalOutputData.RawResultFile">Link</a></td>
+                    <td>{{ onDemand.certidao_pgfn.BaseStatus }}</td>
                     <td>-</td>
                 </tr>
                 <tr>
