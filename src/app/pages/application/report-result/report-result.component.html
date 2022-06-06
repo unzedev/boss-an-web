@@ -26,9 +26,34 @@
                 <p>{{ registerData.naturalidade }}</p>
             </div>
         </div>
+        <div class="recommendation-card box is-paddingless mb-6">
+            <div class="columns">
+                <div class="column px-6 py-5">
+                    <h2 class="title is-4 is-uppercase">Análise e Recomendação Boss Analytics</h2>
+                    <p class="subtitle has-text-light">Régua de Risco de Inadimplência</p>
+                    <div class="rainbow-range">
+                        <input type="range" min="0" max="10" [value]="5" disabled>
+                        <div class="range-labels">
+                            <span>Baixo Risco</span>
+                            <span>Médio Risco</span>
+                            <span>Alto Risco</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="column is-2 is-paddingless">
+                    <!-- <div class="recommendation-colored-card success">
+                        <img src="/assets/svg/check-solid.svg">
+                        <p class="title is-5">Cliente recomendado</p>
+                    </div> -->
+                    <div class="recommendation-colored-card warning">
+                        <img src="/assets/svg/exclamation-solid.svg">
+                        <p class="title is-5">Recomendada análise</p>
+                    </div>
+                </div>
+            </div>
+        </div>
         <div class="dados-cadastrais">
             <h2 class="title is-4">DADOS CADASTRAIS</h2>
-            <p class="subtitle is-6 has-text-light">Módulo 1 | Informações básicas e dados pessoais</p>
             <div class="columns has-text-centered info-cards">
                 <div class="column">
                     <div class="box">
@@ -75,26 +100,146 @@
                 <tr>
                     <th>Item</th>
                     <th>Retorno</th>
-                    <th>Análise</th>
+                    <th>Ações</th>
                 </tr>
                 <tr>
-                    <td>CPF na Receita Federal</td>
-                    <td>{{ registerData.cpf | mask: 'CPF_CNPJ' }} - {{ registerData.situacao_cpf }}</td>
+                    <td>CPF</td>
+                    <td>{{ registerData.cpf | mask: 'CPF_CNPJ' }}</td>
                     <td>-</td>
                 </tr>
                 <tr>
-                    <td>RG</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Nome Completo</td>
+                    <td>Nome</td>
                     <td>{{ registerData.nome }}</td>
                     <td>-</td>
                 </tr>
                 <tr>
-                    <td>Nome da Mãe</td>
-                    <td>{{ registerData.dados_cadastrais.mae }}</td>
+                    <td>Data de Nascimento</td>
+                    <td>{{ registerData.data_nascimento | date: 'dd/MM/yyyy' }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Naturalidade</td>
+                    <td>{{ registerData.naturalidade }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Situação do CPF</td>
+                    <td>{{ registerData.situacao_cpf }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Idade</td>
+                    <td>{{ registerData.age }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Participação em Empresas</td>
+                    <td>{{ registerData.participacoes_empresas }}</td>
+                    <td><b class="has-text-success">Novo módulo em breve!</b></td>
+                </tr>
+                <tr>
+                    <td>Estado de Origem</td>
+                    <td>{{ registerData.estado_origem_cpf }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Exposição Política</td>
+                    <td>{{ registerData.exposicao_politica ? 'Sim' : 'Não'}}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Signo</td>
+                    <td>{{ registerData.signo }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Signo Teste</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Colegas de Classe</td>
+                    <td>
+                        <p>Pessoas: {{ registerData.colegas_classe.pessoas }}</p>
+                        <p>Empresários: {{ registerData.colegas_classe.empresarios }}</p>
+                        <p>Empregados: {{ registerData.colegas_classe.empregados }}</p>
+                        <p>Servidores Públicos: {{ registerData.colegas_classe.servidores_publicos }}</p>
+                        <p>Exposição Política: {{ registerData.colegas_classe.exposicao_politica }}</p>
+                        <p>Idade Mínima: {{ registerData.colegas_classe.idade_minima }}</p>
+                        <p>Idade Máxima: {{ registerData.colegas_classe.idade_maxima }}</p>
+                        <p>Falecidos: {{ registerData.colegas_classe.falecidos }}</p>
+                        <p>Renda Média: {{ registerData.colegas_classe.renda_media }}</p>
+                        <p>Total de Processos Réu: {{ registerData.colegas_classe.total_processos_reu }}</p>
+                        <p>Total de Processos Autor: {{ registerData.colegas_classe.total_processos_autor }}</p>
+                    </td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Colegas de Trabalho</td>
+                    <td>
+                        <p>Pessoas: {{ registerData.colegas_trabalho.pessoas }}</p>
+                        <p>Empresários: {{ registerData.colegas_trabalho.empresarios }}</p>
+                        <p>Empregados: {{ registerData.colegas_trabalho.empregados }}</p>
+                        <p>Servidores Públicos: {{ registerData.colegas_trabalho.servidores_publicos }}</p>
+                        <p>Exposição Política: {{ registerData.colegas_trabalho.exposicao_politica }}</p>
+                        <p>Idade Mínima: {{ registerData.colegas_trabalho.idade_minima }}</p>
+                        <p>Idade Máxima: {{ registerData.colegas_trabalho.idade_maxima }}</p>
+                        <p>Falecidos: {{ registerData.colegas_trabalho.falecidos }}</p>
+                        <p>Renda Média: {{ registerData.colegas_trabalho.renda_media }}</p>
+                        <p>Total de Processos Réu: {{ registerData.colegas_trabalho.total_processos_reu }}</p>
+                        <p>Total de Processos Autor: {{ registerData.colegas_trabalho.total_processos_autor }}</p>
+                    </td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Moradores da mesma Casa</td>
+                    <td>
+                        <p>Pessoas: {{ registerData.morador_da_mesma_casa.pessoas }}</p>
+                        <p>Empresários: {{ registerData.morador_da_mesma_casa.empresarios }}</p>
+                        <p>Empregados: {{ registerData.morador_da_mesma_casa.empregados }}</p>
+                        <p>Servidores Públicos: {{ registerData.morador_da_mesma_casa.servidores_publicos }}</p>
+                        <p>Exposição Política: {{ registerData.morador_da_mesma_casa.exposicao_politica }}</p>
+                        <p>Idade Mínima: {{ registerData.morador_da_mesma_casa.idade_minima }}</p>
+                        <p>Idade Máxima: {{ registerData.morador_da_mesma_casa.idade_maxima }}</p>
+                        <p>Falecidos: {{ registerData.morador_da_mesma_casa.falecidos }}</p>
+                        <p>Renda Média: {{ registerData.morador_da_mesma_casa.renda_media }}</p>
+                        <p>Total de Processos Réu: {{ registerData.morador_da_mesma_casa.total_processos_reu }}</p>
+                        <p>Total de Processos Autor: {{ registerData.morador_da_mesma_casa.total_processos_autor }}</p>
+                    </td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Parentes de Primeiro Grau</td>
+                    <td>
+                        <p>Pessoas: {{ registerData.parentes_primeiro_grau.pessoas }}</p>
+                        <p>Empresários: {{ registerData.parentes_primeiro_grau.empresarios }}</p>
+                        <p>Empregados: {{ registerData.parentes_primeiro_grau.empregados }}</p>
+                        <p>Servidores Públicos: {{ registerData.parentes_primeiro_grau.servidores_publicos }}</p>
+                        <p>Exposição Política: {{ registerData.parentes_primeiro_grau.exposicao_politica }}</p>
+                        <p>Idade Mínima: {{ registerData.parentes_primeiro_grau.idade_minima }}</p>
+                        <p>Idade Máxima: {{ registerData.parentes_primeiro_grau.idade_maxima }}</p>
+                        <p>Falecidos: {{ registerData.parentes_primeiro_grau.falecidos }}</p>
+                        <p>Renda Média: {{ registerData.parentes_primeiro_grau.renda_media }}</p>
+                        <p>Total de Processos Réu: {{ registerData.parentes_primeiro_grau.total_processos_reu }}</p>
+                        <p>Total de Processos Autor: {{ registerData.parentes_primeiro_grau.total_processos_autor }}</p>
+                    </td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Vizinhos</td>
+                    <td>
+                        <p>Pessoas: {{ registerData.vizinhos.pessoas }}</p>
+                        <p>Empresários: {{ registerData.vizinhos.empresarios }}</p>
+                        <p>Empregados: {{ registerData.vizinhos.empregados }}</p>
+                        <p>Servidores Públicos: {{ registerData.vizinhos.servidores_publicos }}</p>
+                        <p>Exposição Política: {{ registerData.vizinhos.exposicao_politica }}</p>
+                        <p>Idade Mínima: {{ registerData.vizinhos.idade_minima }}</p>
+                        <p>Idade Máxima: {{ registerData.vizinhos.idade_maxima }}</p>
+                        <p>Falecidos: {{ registerData.vizinhos.falecidos }}</p>
+                        <p>Renda Média: {{ registerData.vizinhos.renda_media }}</p>
+                        <p>Total de Processos Réu: {{ registerData.vizinhos.total_processos_reu }}</p>
+                        <p>Total de Processos Autor: {{ registerData.vizinhos.total_processos_autor }}</p>
+                    </td>
                     <td>-</td>
                 </tr>
                 <tr>
@@ -103,92 +248,63 @@
                     <td>-</td>
                 </tr>
                 <tr>
-                    <td>Idade</td>
-                    <td>{{ registerData.dados_cadastrais.idade }}</td>
+                    <td>Nome da Mãe</td>
+                    <td>{{ registerData.dados_cadastrais.mae }}</td>
                     <td>-</td>
                 </tr>
                 <tr>
-                    <td>Signo</td>
-                    <td>{{ registerData.signo }}</td>
-                    <td>-</td>
-                </tr>
-                <!--  -->
-                <tr>
-                    <td>Endereço Completo</td>
-                    <td>{{ registerData.enderecos[0] }}</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Escolaridade</td>
-                    <td>{{ registerData.dados_academicos.nivel_educacional }}</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Ocupação</td>
-                    <td>{{ registerData.dados_profissionais.profissao }}</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Telefones</td>
-                    <td>{{ registerData.telefones.join(', ') }}</td>
+                    <td>Dados Profissionais</td>
+                    <td>
+                        <p>Profissões: {{ registerData.dados_profissionais.profissoes }}</p>
+                        <p>Profissão: {{ registerData.dados_profissionais.profissao }}</p>
+                        <p>Atividade Profissional Ativa: {{ registerData.dados_profissionais.atividade_profissional_ativa ? 'Sim' : 'Não'}}</p>
+                        <p>Renda Total: {{ registerData.dados_profissionais.renda_total | currency: 'BRL' }}</p>
+                    </td>
                     <td>-</td>
                 </tr>
                 <tr>
                     <td>E-mails</td>
-                    <td>{{ registerData.emails.join(', ') }}</td>
+                    <td>
+                        <p *ngFor="let e of registerData.emails">{{ e }}</p>
+                    </td>
                     <td>-</td>
                 </tr>
                 <tr>
-                    <td>TV a Cabo</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Internet</td>
-                    <td>-</td>
+                    <td>Endereços de Pessoas Relacionadas</td>
+                    <td>
+                        <p *ngFor="let e of registerData.enderecos_pessoas_relacionadas.slice(-5)">{{ e }}</p>
+                    </td>
                     <td>-</td>
                 </tr>
                 <tr>
-                    <td>Parentes</td>
-                    <td>{{ registerData.parentes_primeiro_grau.pessoas }}</td>
+                    <td>Dados Acadêmicos</td>
+                    <td>
+                        <p>Nível Educacional: {{ registerData.dados_academicos.nivel_educacional }}</p>
+                        <p>Número de Graduação: {{ registerData.dados_academicos.numero_de_graduacao }}</p>
+                    </td>
                     <td>-</td>
                 </tr>
                 <tr>
-                    <td>Colegas de Classe</td>
-                    <td>{{ registerData.colegas_classe.pessoas }}</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Colegas de Trabalho</td>
-                    <td>{{ registerData.colegas_trabalho.pessoas }}</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Moradores da Mesma Casa</td>
-                    <td>{{ registerData.morador_da_mesma_casa.pessoas }}</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Vizinhos</td>
-                    <td>{{ registerData.vizinhos.pessoas }}</td>
+                    <td>Telefones</td>
+                    <td>
+                        <p *ngFor="let t of registerData.telefones.slice(-5)">{{ t }}</p>
+                    </td>
                     <td>-</td>
                 </tr>
                 <tr>
                     <td>Telefones de Pessoas Relacionadas</td>
-                    <td>{{ registerData.telefones_pessoas_relacionadas.join(', ') }}</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>KYC e Compliance</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>KYC e Compliance Pessoas Envolvidas</td>
                     <td>
-                        <p *ngFor="let p of registerData.kyc_compliance_pessoas_envolvidos">
-                            {{ p.documento }} - {{ p.relacionamento }}
-                        </p>
+                        <p *ngFor="let t of registerData.telefones_pessoas_relacionadas.slice(-5)">{{ t }}</p>
+                    </td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>KYC Compliance de Pessoas Relacionadas</td>
+                    <td>
+                        <div class="mb-3" *ngFor="let p of registerData.kyc_compliance_pessoas_envolvidos.slice(-5)">
+                            <p>Relacionamento: {{ p.relacionamento }}</p>
+                            <p>Documento: {{ p.documento }}</p>
+                        </div>
                     </td>
                     <td>-</td>
                 </tr>
@@ -196,7 +312,6 @@
         </div>
         <div class="dados-comportamentais mt-6">
             <h2 class="title is-4">DADOS COMPORTAMENTAIS</h2>
-            <p class="subtitle is-6 has-text-light">Módulo 2 / Informações sociais e profissionais.</p>
             <div class="columns has-text-centered info-cards">
                 <div class="column">
                     <div class="box">
@@ -243,206 +358,335 @@
                 <tr>
                     <th>Item</th>
                     <th>Retorno</th>
-                    <th>Detalhes/Observações</th>
-                    <th>Análise</th>
+                    <th>Ações</th>
                 </tr>
                 <tr>
-                    <td>Relações Empresariais</td>
+                    <td>Anúncios Online</td>
+                    <td>{{ behaviorData.anuncios_online[0].TotalAds > 0 ? 'Sim' : 'Não' }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Valor Médio de Ads</td>
+                    <td>{{ behaviorData.anuncios_online[0].AdAvgValue | currency: 'BRL' }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Portal(is) de Ads</td>
+                    <td>{{ behaviorData.anuncios_online[0].AdPortals.join(', ') }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Categoria(s) de Ads</td>
+                    <td>{{ behaviorData.anuncios_online[0].AdCategories.join(', ') }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <p>Nível de Exposição na Mídia</p>
+                        <div class="gray-range">
+                            <input type="range" min="0" max="7" [value]="getNumberFromAtoH(behaviorData.exposicao_e_perfil_na_midia.MediaExposureLevel)" disabled>
+                            <div class="range-labels">
+                                <span>A</span>
+                                <span>B</span>
+                                <span>C</span>
+                                <span>D</span>
+                                <span>E</span>
+                                <span>F</span>
+                                <span>G</span>
+                                <span>H</span>
+                            </div>
+                            <div class="range-labels">
+                                <span><small>Alta exposição</small></span>
+                                <span><small>Nenhuma exposição</small></span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <p>Nível de Celebridade</p>
+                        <div class="gray-range">
+                            <input type="range" min="0" max="7" [value]="getNumberFromAtoH(behaviorData.exposicao_e_perfil_na_midia.CelebrityLevel)" disabled>
+                            <div class="range-labels">
+                                <span>A</span>
+                                <span>B</span>
+                                <span>C</span>
+                                <span>D</span>
+                                <span>E</span>
+                                <span>F</span>
+                                <span>G</span>
+                                <span>H</span>
+                            </div>
+                            <div class="range-labels">
+                                <span><small>Alta exposição</small></span>
+                                <span><small>Nenhuma exposição</small></span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <p>Nível de Impopularidade</p>
+                        <div class="gray-range">
+                            <input type="range" min="0" max="7" [value]="getNumberFromAtoH(behaviorData.exposicao_e_perfil_na_midia.UnpopularityLevel)" disabled>
+                            <div class="range-labels">
+                                <span>A</span>
+                                <span>B</span>
+                                <span>C</span>
+                                <span>D</span>
+                                <span>E</span>
+                                <span>F</span>
+                                <span>G</span>
+                                <span>H</span>
+                            </div>
+                            <div class="range-labels">
+                                <span><small>Alta exposição</small></span>
+                                <span><small>Nenhuma exposição</small></span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td>Nome Curto</td>
+                    <td>{{ behaviorData.exposicao_e_perfil_na_midia.SearchLabels.ShortName }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Interesse e Comportamentos</td>
+                    <td>{{ behaviorData.interesses_e_comportamentos || 'Nada consta' }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Passagens pela Web</td>
+                    <td>{{ behaviorData.passagens_pela_web || 'Nada consta' }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Prêmios</td>
+                    <td>{{ behaviorData.premios_e_certificacoes.TotalAwards }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Certificações</td>
+                    <td>{{ behaviorData.premios_e_certificacoes.TotalCertifications }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Presença Online</td>
+                    <td>{{ behaviorData.presenca_online ? behaviorData.presenca_online : 'Nada consta' }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Relações Comerciais</td>
+                    <td>{{ behaviorData.relacionamentos_economicos.BusinessRelationships.length }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Total de Relações</td>
                     <td>{{ behaviorData.relacionamentos_economicos.TotalRelationships }}</td>
                     <td>-</td>
+                </tr>
+                <tr>
+                    <td>Total de Propriedades</td>
+                    <td>{{ behaviorData.relacionamentos_economicos.TotalOwnerships }}</td>
                     <td>-</td>
                 </tr>
                 <tr>
-                    <td>Tipos de Relação</td>
-                    <td>
-                        <p *ngFor="let br of behaviorData.relacionamentos_economicos.BusinessRelationships">
-                            - {{ br.RelationshipName }}
-                        </p>
-                    </td>
-                    <td>-</td>
+                    <td>Total de Empregos</td>
+                    <td>{{ behaviorData.relacionamentos_economicos.TotalEmployments }}</td>
                     <td>-</td>
                 </tr>
                 <tr>
-                    <td>CNPJ</td>
-                    <td>
-                        <p *ngFor="let br of behaviorData.relacionamentos_economicos.BusinessRelationships">
-                            - {{ br.RelatedEntityTaxIdNumber | mask: 'CPF_CNPJ' }}
-                        </p>
-                    </td>
-                    <td>-</td>
+                    <td>Total de Sócios</td>
+                    <td>{{ behaviorData.relacionamentos_economicos.TotalPartners }}</td>
                     <td>-</td>
                 </tr>
                 <tr>
-                    <td>Razão Social</td>
-                    <td>
-                        <p *ngFor="let br of behaviorData.relacionamentos_economicos.BusinessRelationships">
-                            - {{ br.RelatedEntityName }} 
-                        </p>
-                    </td>
-                    <td>-</td>
+                    <td>Total de Clientes</td>
+                    <td>{{ behaviorData.relacionamentos_economicos.TotalClients }}</td>
                     <td>-</td>
                 </tr>
                 <tr>
-                    <td>Participa de Programas de Benefício do Governo</td>
-                    <td>{{ behaviorData.programas_de_beneficios_e_assistencia_social }}</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Possui Plano de Saúde</td>
-                    <td>-</td>
-                    <td>-</td>
+                    <td>Total de Fornecedores</td>
+                    <td>{{ behaviorData.relacionamentos_economicos.TotalSuppliers }}</td>
                     <td>-</td>
                 </tr>
                 <tr>
-                    <td>Possui Restituição do I.R. (Imposto de Renda)</td>
+                    <td>Relações Pessoais</td>
+                    <td>{{ behaviorData.relacionamentos_pessoais || 'Nada consta' }}</td>
                     <td>-</td>
-                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Programas de Benefícios e Assistência Social</td>
+                    <td>{{ behaviorData.programas_de_beneficios_e_assistencia_social || 'Nada consta' }}</td>
                     <td>-</td>
                 </tr>
                 <tr>
                     <td>Consulta de Seguro Desemprego</td>
-                    <td>{{ behaviorData.consulta_de_seguro_desemprego }}</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Interesses e Comportamentos</td>
-                    <td>{{ behaviorData.interesses_e_comportamentos }}</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Prêmios e Certificações</td>
-                    <td>{{ behaviorData.premios_e_certificacoes.TotalAwards + behaviorData.premios_e_certificacoes.TotalCertifications }}</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Exposição e Perfil na Mídia</td>
-                    <td>{{ behaviorData.exposicao_e_perfil_na_midia.CelebrityLevel }}</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Régua de Celebridade</td>
-                    <td>{{ behaviorData.exposicao_e_perfil_na_midia.CelebrityLevel }}</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-            </table>
-        </div>
-        <div class="perfil-financeiro mt-6">
-            <h2 class="title is-4">PERFIL FINANCEIRO</h2>
-            <p class="subtitle is-6 has-text-light mb-1">Módulo 3 / Informações sociais e profissionais.</p>
-            <table class="result-table">
-                <tr>
-                    <th>Item</th>
-                    <th>Retorno</th>
-                    <th>Detalhes/Observações</th>
-                    <th>Análise</th>
-                </tr>
-                <tr>
-                    <td>Atividade Financeira</td>
-                    <td>{{ financialData.informacoes_financeiras }}</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Renda Média Estimada</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Cartão de Crédito</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Crédito Imobiliário</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Consignado</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Presença em Cobranças</td>
-                    <td>{{ financialData.presenca_em_cobranca }}</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Veículos</td>
-                    <td>{{ financialData.veiculos.length }}</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Anúncios na Web</td>
-                    <td>-</td>
-                    <td>-</td>
+                    <td>{{ behaviorData.consulta_de_seguro_desemprego || 'Nada consta' }}</td>
                     <td>-</td>
                 </tr>
             </table>
         </div>
         <div class="restritivo mt-6">
-            <h2 class="title is-4">RESTRITIVO</h2>
-            <p class="subtitle is-6 has-text-light mb-1">Módulo 4 / Informações sociais e profissionais.</p>
+            <h2 class="title is-4">DADOS RESTRITIVOS</h2>    
             <table class="result-table">
                 <tr>
                     <th>Item</th>
                     <th>Retorno</th>
-                    <th>Detalhes/Observações</th>
-                    <th>Análise</th>
+                    <th>Açòes</th>
+                </tr>
+                <tr>
+                    <td>Tipo de Consulta</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Círculos Processos Judiciais</td>
+                    <td>{{ restrict.circulos_processos_judiciais.length }}</td>
+                    <td>-</td>
                 </tr>
                 <tr>
                     <td>Processos Judiciais e Administrativos</td>
                     <td>{{ restrict.processos_judiciais_e_administrativos }}</td>
                     <td>-</td>
+                </tr>
+                <tr>
+                    <td>Proc. Jud. e Adm. de Familiares de Primeiro Nível</td>
+                    <td>{{ restrict.processos_judiciais_e_administrativos_de_familiares_de_primeiro_nivel || 'Nada consta' }}</td>
                     <td>-</td>
                 </tr>
                 <tr>
-                    <td>Total de Processos Réu</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Total de Processos Autor</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Protestos</td>
+                    <td>Certidão Negativa de Protesto</td>
                     <td>{{ restrict.certidao_negativa_de_protesto }}</td>
                     <td>-</td>
+                </tr>
+                <tr>
+                    <td>Certidão Ações Judiciais</td>
+                    <td>-</td>
                     <td>-</td>
                 </tr>
                 <tr>
-                    <td>Total de Protestos</td>
-                    <td>{{ restrict.certidao_negativa_de_protesto }}</td>
+                    <td>Informações Financeiras</td>
+                    <td>{{ financialData.informacoes_financeiras }}</td>
+                    <td><b class="has-text-success">Novo módulo em breve!</b></td>
+                </tr>
+                <tr>
+                    <td>Presença em Cobranças</td>
+                    <td>{{ financialData.presenca_em_cobranca || 'Nada consta' }}</td>
                     <td>-</td>
+                </tr>
+                <tr>
+                    <td>Veículos</td>
+                    <td>{{ financialData.veiculos.length > 0 ? 'Sim' : 'Não' }}</td>
                     <td>-</td>
                 </tr>
                 <tr>
                     <td colspan="4">
-                        <p>Risco restritivo</p>
-                        <div class="rainbow-range">
-                            <input type="range" min="0" max="9" value="3" disabled>
+                        <p>Estabilidade no Emprego</p>
+                        <div class="gray-range">
+                            <input type="range" min="0" max="7" [value]="getNumberFromAtoH(financialData.employment_d50.ModelRating)" disabled>
                             <div class="range-labels">
-                                <span>Baixíssimo Risco</span>
-                                <span>Baixo Risco</span>
-                                <span>Médio Risco</span>
-                                <span>Alto Risco</span>
-                                <span>Altíssimo Risco</span>
+                                <span>A</span>
+                                <span>B</span>
+                                <span>C</span>
+                                <span>D</span>
+                                <span>E</span>
+                                <span>F</span>
+                                <span>G</span>
+                                <span>H</span>
+                            </div>
+                            <div class="range-labels">
+                                <span><small>Alto</small></span>
+                                <span><small>Nenhum</small></span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <p>Nível de Empreendedorismo</p>
+                        <div class="gray-range">
+                            <input type="range" min="0" max="7" [value]="getNumberFromAtoH(financialData.entrepreneurship_level.ModelRating)" disabled>
+                            <div class="range-labels">
+                                <span>A</span>
+                                <span>B</span>
+                                <span>C</span>
+                                <span>D</span>
+                                <span>E</span>
+                                <span>F</span>
+                                <span>G</span>
+                                <span>H</span>
+                            </div>
+                            <div class="range-labels">
+                                <span><small>Alto</small></span>
+                                <span><small>Nenhum</small></span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <p>Nível de Litigância</p>
+                        <div class="gray-range">
+                            <input type="range" min="0" max="7" [value]="getNumberFromAtoH(financialData.litigiousness_level.ModelRating)" disabled>
+                            <div class="range-labels">
+                                <span>A</span>
+                                <span>B</span>
+                                <span>C</span>
+                                <span>D</span>
+                                <span>E</span>
+                                <span>F</span>
+                                <span>G</span>
+                                <span>H</span>
+                            </div>
+                            <div class="range-labels">
+                                <span><small>Alto</small></span>
+                                <span><small>Nenhum</small></span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <p>Encontrabilidade por Endereço</p>
+                        <div class="gray-range">
+                            <input type="range" min="0" max="7" [value]="getNumberFromAtoH(financialData.findability.ModelRating)" disabled>
+                            <div class="range-labels">
+                                <span>A</span>
+                                <span>B</span>
+                                <span>C</span>
+                                <span>D</span>
+                                <span>E</span>
+                                <span>F</span>
+                                <span>G</span>
+                                <span>H</span>
+                            </div>
+                            <div class="range-labels">
+                                <span><small>Alto</small></span>
+                                <span><small>Nenhum</small></span>
+                            </div>
+                        </div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <p>Nível de Exposição à Diversidade</p>
+                        <div class="gray-range">
+                            <input type="range" min="0" max="7" [value]="getNumberFromAtoH(financialData.diversity_exposure_level.ModelRating)" disabled>
+                            <div class="range-labels">
+                                <span>A</span>
+                                <span>B</span>
+                                <span>C</span>
+                                <span>D</span>
+                                <span>E</span>
+                                <span>F</span>
+                                <span>G</span>
+                                <span>H</span>
+                            </div>
+                            <div class="range-labels">
+                                <span><small>Alto</small></span>
+                                <span><small>Nenhum</small></span>
                             </div>
                         </div>
                     </td>
@@ -451,150 +695,310 @@
         </div>
         <div class="serasa mt-6">
             <h2 class="title is-4">PEFIN/REFIN SERASA</h2>
-            <p class="subtitle is-6 has-text-light mb-1">Módulo 5 / Informações sociais e profissionais.</p>
             <table class="result-table">
                 <tr>
                     <th>Item</th>
                     <th>Retorno</th>
-                    <th>Detalhes/Observações</th>
                     <th>Análise</th>
                 </tr>
                 <tr>
-                    <td>Possui pendências financeiras</td>
+                    <td>Tipo de Consulta</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Nº do Documento</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Nome</td>
+                    <td>{{ serasa.nome }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Nome da Mãe</td>
+                    <td>{{ serasa.mae }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Documentos Roubados</td>
+                    <td>{{ serasa.documentos_roubados }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Pendências Internas</td>
+                    <td>{{ serasa.pendencias_internas }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Pendências Internas</td>
                     <td>{{ serasa.pendencias_financeiras }}</td>
                     <td>-</td>
+                </tr>
+                <tr>
+                    <td>Protestos</td>
+                    <td>{{ serasa.protestos }}</td>
                     <td>-</td>
                 </tr>
                 <tr>
-                    <td>Total de pendências</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Valor total das pendências</td>
-                    <td>-</td>
-                    <td>-</td>
+                    <td>Cheques sem fundo BACEN</td>
+                    <td>{{ serasa.cheques_sem_fundo_bacen }}</td>
                     <td>-</td>
                 </tr>
                 <tr>
-                    <td colspan="4">
-                        <p>Risco PEFIN/REFIN</p>
-                        <div class="rainbow-range">
-                            <input type="range" min="0" max="9" value="6" disabled>
-                            <div class="range-labels">
-                                <span>Baixíssimo Risco</span>
-                                <span>Baixo Risco</span>
-                                <span>Médio Risco</span>
-                                <span>Alto Risco</span>
-                                <span>Altíssimo Risco</span>
-                            </div>
-                        </div>
-                    </td>
+                    <td>Consultas Serasa</td>
+                    <td>{{ serasa.consultas_serasa }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Participação Societária</td>
+                    <td>{{ serasa.participacao_societaria?.length > 0 ? 'Sim' : 'Não' }}</td>
+                    <td><b class="has-text-success">Novo módulo em breve!</b></td>
+                </tr>
+                <tr>
+                    <td>Score SERASA</td>
+                    <td>{{ serasa.score }}</td>
+                    <td><b class="has-text-success">Novo módulo em breve!</b></td>
                 </tr>
             </table>
         </div>
-        <div class="serasa mt-6"> 
+        <div class="boavista mt-6"> 
             <h2 class="title is-4">PEFIN/REFIN BOA VISTA</h2>
-            <p class="subtitle is-6 has-text-light mb-1">Módulo 6 / Informações sociais e profissionais.</p>
             <table class="result-table">
                 <tr>
                     <th>Item</th>
                     <th>Retorno</th>
-                    <th>Detalhes/Observações</th>
-                    <th>Análise</th>
+                    <th>Ações</th>
                 </tr>
                 <tr>
-                    <td>Possui pendências financeiras</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Total de pendências</td>
-                    <td>-</td>
+                    <td>Tipo de Consulta</td>
                     <td>-</td>
                     <td>-</td>
                 </tr>
                 <tr>
-                    <td>Valor total das pendências</td>
-                    <td>-</td>
+                    <td>Tipo de Documento</td>
                     <td>-</td>
                     <td>-</td>
                 </tr>
                 <tr>
-                    <td colspan="4">
-                        <p>Risco PEFIN/REFIN</p>
-                        <div class="rainbow-range">
-                            <input type="range" min="0" max="9" value="1" disabled>
-                            <div class="range-labels">
-                                <span>Baixíssimo Risco</span>
-                                <span>Baixo Risco</span>
-                                <span>Médio Risco</span>
-                                <span>Alto Risco</span>
-                                <span>Altíssimo Risco</span>
-                            </div>
-                        </div>
-                    </td>
+                    <td>Nº do Documento</td>
+                    <td>{{ boaVista.pessoa[0].CPF || 'Nada consta' }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>CPF OK</td>
+                    <td>{{ boaVista.pessoa[0].CPFOK || 'Nada consta' }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>RG</td>
+                    <td>{{ boaVista.pessoa[0].RG || 'Nada consta' }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Nome</td>
+                    <td>{{ boaVista.pessoa[0].NOME || 'Nada consta' }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Nome da Mãe</td>
+                    <td>{{ boaVista.pessoa[0].NOME_MAE || 'Nada consta' }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Sexo</td>
+                    <td>{{ boaVista.pessoa[0].SEXO || 'Nada consta' }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Data de Nascimento</td>
+                    <td>{{ boaVista.pessoa[0].NASCIMENTO || 'Nada consta' }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Idade</td>
+                    <td>{{ boaVista.pessoa[0].IDADE }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Signo</td>
+                    <td>{{ boaVista.pessoa[0].SIGNO || 'Nada consta' }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Endereço</td>
+                    <td>{{ boaVista.enderecos[0].ENDERECO || 'Nada consta' }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Tipo de Logradouro</td>
+                    <td>{{ boaVista.enderecos[0].TIPO_LOGRADOURO || 'Nada consta' }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Logradouro</td>
+                    <td>{{ boaVista.enderecos[0].LOGRADOURO || 'Nada consta' }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Número</td>
+                    <td>{{ boaVista.enderecos[0].NUMERO || 'Nada consta' }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Complemento</td>
+                    <td>{{ boaVista.enderecos[0].COMPLEMENTO || 'Nada consta' }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Bairro</td>
+                    <td>{{ boaVista.enderecos[0].BAIRRO || 'Nada consta' }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Cidade</td>
+                    <td>{{ boaVista.enderecos[0].CIDADE || 'Nada consta' }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>UF</td>
+                    <td>{{ boaVista.enderecos[0].UF || 'Nada consta' }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>CEP</td>
+                    <td>{{ boaVista.enderecos[0].CEP || 'Nada consta' }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>CEP OK</td>
+                    <td>{{ boaVista.enderecos[0].CEPOK || 'Nada consta' }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Melhor Endereço</td>
+                    <td>{{ boaVista.enderecos[0].MELHOREND || 'Nada consta' }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Qualificação</td>
+                    <td>{{ boaVista.enderecos[0].QUALIFICACAO || 'Nada consta' }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Endereços</td>
+                    <td>{{ boaVista.enderecos.length }}</td>
+                    <td><b class="has-text-success">Novo módulo em breve!</b></td>
+                </tr>
+                <tr>
+                    <td>Telefones</td>
+                    <td>{{ boaVista.telefones.length }}</td>
+                    <td><b class="has-text-success">Novo módulo em breve!</b></td>
+                </tr>
+                <tr>
+                    <td>E-mails</td>
+                    <td>{{ boaVista.emails.length }}</td>
+                    <td><b class="has-text-success">Novo módulo em breve!</b></td>
+                </tr>
+                <tr>
+                    <td>Pessoas Relacionadas</td>
+                    <td>{{ boaVista.pessoasRelacionadasTelefone.length }}</td>
+                    <td><b class="has-text-success">Novo módulo em breve!</b></td>
+                </tr>
+                <tr>
+                    <td>Situação Cadastral</td>
+                    <td>{{ boaVista.situacaoCadastral[0].SITUACAO_CADASTRAL || 'Nada consta' }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Alerta</td>
+                    <td>{{ boaVista.alerta[0].mensagem || 'Nada consta' }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>Perfil de Consumo</td>
+                    <td>-</td>
+                    <td><b class="has-text-success">Novo módulo em breve!</b></td>
+                </tr>
+                <tr>
+                    <td>Perfil Financeiro</td>
+                    <td>-</td>
+                    <td><b class="has-text-success">Novo módulo em breve!</b></td>
+                </tr>
+                <tr>
+                    <td>Pessoas e Empresas Ligadas</td>
+                    <td>-</td>
+                    <td><b class="has-text-success">Novo módulo em breve!</b></td>
+                </tr>
+                <tr>
+                    <td>Participação Empresarial</td>
+                    <td>-</td>
+                    <td><b class="has-text-success">Novo módulo em breve!</b></td>
                 </tr>
             </table>
         </div>
-        <div class="serasa mt-6"> 
+        <div class="certs mt-6"> 
             <h2 class="title is-4">CERTIDÕES</h2>
-            <p class="subtitle is-6 has-text-light mb-1">Módulo 7</p>
+            <!-- certEmbargosIbama: any;
+            certNegativaIbama: any;
+            certPGFN: any;
+            certSIPROQUIM: any;
+            certFGTS: any;
+            certECAC: any;
+            certCOAF: any;
+            certPoF: any;
+            certPoC: any; -->
             <table class="result-table">
                 <tr>
                     <th>Item</th>
                     <th>Retorno</th>
-                    <th>Detalhes/Observações</th>
-                    <th>Análise</th>
+                    <th>Ações</th>
                 </tr>
                 <tr>
-                    <td>Antecedentes Criminais</td>
-                    <td>-</td>
-                    <td>-</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Certidão COAF</td>
-                    <td><a class="is-underlined" target="_blank" [href]="onDemand.certidao_coaf.AdditionalOutputData.RawResultFile">Link</a></td>
-                    <td>{{ onDemand.certidao_coaf.BaseStatus }}</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Certidão de Embargos no IBAMA</td>
-                    <td>-</td>
+                    <td>Antecedentes Criminais Polícia Federal</td>
                     <td>-</td>
                     <td>-</td>
                 </tr>
                 <tr>
-                    <td>Certidão ECAC</td>
-                    <td>-</td>
+                    <td>Antecedentes Criminais Polícia Civíl</td>
                     <td>-</td>
                     <td>-</td>
                 </tr>
                 <tr>
-                    <td>Certidão PGFN</td>
-                    <td><a class="is-underlined" target="_blank" [href]="onDemand.certidao_pgfn.AdditionalOutputData.RawResultFile">Link</a></td>
-                    <td>{{ onDemand.certidao_pgfn.BaseStatus }}</td>
+                    <td>COACOAF (Conselho de Controle de Atividades Financeiras)F</td>
+                    <td>{{ certCOAF?.BaseStatus }}</td>
+                    <td><a class="is-underlined" target="_blank" [href]="certCOAF?.AdditionalOutputData.RawResultFile">Ver certidão</a></td>
+                </tr>
+                <tr>
+                    <td>Embargos no IBAMA</td>
+                    <td>-</td>
                     <td>-</td>
                 </tr>
                 <tr>
-                    <td colspan="4">
-                        <p>Risco PEFIN/REFIN</p>
-                        <div class="rainbow-range">
-                            <input type="range" min="0" max="9" value="1" disabled>
-                            <div class="range-labels">
-                                <span>Baixíssimo Risco</span>
-                                <span>Baixo Risco</span>
-                                <span>Médio Risco</span>
-                                <span>Alto Risco</span>
-                                <span>Altíssimo Risco</span>
-                            </div>
-                        </div>
-                    </td>
+                    <td>e-CAC</td>
+                    <td>-</td>
+                    <td>-</td>
+                </tr>
+                <tr>
+                    <td>PGFN (Procuradoria Geral da Fazenda Nacional)</td>
+                    <td>{{ certPGFN?.BaseStatus }}</td>
+                    <td><a class="is-underlined" target="_blank" [href]="certPGFN?.AdditionalOutputData.RawResultFile">Ver certidão</a></td>
+                </tr>
+                <tr>
+                    <td>Validade</td>
+                    <td>-</td>
+                    <td></td>
+                </tr>
+                <tr>
+                    <td>Válida(s) até</td>
+                    <td>-</td>
+                    <td></td>
                 </tr>
             </table>
         </div>
+        <p class="mt-6">
+            Essa informação é confidencial. É expressamente proibida sua reprodução, total ou parcial, bem como sua divulgação a terceiros. A decisão de conceder ou não o crédito é exclusiva da empresa consulente.
+        </p>
     </div>
 </section>

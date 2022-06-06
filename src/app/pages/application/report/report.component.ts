@@ -39,9 +39,17 @@ export class ReportComponent implements OnInit {
     behavior_data: 0,
     financial_data: 0,
     restrict: 0,
-    ondemand: 0,
     boavista: 0,
     serasa: 0,
+    cert_embargos_ibama: 0,
+    cert_negativa_ibama: 0,
+    cert_pgfn: 0,
+    cert_siproquim: 0,
+    cert_fgts: 0,
+    cert_ecac: 0,
+    cert_coaf: 0,
+    cert_antecedentes_policia_federal: 0,
+    cert_antecedentes_policia_civil: 0,
   };
 
   public pricesPJ = {
@@ -49,9 +57,17 @@ export class ReportComponent implements OnInit {
     behavior_data: 0,
     financial_data: 0,
     restrict: 0,
-    ondemand: 0,
     boavista: 0,
     serasa: 0,
+    cert_embargos_ibama: 0,
+    cert_negativa_ibama: 0,
+    cert_pgfn: 0,
+    cert_siproquim: 0,
+    cert_fgts: 0,
+    cert_ecac: 0,
+    cert_coaf: 0,
+    cert_antecedentes_policia_federal: 0,
+    cert_antecedentes_policia_civil: 0,
   };
 
   public totalCost: number = 0;
