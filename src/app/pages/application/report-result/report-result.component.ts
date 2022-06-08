@@ -13,7 +13,6 @@ export class ReportResultComponent implements OnInit {
 
   registerData: any;
   behaviorData: any;
-  financialData: any;
   serasa: any;
   boaVista: any;
   restrict: any;
@@ -43,7 +42,6 @@ export class ReportResultComponent implements OnInit {
       res.results.forEach((r: any) => {
         if (r.module === 'register_data') this.registerData = r.result
         else if (r.module === 'behavior_data') this.behaviorData = r.result;
-        else if (r.module === 'financial_data') this.financialData = r.result;
         else if (r.module === 'serasa') this.serasa = r.result;
         else if (r.module === 'boavista') this.boaVista = r.result;
         else if (r.module === 'restrict') this.restrict = r.result;
@@ -73,6 +71,14 @@ export class ReportResultComponent implements OnInit {
       'G': 6,
       'H': 7,
     }[letter];
+  }
+
+  public getCardRecommendation(obj: any) {
+    return {
+      'is-recommended': obj.recommendation == 'RECOMENDED',
+      'is-not-recommended': obj.recommendation == 'NOT_RECOMENDED',
+      'is-analyse': obj.recommendation == 'ANALYSE',
+    };
   }
 
 }

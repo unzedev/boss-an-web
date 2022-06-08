@@ -9,6 +9,7 @@
   padding: 8px 30px;
   border-radius: 6px 6px 0 0;
 }
+
 .info-header {
   background-color: #1d1d1b;
   padding: 30px 50px 100px 50px;
@@ -31,6 +32,7 @@
     }
   }
 }
+
 .info-cards {
   .box {
     height: 100%;
@@ -38,6 +40,8 @@
     flex-direction: column;
     justify-content: space-between;
     min-height: 250px;
+    position: relative;
+    overflow: hidden;
     img {
       width: 60px;
       margin: 0 auto;
@@ -64,8 +68,51 @@
       color: #505050;
       display: block;
     }
+    &.is-analyse {
+      &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 70px 70px 0;
+        border-color: transparent #ffbb36 transparent transparent;
+      }
+    }
+    &.is-recommended {
+      &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 70px 70px 0;
+        border-color: transparent #0adb8f transparent transparent;
+      }
+    }
+    &.is-not-recommended {
+      &:after {
+        content: "";
+        display: block;
+        position: absolute;
+        right: 0;
+        top: 0;
+        width: 0;
+        height: 0;
+        border-style: solid;
+        border-width: 0 70px 70px 0;
+        border-color: transparent #FF3636 transparent transparent;
+      }
+    }
   }
 }
+
 .result-table {
   width: 100%;
   border-collapse: separate;
@@ -248,6 +295,9 @@
   }
   &.success {
     background-color: #0adb8f;
+  }
+  &.danger {
+    background-color: #FF3636;
   }
 }
 
