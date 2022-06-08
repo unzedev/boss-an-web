@@ -96,8 +96,8 @@
                         <td>
                             <span *ngIf="r.status === 'PROCESSING'" class="tag">Processando</span>
                             <span *ngIf="r.status === 'ANALYSE'" class="tag is-warning">Analisar</span>
-                            <span *ngIf="r.status === 'Recommended'" class="tag is-primary is-light">Recomendado</span>
-                            <span *ngIf="r.status === 'Not'" class="tag is-danger is-light">Não Recomendado</span>
+                            <span *ngIf="r.status === 'RECOMENDED'" class="tag is-primary is-light">Recomendado</span>
+                            <span *ngIf="r.status === 'NOT_RECOMENDED'" class="tag is-danger is-light">Não Recomendado</span>
                         </td>
                         <td>
                             <a class="button is-text" aria-label="Ver" [href]="'/app/consultas/' + r._id" *ngIf="r.status !== 'PROCESSING'">
