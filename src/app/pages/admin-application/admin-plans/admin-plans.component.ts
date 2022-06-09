@@ -23,7 +23,6 @@ export class AdminPlansComponent implements OnInit {
     itens: new FormControl('', [Validators.required]),
     person_modules: new FormGroup({
       register_data: new FormControl('', [Validators.required]),
-      financial_data: new FormControl('', [Validators.required]),
       behavior_data: new FormControl('', [Validators.required]),
       restrict: new FormControl('', [Validators.required]),
       cert_embargos_ibama: new FormControl('', [Validators.required]),
@@ -40,7 +39,6 @@ export class AdminPlansComponent implements OnInit {
     }),
     company_modules: new FormGroup({
       register_data: new FormControl('', [Validators.required]),
-      financial_data: new FormControl('', [Validators.required]),
       behavior_data: new FormControl('', [Validators.required]),
       restrict: new FormControl('', [Validators.required]),
       cert_embargos_ibama: new FormControl('', [Validators.required]),
@@ -68,7 +66,6 @@ export class AdminPlansComponent implements OnInit {
     itens: new FormControl('', [Validators.required]),
     person_modules: new FormGroup({
       register_data: new FormControl('', [Validators.required]),
-      financial_data: new FormControl('', [Validators.required]),
       behavior_data: new FormControl('', [Validators.required]),
       restrict: new FormControl('', [Validators.required]),
       cert_embargos_ibama: new FormControl('', [Validators.required]),
@@ -85,7 +82,6 @@ export class AdminPlansComponent implements OnInit {
     }),
     company_modules: new FormGroup({
       register_data: new FormControl('', [Validators.required]),
-      financial_data: new FormControl('', [Validators.required]),
       behavior_data: new FormControl('', [Validators.required]),
       restrict: new FormControl('', [Validators.required]),
       cert_embargos_ibama: new FormControl('', [Validators.required]),

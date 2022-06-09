@@ -8,6 +8,9 @@
   height: 40px;
   padding: 8px 30px;
   border-radius: 6px 6px 0 0;
+  &.is-pj {
+    background-color: var(--link-color);
+  }
 }
 
 .info-header {

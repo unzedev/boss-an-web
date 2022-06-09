@@ -122,6 +122,10 @@ const routes: Routes = [
         component: AdminReportsComponent,
       },
       {
+        path: 'consultas/:id',
+        component: ReportResultComponent,
+      },
+      {
         path: 'planos',
         component: AdminPlansComponent,
       },

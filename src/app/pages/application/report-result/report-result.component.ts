@@ -1,3 +1,4 @@
+import { Location } from '@angular/common';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { ReportService } from 'src/app/services/report/report.service';
@@ -10,6 +11,9 @@ import { ReportService } from 'src/app/services/report/report.service';
 export class ReportResultComponent implements OnInit {
 
   reportDate: Date;
+  isPJ: boolean = false;
+  isPF: boolean = false;
+  isLoading: boolean;
 
   registerData: any;
   behaviorData: any;
@@ -28,7 +32,8 @@ export class ReportResultComponent implements OnInit {
 
   constructor(
     private route: ActivatedRoute,
-    private reportService: ReportService
+    private reportService: ReportService,
+    private location: Location
   ) { }
 
   ngOnInit(): void {
@@ -38,13 +43,14 @@ export class ReportResultComponent implements OnInit {
   }
 
   private getReportResult(id: string) {
+    this.isLoading = true;
     this.reportService.getQueryResult(id).subscribe((res: any) => {
       res.results.forEach((r: any) => {
         if (r.module === 'register_data') this.registerData = r.result
         else if (r.module === 'behavior_data') this.behaviorData = r.result;
         else if (r.module === 'serasa') this.serasa = r.result;
         else if (r.module === 'boavista') this.boaVista = r.result;
-        else if (r.module === 'restrict') this.restrict = r.result;
+        else if (r.module === 'restrict' && !Array.isArray(r.result)) this.restrict = r.result;
         else if (r.module === 'cert_embargos_ibama') this.certEmbargosIbama = r.result;
         else if (r.module === 'cert_negativa_ibama') this.certNegativaIbama = r.result;
         else if (r.module === 'cert_pgfn') this.certPGFN = r.result;
@@ -57,6 +63,9 @@ export class ReportResultComponent implements OnInit {
       });
 
       this.reportDate = res.results[0].createdAt;
+      this.isPJ = res.results[0].type === 'PJ';
+      this.isPF = res.results[0].type === 'PF';
+      this.isLoading = false;
     });
   }
 
@@ -79,6 +88,10 @@ export class ReportResultComponent implements OnInit {
       'is-not-recommended': obj.recommendation == 'NOT_RECOMENDED',
       'is-analyse': obj.recommendation == 'ANALYSE',
     };
+  }
+
+  public goBack() {
+    this.location.back();
   }
 
 }
