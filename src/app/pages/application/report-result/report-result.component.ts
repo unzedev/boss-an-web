@@ -10,10 +10,13 @@ import { ReportService } from 'src/app/services/report/report.service';
 })
 export class ReportResultComponent implements OnInit {
 
+  recommendation: string = 'ANALYSE';
+  credit: number;
   reportDate: Date;
   isPJ: boolean = false;
   isPF: boolean = false;
   isLoading: boolean;
+  document: string;
 
   registerData: any;
   behaviorData: any;
@@ -42,10 +45,22 @@ export class ReportResultComponent implements OnInit {
     });
   }
 
+  get hasAnyCertificate(): boolean {
+    return this.certEmbargosIbama ||
+    this.certNegativaIbama ||
+    this.certPGFN ||
+    this.certSIPROQUIM ||
+    this.certFGTS ||
+    this.certECAC ||
+    this.certCOAF ||
+    this.certPoF ||
+    this.certPoC;
+  }
+
   private getReportResult(id: string) {
     this.isLoading = true;
-    this.reportService.getQueryResult(id).subscribe((res: any) => {
-      res.results.forEach((r: any) => {
+    this.reportService.getQuery(id).subscribe((r: any) => {
+      if (!['PROCESSING', 'ERROR'].includes(r.status)) {
         if (r.module === 'register_data') this.registerData = r.result
         else if (r.module === 'behavior_data') this.behaviorData = r.result;
         else if (r.module === 'serasa') this.serasa = r.result;
@@ -60,13 +75,24 @@ export class ReportResultComponent implements OnInit {
         else if (r.module === 'cert_coaf') this.certCOAF = r.result;
         else if (r.module === 'cert_antecedentes_policia_federal') this.certPoF = r.result;
         else if (r.module === 'cert_antecedentes_policia_civil') this.certPoC = r.result;
-      });
 
-      this.reportDate = res.results[0].createdAt;
-      this.isPJ = res.results[0].type === 'PJ';
-      this.isPF = res.results[0].type === 'PF';
-      this.isLoading = false;
+        this.recommendation = r.status;
+        this.credit = r.credit;
+        this.document = r.document;
+        this.reportDate = r.createdAt;
+        this.isPJ = r.type === 'PJ';
+        this.isPF = r.type === 'PF';
+        this.isLoading = false;
+      }
     });
+  }
+
+  public getRecommendation(): number {
+    return {
+      'RECOMENDED': 3,
+      'NOT_RECOMENDED': 8,
+      'ANALYSE': 5,
+    }[this.recommendation];
   }
 
   public getNumberFromAtoH(letter: string): number {
@@ -92,6 +118,14 @@ export class ReportResultComponent implements OnInit {
 
   public goBack() {
     this.location.back();
+  }
+
+  public isAuthorOfProcess(process: any[]): boolean {
+    return process.some((el) => el.Doc === this.document && el.Type === "AUTHOR");
+  }
+
+  public isActiveInProcess(process: any[]): boolean {
+    return process.some((el) => el.Doc === this.document && el.IsPartyActive);
   }
 
 }

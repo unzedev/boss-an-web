@@ -8,22 +8,26 @@
             <img src="/assets/svg/boss-logo-negativo-05.svg">
             <p>{{ reportDate | date: 'dd \'de\' MMMM \'de\' yyyy' }}</p>
         </div>
-        <div class="info-header" *ngIf="registerData">
+        <div class="info-header">
             <div class="info-header-item">
                 <label>CPF Consultado</label>
-                <p>{{ registerData.cpf | mask: 'CPF_CNPJ' }}</p>
+                <p>{{ document | mask: 'CPF_CNPJ' }}</p>
             </div>
-            <div class="info-header-item">
+            <div class="info-header-item" *ngIf="registerData">
                 <label>Nome</label>
-                <p>{{ registerData.nome }}</p>
+                <p>{{ registerData?.nome }}</p>
             </div>
-            <div class="info-header-item">
+            <div class="info-header-item" *ngIf="registerData">
                 <label>Data de Nascimento</label>
-                <p>{{ registerData.data_nascimento.slice(0, 10) | date: 'dd/MM/yyyy' }}</p>
+                <p>{{ registerData?.data_nascimento.slice(0, 10) | date: 'dd/MM/yyyy' }}</p>
             </div>
-            <div class="info-header-item">
+            <div class="info-header-item" *ngIf="registerData">
                 <label>Naturalidade</label>
-                <p>{{ registerData.naturalidade }}</p>
+                <p>{{ registerData?.naturalidade }}</p>
+            </div>
+            <div class="info-header-item" *ngIf="credit">
+                <label>Crédito Solicitado</label>
+                <p>{{ credit | currency: 'BRL' }}</p>
             </div>
         </div>
         <div class="recommendation-card box is-paddingless mb-6">
@@ -32,7 +36,7 @@
                     <h2 class="title is-4 is-uppercase">Análise e Recomendação Boss Analytics</h2>
                     <p class="subtitle has-text-light">Régua de Risco de Inadimplência</p>
                     <div class="rainbow-range">
-                        <input type="range" min="0" max="10" [value]="5" disabled>
+                        <input type="range" min="0" max="10" [value]="getRecommendation()" disabled>
                         <div class="range-labels">
                             <span>Baixo Risco</span>
                             <span>Médio Risco</span>
@@ -41,25 +45,25 @@
                     </div>
                 </div>
                 <div class="column is-2 is-paddingless">
-                    <!-- <div class="recommendation-colored-card success">
+                    <div class="recommendation-colored-card success" *ngIf="recommendation === 'RECOMENDED'">
                         <img src="/assets/svg/check-solid.svg">
                         <p class="title is-5">Cliente recomendado</p>
-                    </div> -->
-                    <div class="recommendation-colored-card warning">
+                    </div>
+                    <div class="recommendation-colored-card warning" *ngIf="recommendation === 'ANALYSE'">
                         <img src="/assets/svg/exclamation-solid.svg">
                         <p class="title is-5">Recomendada análise</p>
                     </div>
-                    <!-- <div class="recommendation-colored-card danger">
+                    <div class="recommendation-colored-card danger" *ngIf="recommendation === 'NOT_RECOMENDED'">
                         <img src="/assets/svg/exclamation-solid.svg">
                         <p class="title is-5">Cliente não recomendado</p>
-                    </div> -->
+                    </div>
                 </div>
             </div>
         </div>
         <div class="dados-cadastrais" *ngIf="registerData">
             <h2 class="title is-4">DADOS CADASTRAIS</h2>
-            <div class="columns has-text-centered info-cards">
-                <div class="column">
+            <div class="columns is-multiline has-text-centered info-cards">
+                <div class="column is-3">
                     <div class="box" [class]="getCardRecommendation(registerData.situacao_cpf)">
                         <img src="/assets/png/report/dc-1.png">
                         <p class="info-card-title">CPF ativo na Receita Federal</p>
@@ -67,7 +71,7 @@
                         <small class="info-card-subtitle">Situação {{ registerData.situacao_cpf.value == 'REGULAR' ? 'regular' : 'irregular' }}</small>
                     </div>
                 </div>
-                <div class="column">
+                <div class="column is-3">
                     <div class="box" [class]="getCardRecommendation(registerData.age)">
                         <img src="/assets/png/report/dc-2.png">
                         <p class="info-card-title">Maioridade Civil</p>
@@ -75,7 +79,7 @@
                         <small class="info-card-subtitle">{{ registerData.age.value }} anos</small>
                     </div>
                 </div>
-                <div class="column">
+                <div class="column is-3">
                     <div class="box" [class]="getCardRecommendation(registerData.participacoes_empresas)">
                         <img src="/assets/png/report/dc-3.png">
                         <p class="info-card-title">Possui participação em Empresas?</p>
@@ -83,7 +87,7 @@
                         <small class="info-card-subtitle">{{ registerData.participacoes_empresas.value }} empresas</small>
                     </div>
                 </div>
-                <div class="column">
+                <div class="column is-3">
                     <div class="box" [class]="getCardRecommendation(registerData.estado_origem_cpf)">
                         <img src="/assets/png/report/dc-4.png">
                         <p class="info-card-title">Estado de Origem</p>
@@ -91,7 +95,7 @@
                         <small class="info-card-subtitle">{{ registerData.estado_origem_cpf.value }}</small>
                     </div>
                 </div>
-                <div class="column">
+                <div class="column is-3">
                     <div class="box" [class]="getCardRecommendation(registerData.exposicao_politica)">
                         <img src="/assets/png/report/dc-5.png">
                         <p class="info-card-title">Pessoa Politicamente Exposta</p>
@@ -99,7 +103,7 @@
                         <small class="info-card-subtitle">{{ registerData.exposicao_politica.value ? 'Com': 'Sem' }} exposição</small>
                     </div>
                 </div>
-                <div class="column">
+                <div class="column is-3">
                     <div class="box" [class]="getCardRecommendation(registerData.signo)">
                         <img src="/assets/png/report/dc-5.png">
                         <p class="info-card-title">Signo Validador</p>
@@ -268,7 +272,7 @@
                     <td>Dados Profissionais</td>
                     <td>
                         <p>Profissões: {{ registerData.dados_profissionais.profissoes }}</p>
-                        <p>Profissão: {{ registerData.dados_profissionais.profissao[0]?.Sector }}</p>
+                        <p>Profissão: {{ registerData.dados_profissionais.profissao ? registerData.dados_profissionais.profissao[0]?.Sector : 'Nada consta' }}</p>
                         <p>Atividade Profissional Ativa: {{ registerData.dados_profissionais.atividade_profissional_ativa ? 'Sim' : 'Não'}}</p>
                         <p>Renda Total: {{ registerData.dados_profissionais.renda_total | currency: 'BRL' }}</p>
                     </td>
@@ -324,8 +328,8 @@
         </div>
         <div class="dados-comportamentais mt-6" *ngIf="behaviorData">
             <h2 class="title is-4">DADOS COMPORTAMENTAIS</h2>
-            <div class="columns has-text-centered info-cards">
-                <div class="column">
+            <div class="columns is-multiline has-text-centered info-cards">
+                <div class="column is-3">
                     <div class="box" [class]="getCardRecommendation(behaviorData.participacao_empresa)">
                         <img src="/assets/png/report/dc-3.png">
                         <p class="info-card-title">Participa de Empresa como Sócio ou Funcionário</p>
@@ -333,7 +337,7 @@
                         <small class="info-card-subtitle">{{ behaviorData.participacao_empresa.value }} empresas</small>
                     </div>
                 </div>
-                <div class="column">
+                <div class="column is-3">
                     <div class="box" [class]="getCardRecommendation(behaviorData.participacao_programas_beneficios)">
                         <img src="/assets/png/report/dc-6.png">
                         <p class="info-card-title">Participação em Programas de Benefício do Governo</p>
@@ -341,7 +345,7 @@
                         <small class="info-card-subtitle">-</small>
                     </div>
                 </div>
-                <div class="column">
+                <div class="column is-3">
                     <div class="box" [class]="getCardRecommendation(behaviorData.consulta_de_plano_de_saude_na_ans)">
                         <img src="/assets/png/report/dc-9.png">
                         <p class="info-card-title">Possui Plano de Saúde</p>
@@ -349,7 +353,7 @@
                         <small class="info-card-subtitle">-</small>
                     </div>
                 </div>
-                <div class="column">
+                <div class="column is-3">
                     <div class="box" [class]="getCardRecommendation(behaviorData.consulta_de_restituicao_do_imposto_de_renda)">
                         <img src="/assets/png/report/dc-7.png">
                         <p class="info-card-title">Restituição do I.R. (Imposto de Renda)</p>
@@ -357,7 +361,7 @@
                         <small class="info-card-subtitle">-</small>
                     </div>
                 </div>
-                <div class="column">
+                <div class="column is-3">
                     <div class="box" [class]="getCardRecommendation(behaviorData.consulta_de_seguro_desemprego)">
                         <img src="/assets/png/report/dc-8.png">
                         <p class="info-card-title">Utiliza Seguro Desemprego</p>
@@ -545,7 +549,7 @@
         <div class="restritivo mt-6" *ngIf="restrict">
             <h2 class="title is-4">DADOS RESTRITIVOS</h2>
             <div class="columns has-text-centered info-cards">
-                <div class="column">
+                <div class="column is-3">
                     <div class="box" [class]="getCardRecommendation(restrict.processos_judiciais_e_administrativos)">
                         <img src="/assets/png/report/dc-3.png">
                         <p class="info-card-title">Processos Judiciais e Administrativos</p>
@@ -553,7 +557,7 @@
                         <small class="info-card-subtitle">{{ restrict.processos_judiciais_e_administrativos.value }} processo(s)</small>
                     </div>
                 </div>
-                <div class="column">
+                <div class="column is-3">
                     <div class="box" [class]="getCardRecommendation(restrict.presenca_em_cobranca)">
                         <img src="/assets/png/report/dc-6.png">
                         <p class="info-card-title">Presença em Cobranças</p>
@@ -561,7 +565,7 @@
                         <small class="info-card-subtitle">-</small>
                     </div>
                 </div>
-                <div class="column">
+                <div class="column is-3">
                     <div class="box" [class]="getCardRecommendation(restrict.nivel_de_litigancia)">
                         <img src="/assets/png/report/dc-9.png">
                         <p class="info-card-title">Nível de Litigância</p>
@@ -569,7 +573,7 @@
                         <small class="info-card-subtitle">-</small>
                     </div>
                 </div>
-                <div class="column">
+                <div class="column is-3">
                     <div class="box" [class]="getCardRecommendation(restrict.nivel_de_exposicao_diversidade)">
                         <img src="/assets/png/report/dc-7.png">
                         <p class="info-card-title">Nível de Exposição à Diversidade</p>
@@ -739,7 +743,7 @@
         <div class="serasa mt-6" *ngIf="serasa">
             <h2 class="title is-4">PEFIN/REFIN SERASA</h2>
             <div class="columns has-text-centered info-cards">
-                <div class="column">
+                <div class="column is-3">
                     <div class="box" [class]="getCardRecommendation(serasa.cpf_pendencias_financeiras)">
                         <img src="/assets/png/report/dc-3.png">
                         <p class="info-card-title">CPF possui pendências financeiras?</p>
@@ -747,7 +751,7 @@
                         <small class="info-card-subtitle">-</small>
                     </div>
                 </div>
-                <div class="column">
+                <div class="column is-3">
                     <div class="box" [class]="getCardRecommendation(serasa.possui_protestos)">
                         <img src="/assets/png/report/dc-6.png">
                         <p class="info-card-title">CPF possui protestos?</p>
@@ -755,7 +759,7 @@
                         <small class="info-card-subtitle">-</small>
                     </div>
                 </div>
-                <div class="column">
+                <div class="column is-3">
                     <div class="box">
                         <img src="/assets/png/report/dc-9.png">
                         <p class="info-card-title">Score SERASA</p>
@@ -825,7 +829,7 @@
         <div class="boavista mt-6" *ngIf="boaVista"> 
             <h2 class="title is-4">PEFIN/REFIN BOA VISTA</h2>
             <div class="columns has-text-centered info-cards">
-                <div class="column">
+                <div class="column is-3">
                     <div class="box" [class]="getCardRecommendation(boaVista.cpf_ativo)">
                         <img src="/assets/png/report/dc-3.png">
                         <p class="info-card-title">CPF regular e ativo?</p>
@@ -833,7 +837,7 @@
                         <small class="info-card-subtitle">-</small>
                     </div>
                 </div>
-                <div class="column">
+                <div class="column is-3">
                     <div class="box" [class]="getCardRecommendation(boaVista.cpf_pendencias_financeiras)">
                         <img src="/assets/png/report/dc-6.png">
                         <p class="info-card-title">CPF possui pendências financeiras?</p>
@@ -841,7 +845,7 @@
                         <small class="info-card-subtitle">-</small>
                     </div>
                 </div>
-                <div class="column">
+                <div class="column is-3">
                     <div class="box" [class]="getCardRecommendation(boaVista.maioridade_civil)">
                         <img src="/assets/png/report/dc-9.png">
                         <p class="info-card-title">Maioridade Civil</p>
@@ -1013,7 +1017,7 @@
                 </tr>
             </table>
         </div>
-        <div class="certs mt-6"> 
+        <div class="certs mt-6" *ngIf="hasAnyCertificate"> 
             <h2 class="title is-4">CERTIDÕES</h2>
             <!-- certEmbargosIbama: any;
             certNegativaIbama: any;
@@ -1088,31 +1092,35 @@
             <img src="/assets/svg/boss-logo-negativo-05.svg">
             <p>{{ reportDate | date: 'dd \'de\' MMMM \'de\' yyyy' }}</p>
         </div>
-        <div class="info-header" *ngIf="registerData">
+        <div class="info-header">
             <div class="info-header-item">
                 <label>CNPJ Consultado</label>
-                <p>{{ registerData.cnpj | mask: 'CPF_CNPJ' }}</p>
+                <p>{{ document | mask: 'CPF_CNPJ' }}</p>
             </div>
-            <div class="info-header-item">
+            <div class="info-header-item" *ngIf="registerData">
                 <label>Razão Social</label>
-                <p>{{ registerData.nome_oficial }}</p>
+                <p>{{ registerData?.nome_oficial }}</p>
             </div>
-            <div class="info-header-item">
+            <div class="info-header-item" *ngIf="registerData">
                 <label>Fundação</label>
-                <p>{{ registerData.data_fundacao.slice(0, 10) | date: 'dd/MM/yyyy' }}</p>
+                <p>{{ registerData?.data_fundacao.slice(0, 10) | date: 'dd/MM/yyyy' }}</p>
             </div>
-            <div class="info-header-item">
+            <div class="info-header-item" *ngIf="registerData">
                 <label>Localidade</label>
-                <p>{{ registerData.pais }}</p>
+                <p>{{ registerData?.pais }}</p>
+            </div>
+            <div class="info-header-item" *ngIf="credit">
+                <label>Crédito Solicitado</label>
+                <p>{{ credit | currency: 'BRL' }}</p>
             </div>
         </div>
-        <div class="recommendation-card box is-paddingless mb-6">
+        <div class="recommendation-card box is-paddingless mb-6 mt-6">
             <div class="columns">
                 <div class="column px-6 py-5">
                     <h2 class="title is-4 is-uppercase">Análise e Recomendação Boss Analytics</h2>
                     <p class="subtitle has-text-light">Régua de Risco de Inadimplência</p>
                     <div class="rainbow-range">
-                        <input type="range" min="0" max="10" [value]="5" disabled>
+                        <input type="range" min="0" max="10" [value]="getRecommendation()" disabled>
                         <div class="range-labels">
                             <span>Baixo Risco</span>
                             <span>Médio Risco</span>
@@ -1121,73 +1129,73 @@
                     </div>
                 </div>
                 <div class="column is-2 is-paddingless">
-                    <!-- <div class="recommendation-colored-card success">
+                    <div class="recommendation-colored-card success" *ngIf="recommendation === 'RECOMENDED'">
                         <img src="/assets/svg/check-solid.svg">
                         <p class="title is-5">Cliente recomendado</p>
-                    </div> -->
-                    <div class="recommendation-colored-card warning">
+                    </div>
+                    <div class="recommendation-colored-card warning" *ngIf="recommendation === 'ANALYSE'">
                         <img src="/assets/svg/exclamation-solid.svg">
                         <p class="title is-5">Recomendada análise</p>
                     </div>
-                    <!-- <div class="recommendation-colored-card danger">
+                    <div class="recommendation-colored-card danger" *ngIf="recommendation === 'NOT_RECOMENDED'">
                         <img src="/assets/svg/exclamation-solid.svg">
                         <p class="title is-5">Cliente não recomendado</p>
-                    </div> -->
+                    </div>
                 </div>
             </div>
         </div>
         <div class="dados-cadastrais" *ngIf="registerData">
             <h2 class="title is-4">DADOS CADASTRAIS</h2>
-            <!-- <div class="columns is-multiline has-text-centered info-cards">
+            <div class="columns is-multiline has-text-centered info-cards">
                 <div class="column is-3">
-                    <div class="box" [class]="getCardRecommendation(registerData.situacao_cnpj)">
+                    <div class="box" [class]="getCardRecommendation(registerData.cnpj_ativo)">
                         <img src="/assets/png/report/dc-1.png">
                         <p class="info-card-title">CNPJ ativo na Receita Federal</p>
-                        <h3 class="info-card-result">{{ registerData.situacao_cnpj?.value }}</h3>
-                        <small class="info-card-subtitle">Situação {{ registerData.situacao_cnpj?.value == 'REGULAR' ? 'regular' : 'irregular' }}</small>
+                        <h3 class="info-card-result">{{ registerData.cnpj_ativo?.value }}</h3>
+                        <small class="info-card-subtitle">Situação {{ registerData.cnpj_ativo?.value == 'ATIVA' ? 'regular' : 'irregular' }}</small>
                     </div>
                 </div>
                 <div class="column is-3">
-                    <div class="box" [class]="getCardRecommendation(registerData.age)">
+                    <div class="box" [class]="getCardRecommendation(registerData.cnpj_mais_de_um_ano)">
                         <img src="/assets/png/report/dc-2.png">
                         <p class="info-card-title">CNPJ com mais de 1(um) ano</p>
-                        <h3 class="info-card-result">{{ registerData.age?.value >= 18 ? 'Maior' : 'Menor' }}</h3>
-                        <small class="info-card-subtitle">{{ registerData.age?.value }} anos</small>
+                        <h3 class="info-card-result">{{ registerData.cnpj_mais_de_um_ano?.value ? 'Sim' : 'Não' }}</h3>
+                        <small class="info-card-subtitle">-</small>
                     </div>
                 </div>
-                <div class="column is-3">
+                <!-- <div class="column is-3">
                     <div class="box" [class]="getCardRecommendation(registerData.participacoes_empresas)">
                         <img src="/assets/png/report/dc-3.png">
                         <p class="info-card-title">Sócio majoritário mais de 1(um) ano</p>
                         <h3 class="info-card-result">{{ registerData.participacoes_empresas.value > 0 ? 'Sim' : 'Não' }}</h3>
                         <small class="info-card-subtitle">{{ registerData.participacoes_empresas.value }} empresas</small>
                     </div>
-                </div>
+                </div> -->
                 <div class="column is-3">
-                    <div class="box" [class]="getCardRecommendation(registerData.estado_origem_cpf)">
+                    <div class="box" [class]="getCardRecommendation(registerData.optante_pelo_simples)">
                         <img src="/assets/png/report/dc-4.png">
                         <p class="info-card-title">Optante pelo Simples Nacional</p>
-                        <h3 class="info-card-result">{{ registerData.estado_origem_cpf.value }}</h3>
-                        <small class="info-card-subtitle">{{ registerData.estado_origem_cpf.value }}</small>
+                        <h3 class="info-card-result">{{ registerData.optante_pelo_simples.value == 'SIMPLES' ? 'Sim' : 'Não' }}</h3>
+                        <small class="info-card-subtitle">-</small>
                     </div>
                 </div>
-                <div class="column is-3">
+                <!-- <div class="column is-3">
                     <div class="box" [class]="getCardRecommendation(registerData.exposicao_politica)">
                         <img src="/assets/png/report/dc-5.png">
                         <p class="info-card-title">Inscrição Estadual</p>
                         <h3 class="info-card-result">{{ registerData.exposicao_politica.value ? 'Sim': 'Não' }}</h3>
                         <small class="info-card-subtitle">{{ registerData.exposicao_politica.value ? 'Com': 'Sem' }} exposição</small>
                     </div>
-                </div>
+                </div> -->
                 <div class="column is-3">
-                    <div class="box" [class]="getCardRecommendation(registerData.signo)">
+                    <div class="box" [class]="getCardRecommendation(registerData.quantidade_de_funcionarios)">
                         <img src="/assets/png/report/dc-5.png">
                         <p class="info-card-title">Quantidade de Funcionários</p>
-                        <h3 class="info-card-result">{{ registerData.signo.value }}</h3>
-                        <small class="info-card-subtitle">Signo Teste: {{ registerData.signo.signoValidador }}</small>
+                        <h3 class="info-card-result">{{ registerData.quantidade_de_funcionarios.value }}</h3>
+                        <small class="info-card-subtitle">-</small>
                     </div>
                 </div>
-                <div class="column is-3">
+                <!-- <div class="column is-3">
                     <div class="box" [class]="getCardRecommendation(registerData.signo)">
                         <img src="/assets/png/report/dc-5.png">
                         <p class="info-card-title">Lista COAF, OFAC, Interpol</p>
@@ -1202,8 +1210,8 @@
                         <h3 class="info-card-result">{{ registerData.signo.value }}</h3>
                         <small class="info-card-subtitle">Signo Teste: {{ registerData.signo.signoValidador }}</small>
                     </div>
-                </div>
-            </div> -->
+                </div> -->
+            </div>
             <table class="result-table">
                 <tr>
                     <th>Item</th>
@@ -1320,32 +1328,32 @@
         </div>
         <div class="dados-comportamentais mt-6" *ngIf="behaviorData">
             <h2 class="title is-4">DADOS COMPORTAMENTAIS</h2>
-            <!-- <div class="columns has-text-centered info-cards">
-                <div class="column">
-                    <div class="box" [class]="getCardRecommendation(behaviorData.participacao_empresa)">
+            <div class="columns has-text-centered info-cards">
+                <div class="column is-3">
+                    <div class="box" [class]="getCardRecommendation(behaviorData.possui_funcionarios)">
                         <img src="/assets/png/report/dc-3.png">
                         <p class="info-card-title">Possui Funcionários</p>
-                        <h3 class="info-card-result">{{ behaviorData.participacao_empresa.value > 0 ? 'Sim' : 'Não' }}</h3>
-                        <small class="info-card-subtitle">{{ behaviorData.participacao_empresa.value }} empresas</small>
+                        <h3 class="info-card-result">{{ behaviorData.possui_funcionarios.value > 0 ? 'Sim' : 'Não' }}</h3>
+                        <small class="info-card-subtitle">-</small>
                     </div>
                 </div>
-                <div class="column">
-                    <div class="box" [class]="getCardRecommendation(behaviorData.participacao_programas_beneficios)">
+                <div class="column is-3">
+                    <div class="box">
                         <img src="/assets/png/report/dc-6.png">
                         <p class="info-card-title">Quantidade de Funcionários</p>
-                        <h3 class="info-card-result">{{ behaviorData.participacao_programas_beneficios.value ? 'Sim' : 'Não' }}</h3>
+                        <h3 class="info-card-result">{{ behaviorData.quantidade_funcionarios.value }}</h3>
                         <small class="info-card-subtitle">-</small>
                     </div>
                 </div>
-                <div class="column">
-                    <div class="box" [class]="getCardRecommendation(behaviorData.consulta_de_plano_de_saude_na_ans)">
+                <div class="column is-3">
+                    <div class="box">
                         <img src="/assets/png/report/dc-9.png">
                         <p class="info-card-title">Faturamento Presumido</p>
-                        <h3 class="info-card-result">{{ behaviorData.consulta_de_plano_de_saude_na_ans.value ? 'Sim' : 'Não' }}</h3>
+                        <h3 class="info-card-result">{{ behaviorData.faturamento_presumido.value }}</h3>
                         <small class="info-card-subtitle">-</small>
                     </div>
                 </div>
-            </div> -->
+            </div>
             <table class="result-table">
                 <tr>
                     <th>Item</th>
@@ -1458,10 +1466,10 @@
                 </tr>
             </table>
         </div>
-        <!-- <div class="restritivo mt-6" *ngIf="restrict">
+        <div class="restritivo mt-6" *ngIf="restrict">
             <h2 class="title is-4">DADOS RESTRITIVOS</h2>
             <div class="columns has-text-centered info-cards">
-                <div class="column">
+                <div class="column is-3">
                     <div class="box" [class]="getCardRecommendation(restrict.processos_judiciais_e_administrativos)">
                         <img src="/assets/png/report/dc-3.png">
                         <p class="info-card-title">Processos Judiciais e Administrativos</p>
@@ -1469,15 +1477,15 @@
                         <small class="info-card-subtitle">{{ restrict.processos_judiciais_e_administrativos?.value }} processo(s)</small>
                     </div>
                 </div>
-                <div class="column">
+                <!-- <div class="column is-3">
                     <div class="box" [class]="getCardRecommendation(restrict.presenca_em_cobranca)">
                         <img src="/assets/png/report/dc-6.png">
                         <p class="info-card-title">Presença em Cobranças</p>
                         <h3 class="info-card-result">{{ restrict.presenca_em_cobranca?.value ? 'Sim' : 'Não' }}</h3>
                         <small class="info-card-subtitle">-</small>
                     </div>
-                </div>
-            </div>
+                </div> -->
+            </div>        
             <table class="result-table">
                 <tr>
                     <th>Item</th>
@@ -1485,161 +1493,52 @@
                     <th>Açòes</th>
                 </tr>
                 <tr>
-                    <td>Círculos Processos Judiciais</td>
-                    <td>{{ restrict.circulos_processos_judiciais.length }}</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Processos Judiciais e Administrativos</td>
-                    <td>{{ restrict.processos_judiciais_e_administrativos.value }}</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td>Proc. Jud. e Adm. de Familiares de Primeiro Nível</td>
-                    <td>{{ restrict.processos_judiciais_e_administrativos_de_familiares_de_primeiro_nivel || 'Nada consta' }}</td>
-                    <td>-</td>
-                </tr>
-                <tr>
                     <td>Certidão Negativa de Protesto</td>
                     <td>{{ restrict.certidao_negativa_de_protesto }}</td>
                     <td>-</td>
                 </tr>
                 <tr>
-                    <td>Certidão Ações Judiciais</td>
+                    <td>Certidão de Nada Consta - Ações Judiciais</td>
                     <td>-</td>
                     <td><a class="is-underlined" target="_blank" [href]="restrict.certidao_de_nada_consta_acoes_judiciais">Ver certidão</a></td>
                 </tr>
                 <tr>
-                    <td>Informações Financeiras</td>
-                    <td>{{ restrict?.informacoes_financeiras }}</td>
-                    <td><b class="has-text-success">Novo módulo em breve!</b></td>
-                </tr>
-                <tr>
-                    <td>Presença em Cobranças</td>
-                    <td>{{ restrict?.presenca_em_cobranca.value ? 'Sim' : 'Não' }}</td>
+                    <td>Total de Processos Judiciais</td>
+                    <td>{{ restrict.total_processos_judiciais }}</td>
                     <td>-</td>
                 </tr>
                 <tr>
-                    <td>Veículos</td>
-                    <td>{{ restrict?.veiculos.length > 0 ? 'Sim' : 'Não' }}</td>
-                    <td>-</td>
-                </tr>
-                <tr>
-                    <td colspan="4">
-                        <p>Estabilidade no Emprego</p>
-                        <div class="gray-range">
-                            <input type="range" min="0" max="7" [value]="getNumberFromAtoH(restrict?.employment_d50.ModelRating)" disabled>
-                            <div class="range-labels">
-                                <span>A</span>
-                                <span>B</span>
-                                <span>C</span>
-                                <span>D</span>
-                                <span>E</span>
-                                <span>F</span>
-                                <span>G</span>
-                                <span>H</span>
-                            </div>
-                            <div class="range-labels">
-                                <span><small>Alto</small></span>
-                                <span><small>Nenhum</small></span>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="4">
-                        <p>Nível de Empreendedorismo</p>
-                        <div class="gray-range">
-                            <input type="range" min="0" max="7" [value]="getNumberFromAtoH(restrict?.entrepreneurship_level.ModelRating)" disabled>
-                            <div class="range-labels">
-                                <span>A</span>
-                                <span>B</span>
-                                <span>C</span>
-                                <span>D</span>
-                                <span>E</span>
-                                <span>F</span>
-                                <span>G</span>
-                                <span>H</span>
-                            </div>
-                            <div class="range-labels">
-                                <span><small>Alto</small></span>
-                                <span><small>Nenhum</small></span>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="4">
-                        <p>Nível de Litigância</p>
-                        <div class="gray-range">
-                            <input type="range" min="0" max="7" [value]="getNumberFromAtoH(restrict?.litigiousness_level.ModelRating)" disabled>
-                            <div class="range-labels">
-                                <span>A</span>
-                                <span>B</span>
-                                <span>C</span>
-                                <span>D</span>
-                                <span>E</span>
-                                <span>F</span>
-                                <span>G</span>
-                                <span>H</span>
-                            </div>
-                            <div class="range-labels">
-                                <span><small>Alto</small></span>
-                                <span><small>Nenhum</small></span>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="4">
-                        <p>Encontrabilidade por Endereço</p>
-                        <div class="gray-range">
-                            <input type="range" min="0" max="7" [value]="getNumberFromAtoH(restrict?.findability.ModelRating)" disabled>
-                            <div class="range-labels">
-                                <span>A</span>
-                                <span>B</span>
-                                <span>C</span>
-                                <span>D</span>
-                                <span>E</span>
-                                <span>F</span>
-                                <span>G</span>
-                                <span>H</span>
-                            </div>
-                            <div class="range-labels">
-                                <span><small>Alto</small></span>
-                                <span><small>Nenhum</small></span>
-                            </div>
-                        </div>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="4">
-                        <p>Nível de Exposição à Diversidade</p>
-                        <div class="gray-range">
-                            <input type="range" min="0" max="7" [value]="getNumberFromAtoH(restrict?.diversity_exposure_level.ModelRating)" disabled>
-                            <div class="range-labels">
-                                <span>A</span>
-                                <span>B</span>
-                                <span>C</span>
-                                <span>D</span>
-                                <span>E</span>
-                                <span>F</span>
-                                <span>G</span>
-                                <span>H</span>
-                            </div>
-                            <div class="range-labels">
-                                <span><small>Alto</small></span>
-                                <span><small>Nenhum</small></span>
-                            </div>
+                    <td>Processos Judiciais</td>
+                    <td colspan="2">
+                        <div class="mb-3" *ngFor="let p of restrict.circulos_processos_judiciais.slice(-5)">
+                            <p><b>Número:</b> {{ p.Number }}</p>
+                            <p><b>Tipo:</b> {{ p.Type }}</p>
+                            <p><b>Objeto Principal:</b> {{ p.MainSubject }}</p>
+                            <p><b>Corte:</b> {{ p.CourtName }}</p>
+                            <p><b>Nível:</b> {{ p.CourtLevel }}ª instãncia</p>
+                            <p><b>Tipo de Corte:</b> {{ p.CourtType }}</p>
+                            <p><b>Cidade de Tramitação:</b> {{ p.CourtDistrict }}</p>
+                            <p><b>Vara de Tramitação:</b> {{ p.JudgingBody }}</p>
+                            <p><b>Estado de Tramitação:</b> {{ p.State }}</p>
+                            <p><b>Situação:</b> {{ p.Status }}</p>
+                            <p><b>Procedimento Civíl:</b> {{ p.InferredCNJSubjectName }}</p>
+                            <p><b>Número de Classificação do CNJ:</b> {{ p.InferredCNJSubjectNumber }}</p>
+                            <p><b>Objetos Secundários:</b> {{ p.OtherSubjects?.join(', ') }}</p>
+                            <p><b>Parte Ativa:</b> {{ isActiveInProcess(p.Parties) ? 'Sim' : 'Não' }}</p>
+                            <p><b>Autor ou Réu:</b> {{ isAuthorOfProcess(p.Parties) ? 'Autor' : 'Réu' }}</p>
+                            <p><b>Idade do Processo:</b> {{ p.LawSuitAge }} dias</p>
+                            <p><b>Partes Envolvidas:</b> {{ p.NumberOfParties }}</p>
+                            <p><b>Atualizações:</b> {{ p.NumberOfUpdates }}</p>
+                            <hr>
                         </div>
                     </td>
                 </tr>
             </table>
-        </div> -->
+        </div>
         <div class="serasa mt-6" *ngIf="serasa">
             <h2 class="title is-4">PEFIN/REFIN SERASA</h2>
-            <!-- <div class="columns has-text-centered info-cards">
-                <div class="column">
+            <div class="columns has-text-centered info-cards">
+                <div class="column is-3">
                     <div class="box" [class]="getCardRecommendation(serasa.cnpj_pendencias_financeiras)">
                         <img src="/assets/png/report/dc-3.png">
                         <p class="info-card-title">CNPJ possui pendências financeiras?</p>
@@ -1647,7 +1546,7 @@
                         <small class="info-card-subtitle">-</small>
                     </div>
                 </div>
-                <div class="column">
+                <div class="column is-3">
                     <div class="box" [class]="getCardRecommendation(serasa.possui_protestos)">
                         <img src="/assets/png/report/dc-6.png">
                         <p class="info-card-title">CNPJ possui protestos?</p>
@@ -1655,7 +1554,7 @@
                         <small class="info-card-subtitle">-</small>
                     </div>
                 </div>
-            </div> -->
+            </div>
             <table class="result-table">
                 <tr>
                     <th>Item</th>
@@ -1716,32 +1615,32 @@
         </div>
         <div class="boavista mt-6" *ngIf="boaVista"> 
             <h2 class="title is-4">PEFIN/REFIN BOA VISTA</h2>
-            <!-- <div class="columns has-text-centered info-cards">
-                <div class="column">
+            <div class="columns has-text-centered info-cards">
+                <div class="column is-3">
                     <div class="box" [class]="getCardRecommendation(boaVista.cnpj_ativo)">
                         <img src="/assets/png/report/dc-3.png">
                         <p class="info-card-title">CNPJ regular e ativo?</p>
-                        <h3 class="info-card-result">{{ boaVista.cnpj_ativo?.value ? 'Sim' : 'Não' }}</h3>
+                        <h3 class="info-card-result">{{ boaVista.cnpj_ativo?.value }}</h3>
                         <small class="info-card-subtitle">-</small>
                     </div>
                 </div>
-                <div class="column">
+                <!-- <div class="column is-3">
                     <div class="box" [class]="getCardRecommendation(boaVista.cnpj_pendencias_financeiras)">
                         <img src="/assets/png/report/dc-6.png">
                         <p class="info-card-title">CNPJ possui pendências financeiras?</p>
                         <h3 class="info-card-result">{{ boaVista.cnpj_pendencias_financeiras?.value ? 'Sim' : 'Não' }}</h3>
                         <small class="info-card-subtitle">-</small>
                     </div>
-                </div>
-                <div class="column">
-                    <div class="box" [class]="getCardRecommendation(boaVista.pessoa[0].DATA_ABERTURA)">
+                </div> -->
+                <div class="column is-3">
+                    <div class="box" [class]="getCardRecommendation(boaVista.fundacao)">
                         <img src="/assets/png/report/dc-9.png">
                         <p class="info-card-title">Data de Fundação</p>
                         <h3 class="info-card-result">{{ boaVista.pessoa[0].DATA_ABERTURA }}</h3>
-                        <small class="info-card-subtitle">{{ boaVista.pessoa[0].DATA_ABERTURA }}</small>
+                        <small class="info-card-subtitle">-</small>
                     </div>
                 </div>
-            </div> -->
+            </div>
             <table class="result-table">
                 <tr>
                     <th>Item</th>
@@ -1870,7 +1769,7 @@
                 </tr>
             </table>
         </div>
-        <div class="certs mt-6"> 
+        <div class="certs mt-6" *ngIf="hasAnyCertificate"> 
             <h2 class="title is-4">CERTIDÕES</h2>
             <!-- certEmbargosIbama: any;
             certNegativaIbama: any;
@@ -1897,10 +1796,10 @@
                     <td>-</td>
                     <td>-</td>
                 </tr>
-                <tr *ngIf="certCOAF">
+                <tr *ngIf="certCOAF && certCOAF?.AdditionalOutputData?.RawResultFile">
                     <td>COACOAF (Conselho de Controle de Atividades Financeiras)F</td>
                     <td>{{ certCOAF?.BaseStatus }}</td>
-                    <td><a class="is-underlined" target="_blank" [href]="certCOAF?.AdditionalOutputData.RawResultFile">Ver certidão</a></td>
+                    <td><a class="is-underlined" target="_blank" [href]="certCOAF?.AdditionalOutputData?.RawResultFile">Ver certidão</a></td>
                 </tr>
                 <tr>
                     <td>Embargos no IBAMA</td>
@@ -1912,10 +1811,10 @@
                     <td>-</td>
                     <td>-</td>
                 </tr>
-                <tr *ngIf="certPGFN">
+                <tr *ngIf="certPGFN && certPGFN?.AdditionalOutputData?.RawResultFile">
                     <td>PGFN (Procuradoria Geral da Fazenda Nacional)</td>
                     <td>{{ certPGFN?.BaseStatus }}</td>
-                    <td><a class="is-underlined" target="_blank" [href]="certPGFN?.AdditionalOutputData.RawResultFile">Ver certidão</a></td>
+                    <td><a class="is-underlined" target="_blank" [href]="certPGFN?.AdditionalOutputData?.RawResultFile">Ver certidão</a></td>
                 </tr>
                 <tr>
                     <td>Validade</td>
