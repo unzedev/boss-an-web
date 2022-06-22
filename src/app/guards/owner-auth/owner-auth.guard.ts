@@ -18,7 +18,7 @@ export class OwnerAuthGuard implements CanActivate {
     state: RouterStateSnapshot): Observable<boolean | UrlTree> | Promise<boolean | UrlTree> | boolean | UrlTree {
       const isAdmin = this.authService.getUser().role === 'user';
       if (!isAdmin) {
-        this.router.navigate(['/app/consulta']);
+        this.router.navigate(['/app/analise']);
       }
       return isAdmin;
   }

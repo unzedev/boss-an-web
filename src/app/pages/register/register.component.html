@@ -69,7 +69,7 @@
                 </div>
               </div>
               <div class="field">
-                <label class="label">Nome Completo</label>
+                <label class="label">Razão Social</label>
                 <div class="control has-icons-left">
                   <input class="input" type="text" formControlName="name" [class]="{ 'is-danger': registerForm.controls['name'].invalid && (registerForm.controls['name'].dirty || registerForm.controls['name'].touched) }">
                   <span class="icon is-small is-left">
@@ -78,7 +78,7 @@
                 </div>
                 <div *ngIf="registerForm.controls['name'].invalid && (registerForm.controls['name'].dirty || registerForm.controls['name'].touched)">
                   <p *ngIf="registerForm.controls['name'].errors.required" class="help is-danger">
-                    Informe o Nome.
+                    Informe a Razão Social.
                   </p>
                 </div>
               </div>

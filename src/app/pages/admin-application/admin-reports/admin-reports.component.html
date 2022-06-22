@@ -103,7 +103,7 @@
                             <span *ngIf="r.status === 'ERROR'" class="tag is-danger">Erro</span>
                         </td>
                         <td>
-                            <a class="button is-text" aria-label="Ver" [href]="'/admin/consultas/' + r._id" *ngIf="!['PROCESSING', 'ERROR'].includes(r.status)">
+                            <a class="button is-text" aria-label="Ver" [href]="'/admin/analises/' + r._id" *ngIf="!['PROCESSING', 'ERROR'].includes(r.status)">
                                 <span class="icon">
                                     <i class="fas fa-eye"></i>
                                 </span>
@@ -128,7 +128,7 @@
             <div class="icon-container">
                 <i class="fas fa-search"></i>
             </div>
-            <p>Não encontramos nenhuma consulta</p>
+            <p>Não encontramos nenhuma análise</p>
         </div>
     </div>
 </section>
@@ -137,7 +137,7 @@
     <div class="modal-background"></div>
     <div class="modal-card">
         <header class="modal-card-head">
-          <p class="modal-card-title">Resultado da Consulta</p>
+          <p class="modal-card-title">Resultado da Análise</p>
           <button class="delete" aria-label="close" (click)="closeModal()"></button>
         </header>
         <section class="modal-card-body">

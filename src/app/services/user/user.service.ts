@@ -39,7 +39,7 @@ export class UserService {
   }
 
   public blockEmployee(id: string): Observable<any> {
-    return this.http.patch(`${this.apiUrl}employees/${id}/block`, {});
+    return this.http.patch(`${this.apiUrl}employees/${id}/block`, { message: `Bloqueado no dia ${new Date}` });
   }
 
   public unblockEmployee(id: string): Observable<any> {

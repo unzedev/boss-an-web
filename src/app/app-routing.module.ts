@@ -73,15 +73,15 @@ const routes: Routes = [
         canActivate: [OwnerAuthGuard],
       },
       {
-        path: 'consulta',
+        path: 'analise',
         component: ReportComponent,
       },
       {
-        path: 'consultas/:id',
+        path: 'analises/:id',
         component: ReportResultComponent,
       },
       {
-        path: 'consultas',
+        path: 'analises',
         component: ReportsComponent,
       },
       {
@@ -118,11 +118,11 @@ const routes: Routes = [
         component: AdminInvoicesComponent,
       },
       {
-        path: 'consultas',
+        path: 'analises',
         component: AdminReportsComponent,
       },
       {
-        path: 'consultas/:id',
+        path: 'analises/:id',
         component: ReportResultComponent,
       },
       {

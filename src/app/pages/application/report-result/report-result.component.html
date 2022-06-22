@@ -13,21 +13,21 @@
                 <label>CPF Consultado</label>
                 <p>{{ document | mask: 'CPF_CNPJ' }}</p>
             </div>
-            <div class="info-header-item" *ngIf="registerData">
+            <div class="info-header-item">
                 <label>Nome</label>
-                <p>{{ registerData?.nome }}</p>
+                <p>{{ registerData?.nome || serasa?.nome || boaVista?.pessoa[0]?.NOME || '-' }}</p>
             </div>
-            <div class="info-header-item" *ngIf="registerData">
+            <div class="info-header-item">
                 <label>Data de Nascimento</label>
-                <p>{{ registerData?.data_nascimento.slice(0, 10) | date: 'dd/MM/yyyy' }}</p>
+                <p>{{ (registerData?.data_nascimento.slice(0, 10) | date: 'dd/MM/yyyy') || '-' }}</p>
             </div>
-            <div class="info-header-item" *ngIf="registerData">
+            <div class="info-header-item">
                 <label>Naturalidade</label>
-                <p>{{ registerData?.naturalidade }}</p>
+                <p>{{ registerData?.naturalidade || '-' }}</p>
             </div>
-            <div class="info-header-item" *ngIf="credit">
+            <div class="info-header-item">
                 <label>Crédito Solicitado</label>
-                <p>{{ credit | currency: 'BRL' }}</p>
+                <p>{{ (credit | currency: 'BRL') || '-' }}</p>
             </div>
         </div>
         <div class="recommendation-card box is-paddingless mb-6">
@@ -139,6 +139,11 @@
                     <td>-</td>
                 </tr>
                 <tr>
+                    <td>Óbito</td>
+                    <td>{{ registerData.obito ? 'Sim' : 'Não' }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
                     <td>Situação do CPF</td>
                     <td>{{ registerData.situacao_cpf.value }}</td>
                     <td>-</td>
@@ -159,7 +164,7 @@
                     <td>-</td>
                 </tr>
                 <tr>
-                    <td>Exposição Política</td>
+                    <td>Pessoa Politicamente Exposta</td>
                     <td>{{ registerData.exposicao_politica.value ? 'Sim' : 'Não'}}</td>
                     <td>-</td>
                 </tr>
@@ -180,7 +185,7 @@
                         <p>Empresários: {{ registerData.colegas_classe.empresarios }}</p>
                         <p>Empregados: {{ registerData.colegas_classe.empregados }}</p>
                         <p>Servidores Públicos: {{ registerData.colegas_classe.servidores_publicos }}</p>
-                        <p>Exposição Política: {{ registerData.colegas_classe.exposicao_politica }}</p>
+                        <p>Pessoa Politicamente Exposta: {{ registerData.colegas_classe.exposicao_politica }}</p>
                         <p>Idade Mínima: {{ registerData.colegas_classe.idade_minima }}</p>
                         <p>Idade Máxima: {{ registerData.colegas_classe.idade_maxima }}</p>
                         <p>Falecidos: {{ registerData.colegas_classe.falecidos }}</p>
@@ -197,7 +202,7 @@
                         <p>Empresários: {{ registerData.colegas_trabalho.empresarios }}</p>
                         <p>Empregados: {{ registerData.colegas_trabalho.empregados }}</p>
                         <p>Servidores Públicos: {{ registerData.colegas_trabalho.servidores_publicos }}</p>
-                        <p>Exposição Política: {{ registerData.colegas_trabalho.exposicao_politica }}</p>
+                        <p>Pessoa Politicamente Exposta: {{ registerData.colegas_trabalho.exposicao_politica }}</p>
                         <p>Idade Mínima: {{ registerData.colegas_trabalho.idade_minima }}</p>
                         <p>Idade Máxima: {{ registerData.colegas_trabalho.idade_maxima }}</p>
                         <p>Falecidos: {{ registerData.colegas_trabalho.falecidos }}</p>
@@ -214,7 +219,7 @@
                         <p>Empresários: {{ registerData.morador_da_mesma_casa.empresarios }}</p>
                         <p>Empregados: {{ registerData.morador_da_mesma_casa.empregados }}</p>
                         <p>Servidores Públicos: {{ registerData.morador_da_mesma_casa.servidores_publicos }}</p>
-                        <p>Exposição Política: {{ registerData.morador_da_mesma_casa.exposicao_politica }}</p>
+                        <p>Pessoa Politicamente Exposta: {{ registerData.morador_da_mesma_casa.exposicao_politica }}</p>
                         <p>Idade Mínima: {{ registerData.morador_da_mesma_casa.idade_minima }}</p>
                         <p>Idade Máxima: {{ registerData.morador_da_mesma_casa.idade_maxima }}</p>
                         <p>Falecidos: {{ registerData.morador_da_mesma_casa.falecidos }}</p>
@@ -231,7 +236,7 @@
                         <p>Empresários: {{ registerData.parentes_primeiro_grau.empresarios }}</p>
                         <p>Empregados: {{ registerData.parentes_primeiro_grau.empregados }}</p>
                         <p>Servidores Públicos: {{ registerData.parentes_primeiro_grau.servidores_publicos }}</p>
-                        <p>Exposição Política: {{ registerData.parentes_primeiro_grau.exposicao_politica }}</p>
+                        <p>Pessoa Politicamente Exposta: {{ registerData.parentes_primeiro_grau.exposicao_politica }}</p>
                         <p>Idade Mínima: {{ registerData.parentes_primeiro_grau.idade_minima }}</p>
                         <p>Idade Máxima: {{ registerData.parentes_primeiro_grau.idade_maxima }}</p>
                         <p>Falecidos: {{ registerData.parentes_primeiro_grau.falecidos }}</p>
@@ -248,7 +253,7 @@
                         <p>Empresários: {{ registerData.vizinhos.empresarios }}</p>
                         <p>Empregados: {{ registerData.vizinhos.empregados }}</p>
                         <p>Servidores Públicos: {{ registerData.vizinhos.servidores_publicos }}</p>
-                        <p>Exposição Política: {{ registerData.vizinhos.exposicao_politica }}</p>
+                        <p>Pessoa Politicamente Exposta: {{ registerData.vizinhos.exposicao_politica }}</p>
                         <p>Idade Mínima: {{ registerData.vizinhos.idade_minima }}</p>
                         <p>Idade Máxima: {{ registerData.vizinhos.idade_maxima }}</p>
                         <p>Falecidos: {{ registerData.vizinhos.falecidos }}</p>
@@ -399,7 +404,7 @@
                 <tr>
                     <td colspan="4">
                         <p>Nível de Exposição na Mídia</p>
-                        <div class="gray-range">
+                        <div class="rainbow-range-inverted">
                             <input type="range" min="0" max="7" [value]="getNumberFromAtoH(behaviorData.exposicao_e_perfil_na_midia.MediaExposureLevel)" disabled>
                             <div class="range-labels">
                                 <span>A</span>
@@ -421,7 +426,7 @@
                 <tr>
                     <td colspan="4">
                         <p>Nível de Celebridade</p>
-                        <div class="gray-range">
+                        <div class="rainbow-range-inverted">
                             <input type="range" min="0" max="7" [value]="getNumberFromAtoH(behaviorData.exposicao_e_perfil_na_midia.CelebrityLevel)" disabled>
                             <div class="range-labels">
                                 <span>A</span>
@@ -443,7 +448,7 @@
                 <tr>
                     <td colspan="4">
                         <p>Nível de Impopularidade</p>
-                        <div class="gray-range">
+                        <div class="rainbow-range-inverted">
                             <input type="range" min="0" max="7" [value]="getNumberFromAtoH(behaviorData.exposicao_e_perfil_na_midia.UnpopularityLevel)" disabled>
                             <div class="range-labels">
                                 <span>A</span>
@@ -631,7 +636,7 @@
                 <tr>
                     <td colspan="4">
                         <p>Estabilidade no Emprego</p>
-                        <div class="gray-range">
+                        <div class="rainbow-range">
                             <input type="range" min="0" max="7" [value]="getNumberFromAtoH(restrict?.employment_d50.ModelRating)" disabled>
                             <div class="range-labels">
                                 <span>A</span>
@@ -653,7 +658,7 @@
                 <tr>
                     <td colspan="4">
                         <p>Nível de Empreendedorismo</p>
-                        <div class="gray-range">
+                        <div class="rainbow-range-inverted">
                             <input type="range" min="0" max="7" [value]="getNumberFromAtoH(restrict?.entrepreneurship_level.ModelRating)" disabled>
                             <div class="range-labels">
                                 <span>A</span>
@@ -675,7 +680,7 @@
                 <tr>
                     <td colspan="4">
                         <p>Nível de Litigância</p>
-                        <div class="gray-range">
+                        <div class="rainbow-range-inverted">
                             <input type="range" min="0" max="7" [value]="getNumberFromAtoH(restrict?.litigiousness_level.ModelRating)" disabled>
                             <div class="range-labels">
                                 <span>A</span>
@@ -697,7 +702,7 @@
                 <tr>
                     <td colspan="4">
                         <p>Encontrabilidade por Endereço</p>
-                        <div class="gray-range">
+                        <div class="rainbow-range-inverted">
                             <input type="range" min="0" max="7" [value]="getNumberFromAtoH(restrict?.findability.ModelRating)" disabled>
                             <div class="range-labels">
                                 <span>A</span>
@@ -719,7 +724,7 @@
                 <tr>
                     <td colspan="4">
                         <p>Nível de Exposição à Diversidade</p>
-                        <div class="gray-range">
+                        <div class="rainbow-range-inverted">
                             <input type="range" min="0" max="7" [value]="getNumberFromAtoH(restrict?.diversity_exposure_level.ModelRating)" disabled>
                             <div class="range-labels">
                                 <span>A</span>
@@ -795,7 +800,7 @@
                     <td>-</td>
                 </tr>
                 <tr>
-                    <td>Pendências Internas</td>
+                    <td>Pendências Financeiras</td>
                     <td>{{ serasa.pendencias_financeiras }}</td>
                     <td>-</td>
                 </tr>
@@ -1097,21 +1102,21 @@
                 <label>CNPJ Consultado</label>
                 <p>{{ document | mask: 'CPF_CNPJ' }}</p>
             </div>
-            <div class="info-header-item" *ngIf="registerData">
+            <div class="info-header-item">
                 <label>Razão Social</label>
-                <p>{{ registerData?.nome_oficial }}</p>
+                <p>{{ registerData?.nome_oficial || serasa?.nome || boaVista?.pessoa[0]?.RAZAO || '-' }}</p>
             </div>
-            <div class="info-header-item" *ngIf="registerData">
+            <div class="info-header-item">
                 <label>Fundação</label>
-                <p>{{ registerData?.data_fundacao.slice(0, 10) | date: 'dd/MM/yyyy' }}</p>
+                <p>{{ (registerData?.data_fundacao.slice(0, 10) | date: 'dd/MM/yyyy') || '-' }}</p>
             </div>
-            <div class="info-header-item" *ngIf="registerData">
+            <div class="info-header-item">
                 <label>Localidade</label>
-                <p>{{ registerData?.pais }}</p>
+                <p>{{ registerData?.pais || '-' }}</p>
             </div>
-            <div class="info-header-item" *ngIf="credit">
+            <div class="info-header-item">
                 <label>Crédito Solicitado</label>
-                <p>{{ credit | currency: 'BRL' }}</p>
+                <p>{{ (credit | currency: 'BRL') || '-' }}</p>
             </div>
         </div>
         <div class="recommendation-card box is-paddingless mb-6 mt-6">
@@ -1368,7 +1373,7 @@
                 <tr>
                     <td colspan="4">
                         <p>Exposição e Perfil na Mídia</p>
-                        <div class="gray-range">
+                        <div class="rainbow-range-inverted">
                             <input type="range" min="0" max="7" [value]="getNumberFromAtoH(behaviorData.exposicao_e_perfil_na_midia.MediaExposureLevel)" disabled>
                             <div class="range-labels">
                                 <span>A</span>
@@ -1582,7 +1587,7 @@
                     <td>-</td>
                 </tr>
                 <tr>
-                    <td>Pendências Internas</td>
+                    <td>Pendências Financeiras</td>
                     <td>{{ serasa.pendencias_financeiras }}</td>
                     <td>-</td>
                 </tr>

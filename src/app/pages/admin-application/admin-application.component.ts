@@ -36,8 +36,8 @@ export class AdminApplicationComponent implements OnInit {
   public logout(): void {
     this.alertService.openDangerConfirmDialog(
       'Sair',
-      'Você tem certeza que deseja deslogar e sair da sua conta?',
-      'Deslogar e sair',
+      'Você tem certeza que deseja sair da sua conta?',
+      'Sair',
       'Cancelar',
       () => {
         this.authService.logout();

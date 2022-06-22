@@ -2,9 +2,9 @@
     <div class="container">
         <div class="columns">
             <div class="column">
-                <h1 class="title is-3">Nova Consulta</h1>
-                <p class="subtitle is-6">Preencha os campos abaixo para realizar a consulta.</p>
-                <h3 class="title is-5 mt-6 mb-3">Tipo de Consulta</h3>
+                <h1 class="title is-3">Nova Análise</h1>
+                <p class="subtitle is-6">Preencha os campos abaixo para realizar a análise.</p>
+                <h3 class="title is-5 mt-6 mb-3">Tipo de Análise</h3>
                 <div class="columns">
                     <div class="column is-6">
                         <button class="button person-type-button is-fullwidth" (click)="selectReportType(true)" [class]="{ 'is-selected': reportPeople }" [disabled]="loading">
@@ -367,7 +367,7 @@
                     </div>
                     <br>
                     <button class="button is-primary is-medium is-fullwidth" [class]="{ 'is-loading': loading }" [disabled]="selectedDatas.length === 0 || loading || (reportPeople && cpf.length < 11 && !useBulk) || (!reportPeople && cnpj.length < 14 && !useBulk)" (click)="doConsult()">
-                        Solicitar Consulta
+                        Solicitar Análise
                     </button>
                 </div>
             </div>
@@ -383,7 +383,7 @@
             <h1 class="title is-4 mt-5">Processando sua consulta</h1>
             <p>Aguarde enquanto a consulta está sendo processada.</p>
             <p>Assim que finalizada, você será notificado(a).</p>
-            <a href="/app/consultas" class="button is-primary is-fullwidth mt-5">
+            <a href="/app/analises" class="button is-primary is-fullwidth mt-5">
                 Acessar Mesa de Crédito
             </a>
         </section>
