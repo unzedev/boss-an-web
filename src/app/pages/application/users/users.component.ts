@@ -17,8 +17,8 @@ export class UsersComponent implements OnInit {
   public filter = {
     name: '',
     email: '',
-    cpf: '',
-    status: '',
+    document: '',
+    active: '',
   };
 
   public createModal = {
@@ -77,7 +77,7 @@ export class UsersComponent implements OnInit {
       offset: this.pagination.offset,
       perPage: this.pagination.perPage,
     };
-    this.userService.getEmployees(pagination)
+    this.userService.getEmployees(pagination, filter)
       .pipe(first())
       .subscribe((users: any) => {
         this.users = users.data;

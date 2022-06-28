@@ -12,7 +12,7 @@ export class AdminReportsComponent implements OnInit {
   public filter = {
     type: '',
     module: '',
-    user: '',
+    document: '',
     start_date: '',
     end_date: '',
     cost: 0,

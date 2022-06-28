@@ -22,9 +22,9 @@
                 </div>
                 <div class="column is-3">
                     <div class="field">
-                        <label class="label">Responsável</label>
+                        <label class="label">E-mail</label>
                         <div class="control">
-                            <input class="input" type="text" [(ngModel)]="filter.name" name="name" placeholder="Digite o nome do(a) responsável">
+                            <input class="input" type="email" [(ngModel)]="filter.email" name="email" placeholder="Digite o email">
                         </div>
                     </div>
                 </div>
@@ -61,7 +61,6 @@
                     <tr>
                         <th>CNPJ</th>
                         <th>Razão Social</th>
-                        <th>Responsável</th>
                         <th>Email</th>
                         <th>Situação</th>
                         <th></th>
@@ -70,7 +69,6 @@
                 <tbody>
                     <tr *ngFor="let u of users">
                         <td>{{ u.document | mask: 'CPF_CNPJ' }}</td>
-                        <td>{{ u.name }}</td>
                         <td>{{ u.name }}</td>
                         <td>{{ u.email }}</td>
                         <td>
@@ -89,9 +87,9 @@
                                 <button class="button is-primary is-light" (click)="approveUser(u)" *ngIf="u.status === 'pending'">
                                     Aprovar
                                 </button>
-                                <button class="button is-danger is-light" (click)="rejectUser(u)" *ngIf="u.status === 'pending'">
+                                <!-- <button class="button is-danger is-light" (click)="rejectUser(u)" *ngIf="u.status === 'pending'">
                                     Reprovar
-                                </button>
+                                </button> -->
                             </div>
                         </td>
                     </tr>

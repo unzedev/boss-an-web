@@ -12,7 +12,7 @@ export class ReportsComponent implements OnInit, OnDestroy {
   public filter = {
     type: '',
     module: '',
-    user: '',
+    document: '',
     start_date: '',
     end_date: '',
     cost: 0,
@@ -40,7 +40,6 @@ export class ReportsComponent implements OnInit, OnDestroy {
   }
 
   ngOnDestroy(): void {
-    console.log('destroy')
     if (this.fetchInterval) {
       clearInterval(this.fetchInterval);
     }

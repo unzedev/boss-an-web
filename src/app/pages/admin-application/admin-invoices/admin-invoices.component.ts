@@ -15,7 +15,7 @@ export class AdminInvoicesComponent implements OnInit {
     status: '',
     month: '',
     year: '',
-    user: '',
+    document: '',
     name: '',
   };
 

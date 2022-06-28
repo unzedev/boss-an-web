@@ -14,9 +14,8 @@ export class InvoicesComponent implements OnInit {
 
   public filter = {
     month: '',
-    nf: '',
+    year: '',
     status: '',
-    payment: '',
   };
 
   public resultModal = {
@@ -66,14 +65,14 @@ export class InvoicesComponent implements OnInit {
     };
     this.userRole = this.authService.getUser().role;
     if (this.userRole === 'user') {
-      this.getInvoices(pagination);
+      this.getInvoices(pagination, filter);
     } else {
-      this.getMyInvoices(pagination);
+      this.getMyInvoices(pagination, filter);
     }
   }
 
-  private getMyInvoices(pagination: any): void {
-    this.userService.getUserInvoices(pagination)
+  private getMyInvoices(pagination: any, filter: any): void {
+    this.userService.getUserInvoices(pagination, filter)
       .pipe(first())
       .subscribe((invoices: any) => {
         this.invoices = invoices.data;
@@ -82,8 +81,8 @@ export class InvoicesComponent implements OnInit {
       });
   }
 
-  private getInvoices(pagination: any): void {
-    this.userService.getUserInvoices(pagination)
+  private getInvoices(pagination: any, filter: any): void {
+    this.userService.getUserInvoices(pagination, filter)
       .pipe(first())
       .subscribe((invoices: any) => {
         this.invoices = invoices.data;

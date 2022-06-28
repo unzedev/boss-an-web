@@ -4,11 +4,11 @@
         <p class="subtitle">Confira o andamento de todas as suas faturas.</p>
         <form (submit)="getInvoices()">
             <div class="columns is-multiline">
-                <div class="column is-2">
+                <!-- <div class="column is-2">
                     <div class="field">
                         <label class="label">CNPJ</label>
                         <div class="control">
-                            <input class="input" [(ngModel)]="filter.user" name="user" mask="00.000.000/0000-00" placeholder="Digite o número do CNPJ">
+                            <input class="input" [(ngModel)]="filter.document" name="document" mask="00.000.000/0000-00" placeholder="Digite o número do CNPJ">
                         </div>
                     </div>
                 </div>
@@ -19,8 +19,8 @@
                             <input class="input" [(ngModel)]="filter.name" name="name" placeholder="Digite a Razão Social">
                         </div>
                     </div>
-                </div>
-                <div class="column is-2">
+                </div> -->
+                <div class="column is-3">
                     <div class="field">
                         <label class="label">Ano</label>
                         <div class="control">
@@ -28,26 +28,42 @@
                         </div>
                     </div>
                 </div>
-                <div class="column is-2">
+                <div class="column is-4">
                     <div class="field">
                         <label class="label">Mês</label>
                         <div class="control">
                             <div class="select is-fullwidth">
                                 <select [(ngModel)]="filter.month" name="month">
                                     <option value="">Selecione o mês...</option>
-                                    <option *ngFor="let opt of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]" [value]="opt">{{ opt }}</option>
+                                    <option value="1">Janeiro</option>
+                                    <option value="2">Fevereiro</option>
+                                    <option value="3">Março</option>
+                                    <option value="4">Abril</option>
+                                    <option value="5">Maio</option>
+                                    <option value="6">Junho</option>
+                                    <option value="7">Julho</option>
+                                    <option value="8">Agosto</option>
+                                    <option value="9">Setembro</option>
+                                    <option value="10">Outubro</option>
+                                    <option value="11">Novembro</option>
+                                    <option value="12">Dezembro</option>
                                 </select>
+                                <!-- <select [(ngModel)]="filter.month" name="month">
+                                    <option value="">Selecione o mês...</option>
+                                    <option *ngFor="let opt of [1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12]" [value]="opt">{{ opt }}</option>
+                                </select> -->
                             </div>
                         </div>
                     </div>
                 </div>
-                <div class="column is-2">
+                <div class="column is-3">
                     <div class="field">
                         <label class="label">Situação do Pagamento</label>
                         <div class="control">
                             <div class="select is-fullwidth">
                                 <select [(ngModel)]="filter.status" name="status">
                                     <option value="">Selecione...</option>
+                                    <option value="opened">Não disponível</option>
                                     <option value="pending">Pendente</option>
                                     <option value="paid">Pago</option>
                                 </select>

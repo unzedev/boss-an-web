@@ -25,8 +25,9 @@ export class UserService {
     return this.http.post(`${this.apiUrl}`, data);
   }
 
-  public getEmployees(pagination: { offset: number, perPage: number }): Observable<any> {
+  public getEmployees(pagination: { offset: number, perPage: number }, filter: any): Observable<any> {
     return this.http.get(`${this.apiUrl}employees`, {
+      params: filter,
       headers: {
         offset: Number(pagination.offset).toString(),
         per_page: Number(pagination.perPage).toString()
@@ -58,8 +59,9 @@ export class UserService {
     return this.http.get(`${this.apiUrl}modules`);
   }
 
-  public getUserInvoices(pagination: { offset: number, perPage: number }): Observable<any> {
+  public getUserInvoices(pagination: { offset: number, perPage: number }, filter: any): Observable<any> {
     return this.http.get(`${this.apiUrl}invoices`, {
+      params: filter,
       headers: {
         offset: Number(pagination.offset).toString(),
         per_page: Number(pagination.perPage).toString()
