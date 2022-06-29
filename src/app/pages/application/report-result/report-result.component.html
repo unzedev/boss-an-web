@@ -10,6 +10,10 @@
         </div>
         <div class="info-header">
             <div class="info-header-item">
+                <label>Módulo</label>
+                <p>{{ module | bossModule }}</p>
+            </div>
+            <div class="info-header-item">
                 <label>CPF Consultado</label>
                 <p>{{ document | mask: 'CPF_CNPJ' }}</p>
             </div>
@@ -61,7 +65,7 @@
             </div>
         </div>
         <div class="dados-cadastrais" *ngIf="registerData">
-            <h2 class="title is-4">DADOS CADASTRAIS</h2>
+            <h2 class="title is-4">VALIDAÇÕES</h2>
             <div class="columns is-multiline has-text-centered info-cards">
                 <div class="column is-3">
                     <div class="box" [class]="getCardRecommendation(registerData.situacao_cpf)">
@@ -332,7 +336,7 @@
             </table>
         </div>
         <div class="dados-comportamentais mt-6" *ngIf="behaviorData">
-            <h2 class="title is-4">DADOS COMPORTAMENTAIS</h2>
+            <h2 class="title is-4">VALIDAÇÕES</h2>
             <div class="columns is-multiline has-text-centered info-cards">
                 <div class="column is-3">
                     <div class="box" [class]="getCardRecommendation(behaviorData.participacao_empresa)">
@@ -552,7 +556,7 @@
             </table>
         </div>
         <div class="restritivo mt-6" *ngIf="restrict">
-            <h2 class="title is-4">DADOS RESTRITIVOS</h2>
+            <h2 class="title is-4">VALIDAÇÕES</h2>
             <div class="columns has-text-centered info-cards">
                 <div class="column is-3">
                     <div class="box" [class]="getCardRecommendation(restrict.processos_judiciais_e_administrativos)">
@@ -746,7 +750,7 @@
             </table>
         </div>
         <div class="serasa mt-6" *ngIf="serasa">
-            <h2 class="title is-4">PEFIN/REFIN SERASA</h2>
+            <h2 class="title is-4">VALIDAÇÕES</h2>
             <div class="columns has-text-centered info-cards">
                 <div class="column is-3">
                     <div class="box" [class]="getCardRecommendation(serasa.cpf_pendencias_financeiras)">
@@ -764,12 +768,27 @@
                         <small class="info-card-subtitle">-</small>
                     </div>
                 </div>
-                <div class="column is-3">
+                <div class="column is-6">
                     <div class="box">
-                        <img src="/assets/png/report/dc-9.png">
-                        <p class="info-card-title">Score SERASA</p>
-                        <h3 class="info-card-result">{{ serasa.score }}</h3>
-                        <small class="info-card-subtitle">-</small>
+                        <div class="columns">
+                            <div class="column is-5">
+                                <img src="/assets/png/report/dc-9.png">
+                                <h3 class="info-card-result">{{ serasa.score }}</h3>
+                                <p class="info-card-title">Score SERASA</p>
+                            </div>
+                            <div class="column">
+                                <p class="info-card-title mt-5">Chance de Pagamento</p>
+                                <h3 class="info-card-result">{{ getPaymentChance(serasa.risco) }}</h3>
+                                <small class="info-card-subtitle">A chance de um consumidor com este deixar de pagar um compromisso financeiro nos próximos 6 meses é de {{ serasa.risco }}</small>
+                            </div>
+                        </div>
+                        <div class="rainbow-range-inverted">
+                            <input type="range" min="0" max="1000" [value]="serasa.score" disabled>
+                            <div class="range-labels">
+                                <span><small>Alto risco</small></span>
+                                <span><small>Baixo risco</small></span>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -832,7 +851,7 @@
             </table>
         </div>
         <div class="boavista mt-6" *ngIf="boaVista"> 
-            <h2 class="title is-4">PEFIN/REFIN BOA VISTA</h2>
+            <h2 class="title is-4">VALIDAÇÕES</h2>
             <div class="columns has-text-centered info-cards">
                 <div class="column is-3">
                     <div class="box" [class]="getCardRecommendation(boaVista.cpf_ativo)">
@@ -1099,6 +1118,10 @@
         </div>
         <div class="info-header">
             <div class="info-header-item">
+                <label>Módulo</label>
+                <p>{{ module | bossModule }}</p>
+            </div>
+            <div class="info-header-item">
                 <label>CNPJ Consultado</label>
                 <p>{{ document | mask: 'CPF_CNPJ' }}</p>
             </div>
@@ -1150,7 +1173,7 @@
             </div>
         </div>
         <div class="dados-cadastrais" *ngIf="registerData">
-            <h2 class="title is-4">DADOS CADASTRAIS</h2>
+            <h2 class="title is-4">VALIDAÇÕES</h2>
             <div class="columns is-multiline has-text-centered info-cards">
                 <div class="column is-3">
                     <div class="box" [class]="getCardRecommendation(registerData.cnpj_ativo)">
@@ -1332,7 +1355,7 @@
             </table>
         </div>
         <div class="dados-comportamentais mt-6" *ngIf="behaviorData">
-            <h2 class="title is-4">DADOS COMPORTAMENTAIS</h2>
+            <h2 class="title is-4">VALIDAÇÕES</h2>
             <div class="columns has-text-centered info-cards">
                 <div class="column is-3">
                     <div class="box" [class]="getCardRecommendation(behaviorData.possui_funcionarios)">
@@ -1472,7 +1495,7 @@
             </table>
         </div>
         <div class="restritivo mt-6" *ngIf="restrict">
-            <h2 class="title is-4">DADOS RESTRITIVOS</h2>
+            <h2 class="title is-4">VALIDAÇÕES</h2>
             <div class="columns has-text-centered info-cards">
                 <div class="column is-3">
                     <div class="box" [class]="getCardRecommendation(restrict.processos_judiciais_e_administrativos)">
@@ -1541,7 +1564,7 @@
             </table>
         </div>
         <div class="serasa mt-6" *ngIf="serasa">
-            <h2 class="title is-4">PEFIN/REFIN SERASA</h2>
+            <h2 class="title is-4">VALIDAÇÕES</h2>
             <div class="columns has-text-centered info-cards">
                 <div class="column is-3">
                     <div class="box" [class]="getCardRecommendation(serasa.cnpj_pendencias_financeiras)">
@@ -1619,7 +1642,7 @@
             </table>
         </div>
         <div class="boavista mt-6" *ngIf="boaVista"> 
-            <h2 class="title is-4">PEFIN/REFIN BOA VISTA</h2>
+            <h2 class="title is-4">VALIDAÇÕES</h2>
             <div class="columns has-text-centered info-cards">
                 <div class="column is-3">
                     <div class="box" [class]="getCardRecommendation(boaVista.cnpj_ativo)">

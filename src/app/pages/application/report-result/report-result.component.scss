@@ -304,9 +304,9 @@ input[type="range"] {
     animate: 0.2s;
     background: linear-gradient(
       90deg,
-      #ff4040 0%
+      #ff4040 0%,
       #ffbb36 47.92%,
-      #0bdb90 100%,
+      #0bdb90 100%
     );
     border-radius: 50px;
   }
@@ -326,9 +326,9 @@ input[type="range"] {
   &:focus::-webkit-slider-runnable-track {
     background: linear-gradient(
       90deg,
-      #ff4040 0%
+      #ff4040 0%,
       #ffbb36 47.92%,
-      #0bdb90 100%,
+      #0bdb90 100%
     );
   }
 
@@ -339,9 +339,9 @@ input[type="range"] {
     animate: 0.2s;
     background: linear-gradient(
       90deg,
-      #ff4040 0%
+      #ff4040 0%,
       #ffbb36 47.92%,
-      #0bdb90 100%,
+      #0bdb90 100%
     );
     border-radius: 50px;
   }
@@ -390,9 +390,9 @@ input[type="range"] {
     &::-ms-fill-upper {
       background: linear-gradient(
         90deg,
-        #ff4040 0%
-      #ffbb36 47.92%,
-      #0bdb90 100%,
+        #ff4040 0%,
+        #ffbb36 47.92%,
+        #0bdb90 100%
       );
     }
   }

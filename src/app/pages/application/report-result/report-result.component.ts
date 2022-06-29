@@ -11,6 +11,7 @@ import { ReportService } from 'src/app/services/report/report.service';
 export class ReportResultComponent implements OnInit {
 
   recommendation: string = 'ANALYSE';
+  module: string;
   credit: number;
   reportDate: Date;
   isPJ: boolean = false;
@@ -76,6 +77,7 @@ export class ReportResultComponent implements OnInit {
         else if (r.module === 'cert_antecedentes_policia_federal') this.certPoF = r.result;
         else if (r.module === 'cert_antecedentes_policia_civil') this.certPoC = r.result;
 
+        this.module = r.module;
         this.recommendation = r.status;
         this.credit = r.credit;
         this.document = r.document;
@@ -126,6 +128,10 @@ export class ReportResultComponent implements OnInit {
 
   public isActiveInProcess(process: any[]): boolean {
     return process.some((el) => el.Doc === this.document && el.IsPartyActive);
+  }
+
+  public getPaymentChance(risk: string): string {
+    return `${(100 - Number(risk.slice(0, risk.length - 1).replace(',', '.'))).toString().replace('.', ',')}%`;
   }
 
 }
