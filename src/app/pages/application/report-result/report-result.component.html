@@ -1,7 +1,7 @@
 <section class="section" *ngIf="!isLoading && isPF">
     <div class="container">
         <div class="buttons">
-            <a (click)="goBack()" class="button is-text">
+            <a (click)="goBack()" class="button is-text" id="voltar">
                 &lt; Voltar
             </a>
             <a (click)="printReport()" class="button is-text">
@@ -860,8 +860,8 @@
                 </tr>
             </table>
         </div>
-        <div class="boavista mt-6" *ngIf="boaVista"> 
-            <h2 class="title is-4">VALIDAÇÕES</h2>
+        <div class="boavista mt-6" *ngIf="boaVista">
+            <h2 class="title is-4">PEFIN/REFIN BOA VISTA</h2>
             <div class="columns has-text-centered info-cards">
                 <div class="column is-3">
                     <div class="box" [class]="getCardRecommendation(boaVista.cpf_ativo)">
@@ -1051,7 +1051,7 @@
                 </tr>
             </table>
         </div>
-        <div class="certs mt-6" *ngIf="hasAnyCertificate"> 
+        <div class="certs mt-6" *ngIf="hasAnyCertificate">
             <h2 class="title is-4">CERTIDÕES</h2>
             <!-- certEmbargosIbama: any;
             certNegativaIbama: any;
@@ -1119,7 +1119,7 @@
 <section class="section" *ngIf="!isLoading && isPJ">
     <div class="container">
         <div class="buttons">
-            <a (click)="goBack()" class="button is-text">
+            <a (click)="goBack()" class="button is-text" id="voltar">
                 &lt; Voltar
             </a>
             <a (click)="printReport()" class="button is-text">
@@ -1533,7 +1533,7 @@
                         <small class="info-card-subtitle">-</small>
                     </div>
                 </div> -->
-            </div>        
+            </div>
             <table class="result-table">
                 <tr>
                     <th>Item</th>
@@ -1661,8 +1661,8 @@
                 </tr>
             </table>
         </div>
-        <div class="boavista mt-6" *ngIf="boaVista"> 
-            <h2 class="title is-4">VALIDAÇÕES</h2>
+        <div class="boavista mt-6" *ngIf="boaVista">
+            <h2 class="title is-4">PEFIN/REFIN BOA VISTA</h2>
             <div class="columns has-text-centered info-cards">
                 <div class="column is-3">
                     <div class="box" [class]="getCardRecommendation(boaVista.cnpj_ativo)">
@@ -1817,7 +1817,7 @@
                 </tr>
             </table>
         </div>
-        <div class="certs mt-6" *ngIf="hasAnyCertificate"> 
+        <div class="certs mt-6" *ngIf="hasAnyCertificate">
             <h2 class="title is-4">CERTIDÕES</h2>
             <!-- certEmbargosIbama: any;
             certNegativaIbama: any;
