@@ -10,6 +10,7 @@ import { ReportService } from 'src/app/services/report/report.service';
 })
 export class ReportResultComponent implements OnInit {
 
+  reportId: string;
   recommendation: string = 'ANALYSE';
   module: string;
   credit: number;
@@ -42,6 +43,7 @@ export class ReportResultComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.params.subscribe(params => {
+      this.reportId = params.id;
       this.getReportResult(params.id);
     });
   }
@@ -132,6 +134,12 @@ export class ReportResultComponent implements OnInit {
 
   public getPaymentChance(risk: string): string {
     return `${(100 - Number(risk.slice(0, risk.length - 1).replace(',', '.'))).toString().replace('.', ',')}%`;
+  }
+
+  public printReport() {
+    this.reportService.getReportPrint(this.reportId).subscribe((res: any) => {
+      window.open(res.link);
+    });
   }
 
 }

@@ -1,8 +1,18 @@
 <section class="section" *ngIf="!isLoading && isPF">
     <div class="container">
-        <a (click)="goBack()" class="button is-text">
-            &lt; Voltar
-        </a>
+        <div class="buttons">
+            <a (click)="goBack()" class="button is-text">
+                &lt; Voltar
+            </a>
+            <a (click)="printReport()" class="button is-text">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-print"></i>
+                </span>
+                <span>
+                    Imprimir
+                </span>
+            </a>
+        </div>
         <div class="boss-header">
             <p>Relatório de Consulta Pessoa Física</p>
             <img src="/assets/svg/boss-logo-negativo-05.svg">
@@ -1108,9 +1118,19 @@
 
 <section class="section" *ngIf="!isLoading && isPJ">
     <div class="container">
-        <a (click)="goBack()" class="button is-text">
-            &lt; Voltar
-        </a>
+        <div class="buttons">
+            <a (click)="goBack()" class="button is-text">
+                &lt; Voltar
+            </a>
+            <a (click)="printReport()" class="button is-text">
+                <span class="icon is-small is-left">
+                    <i class="fas fa-print"></i>
+                </span>
+                <span>
+                    Imprimir
+                </span>
+            </a>
+        </div>
         <div class="boss-header is-pj">
             <p>Relatório de Consulta Pessoa Jurídica</p>
             <img src="/assets/svg/boss-logo-negativo-05.svg">
