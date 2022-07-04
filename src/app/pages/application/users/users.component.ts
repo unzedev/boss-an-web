@@ -101,12 +101,18 @@ export class UsersComponent implements OnInit {
     this.loading = true;
     const userToUpdate = this.updateUserForm.value;
     userToUpdate.id = this.updateModal.id;
+    if (userToUpdate.password.length == 0) {
+      delete userToUpdate.password;
+    }
     this.userService.saveEmployee(this.updateUserForm.value)
       .pipe(first())
       .subscribe(() => {
         this.users.forEach((r, index) => {
           if (r._id === this.updateModal.id) {
-            this.users[index] = this.updateUserForm.value;
+            this.users[index].name = this.updateUserForm.value.name;
+            this.users[index].document = this.updateUserForm.value.document;
+            this.users[index].phone = this.updateUserForm.value.phone;
+            this.users[index].email = this.updateUserForm.value.email;
             this.users[index].id = userToUpdate.id;
             return;
           }
