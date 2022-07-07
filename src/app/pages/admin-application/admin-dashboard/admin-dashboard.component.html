@@ -30,39 +30,51 @@
             <div class="column is-6">
                 <h2 class="title is-4">Tipos de Análise</h2>
                 <div class="box">
-                    <div class="columns">
-                        <div class="column">
-                            <canvas baseChart
-                                [data]="doughnutChartData"
-                                [labels]="doughnutChartLabels"
-                                [options]="doughnutChartOptions"
-                                [colors]="doughnutChartColors"
-                                [chartType]="doughnutChartType"
-                                [legend]="true">
-                            </canvas>
-                        </div>
-                        <!-- <div class="column">
-                            
-                        </div> -->
-                    </div>
+                    <canvas baseChart
+                        [data]="chartAnalysisTypes.data"
+                        [labels]="chartAnalysisTypes.labels"
+                        [options]="chartAnalysisTypes.options"
+                        [colors]="chartAnalysisTypes.colors"
+                        [chartType]="chartAnalysisTypes.type"
+                        [legend]="true">
+                    </canvas>
                 </div>
             </div>
             <div class="column is-6">
                 <h2 class="title is-4">Nº de Análises</h2>
                 <div class="box">
-
+                    <canvas baseChart
+                        [datasets]="chartAnalysisNumbers.data"
+                        [labels]="chartAnalysisNumbers.labels"
+                        [options]="chartAnalysisNumbers.options"
+                        [chartType]="chartAnalysisNumbers.type"
+                        [legend]="true">
+                    </canvas>
                 </div>
             </div>
             <div class="column is-6">
                 <h2 class="title is-4">Valor de Crédito Recomendado x Não Recomendado</h2>
                 <div class="box">
-
+                    <canvas baseChart
+                        [datasets]="chartCredit.data"
+                        [labels]="chartCredit.labels"
+                        [options]="chartCredit.options"
+                        [chartType]="chartCredit.type"
+                        [legend]="true">
+                </canvas>
                 </div>
             </div>
             <div class="column is-6">
                 <h2 class="title is-4">Recomendações %</h2>
                 <div class="box">
-
+                    <canvas baseChart
+                        [data]="chartRecomendation.data"
+                        [labels]="chartRecomendation.labels"
+                        [options]="chartRecomendation.options"
+                        [colors]="chartRecomendation.colors"
+                        [chartType]="chartRecomendation.type"
+                        [legend]="true">
+                    </canvas>
                 </div>
             </div>
         </div>

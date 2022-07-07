@@ -60,6 +60,17 @@ export class AdminService {
   public getDashboardQueriesByTypes(): Observable<any> {
     return this.http.get(`${this.apiUrl}dashboard/queries/types`);
   }
+  public getDashboardQueriesByCount(): Observable<any> {
+    return this.http.get(`${this.apiUrl}dashboard/queries/count`);
+  }
+
+  public getDashboardQueriesByCredit(): Observable<any> {
+    return this.http.get(`${this.apiUrl}dashboard/queries/credit`);
+  }
+
+  public getDashboardQueriesByStatus(): Observable<any> {
+    return this.http.get(`${this.apiUrl}dashboard/queries/status`);
+  }
 
   public getInvoices(filter: { status?: string, month?: string, year?: string, user?: string }, pagination: { offset: number, perPage: number }): Observable<any> {
     return this.http.get(`${this.apiUrl}invoices`, {
