@@ -767,7 +767,7 @@
                         <img src="/assets/png/report/dc-3.png">
                         <p class="info-card-title">CPF possui pendências financeiras?</p>
                         <h3 class="info-card-result">{{ serasa.cpf_pendencias_financeiras.value ? 'Sim' : 'Não' }}</h3>
-                        <small class="info-card-subtitle">-</small>
+                        <small class="info-card-subtitle">{{ serasa.divida_total }}</small>
                     </div>
                 </div>
                 <div class="column is-3">
@@ -834,8 +834,17 @@
                     <td>-</td>
                 </tr>
                 <tr>
+                  <td>Total da Dívida</td>
+                  <td>{{ serasa.divida_total }}</td>
+                  <td>-</td>
+                </tr>
+                <tr>
                     <td>Protestos</td>
-                    <td>{{ serasa.protestos }}</td>
+                    <td>
+                      <p *ngFor="let protesto of serasa.protestos">
+                        {{ protesto }}
+                      </p>
+                    </td>
                     <td>-</td>
                 </tr>
                 <tr>
@@ -1586,7 +1595,7 @@
                         <img src="/assets/png/report/dc-3.png">
                         <p class="info-card-title">CNPJ possui pendências financeiras?</p>
                         <h3 class="info-card-result">{{ serasa.cnpj_pendencias_financeiras?.value ? 'Sim' : 'Não' }}</h3>
-                        <small class="info-card-subtitle">-</small>
+                        <small class="info-card-subtitle">{{ serasa.divida_total }}</small>
                     </div>
                 </div>
                 <div class="column is-3">
@@ -1630,8 +1639,17 @@
                     <td>-</td>
                 </tr>
                 <tr>
+                    <td>Total da Dívida</td>
+                    <td>{{ serasa.divida_total }}</td>
+                    <td>-</td>
+                </tr>
+                <tr>
                     <td>Protestos</td>
-                    <td>{{ serasa.protestos }}</td>
+                    <td>
+                      <p *ngFor="let protesto of serasa.protestos">
+                        {{ protesto }}
+                      </p>
+                    </td>
                     <td>-</td>
                 </tr>
                 <tr>
@@ -1646,7 +1664,8 @@
                 </tr>
                 <tr>
                     <td>Sócios</td>
-                    <td>{{ serasa.socios }}</td>
+                    <td>
+                      {{ serasa.socios }}</td>
                     <td>-</td>
                 </tr>
                 <tr>
