@@ -830,7 +830,15 @@
                 </tr>
                 <tr>
                     <td>Pendências Financeiras</td>
-                    <td>{{ serasa.pendencias_financeiras }}</td>
+                    <div *ngIf="isArray(serasa.pendencias_financeiras); then pendencias else pendencia" ></div>
+                    <ng-template #pendencias >
+                      <td>
+                        <p *ngFor="let pendencia of serasa.pendencias_financeiras">{{ pendencia }}</p>
+                      </td>
+                    </ng-template>
+                    <ng-template #pendencia>
+                        <td>{{ serasa.pendencias_financeiras }}</td>
+                    </ng-template>
                     <td>-</td>
                 </tr>
                 <tr>
@@ -839,13 +847,17 @@
                   <td>-</td>
                 </tr>
                 <tr>
-                    <td>Protestos</td>
+                  <td>Protestos</td>
+                  <div *ngIf="isArray(serasa.protestos); then protestos else protesto" ></div>
+                  <ng-template #protestos >
                     <td>
-                      <p *ngFor="let protesto of serasa.protestos">
-                        {{ protesto }}
-                      </p>
+                      <p *ngFor="let protesto of serasa.protestos">{{ protesto }}</p>
                     </td>
-                    <td>-</td>
+                  </ng-template>
+                  <ng-template #protesto>
+                      <td>{{ serasa.protestos }}</td>
+                  </ng-template>
+                  <td>-</td>
                 </tr>
                 <tr>
                     <td>Cheques sem fundo BACEN</td>
@@ -1635,7 +1647,15 @@
                 </tr>
                 <tr>
                     <td>Pendências Financeiras</td>
-                    <td>{{ serasa.pendencias_financeiras }}</td>
+                    <div *ngIf="isArray(serasa.pendencias_financeiras); then pendencias else pendencia" ></div>
+                    <ng-template #pendencias >
+                      <td>
+                        <p *ngFor="let pendencia of serasa.pendencias_financeiras">{{ pendencia }}</p>
+                      </td>
+                    </ng-template>
+                    <ng-template #pendencia>
+                        <td>{{ serasa.pendencias_financeiras }}</td>
+                    </ng-template>
                     <td>-</td>
                 </tr>
                 <tr>
@@ -1645,11 +1665,15 @@
                 </tr>
                 <tr>
                     <td>Protestos</td>
-                    <td>
-                      <p *ngFor="let protesto of serasa.protestos">
-                        {{ protesto }}
-                      </p>
-                    </td>
+                    <div *ngIf="isArray(serasa.protestos); then protestos else protesto" ></div>
+                    <ng-template #protestos >
+                      <td>
+                        <p *ngFor="let protesto of serasa.protestos">{{ protesto }}</p>
+                      </td>
+                    </ng-template>
+                    <ng-template #protesto>
+                        <td>{{ serasa.protestos }}</td>
+                    </ng-template>
                     <td>-</td>
                 </tr>
                 <tr>

@@ -142,4 +142,7 @@ export class ReportResultComponent implements OnInit {
     });
   }
 
+  public isArray(value: any) {
+    return value instanceof Array;
+  }
 }
